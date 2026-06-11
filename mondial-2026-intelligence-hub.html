@@ -204,6 +204,13 @@ table.tt td.sc{font-family:var(--mono);font-weight:700;white-space:nowrap;}
 .mx{float:right;cursor:pointer;color:var(--txt2);font-size:21px;line-height:1;}
 .empty{color:var(--txt2);font-size:12px;padding:26px 0;text-align:center;font-family:var(--mono);letter-spacing:.05em;line-height:1.8;}
 img.flx{display:inline-block;border-radius:3px;vertical-align:middle;object-fit:cover;box-shadow:0 0 0 1px rgba(36,50,74,.8);background:var(--bg2);}
+details.tech{background:var(--card);border:1px solid var(--line);border-radius:var(--r);margin-bottom:11px;overflow:hidden;}
+details.tech>summary{cursor:pointer;list-style:none;padding:13px 15px;font-family:var(--sora);font-weight:700;font-size:13.5px;color:var(--txt);user-select:none;}
+details.tech>summary::-webkit-details-marker{display:none;}
+details.tech>summary::after{content:'▾';float:right;color:var(--txt2);transition:transform .15s;}
+details.tech[open]>summary::after{transform:rotate(180deg);}
+details.tech>summary:hover{color:var(--gold);}
+details.tech .blk{border-radius:0;border-left:0;border-right:0;border-bottom:0;}
 .guardbox{background:rgba(6,182,212,.06);border:1px solid rgba(6,182,212,.4);border-radius:var(--rb);padding:10px 12px;font-size:12.5px;color:var(--cyan);margin-top:8px;line-height:1.55;}
 .subtabs{display:flex;gap:6px;margin-bottom:12px;}
 .subtab{background:var(--card);border:1px solid var(--line);color:var(--txt2);padding:8px 14px;border-radius:var(--rb);font-size:12px;font-weight:600;cursor:pointer;}
@@ -512,7 +519,7 @@ Réponds UNIQUEMENT en JSON valide, français :
 "scenarios":{"dominant":"...","alternatif":"...","pire":"..."},
 "marches":[{"marche":"...","verdict":"🟢|🟡|🔴|⚪","proba":62,"cote_min":1.8,"pour":"...","contre":"..."},{"marche":"...","verdict":"🟡","proba":50,"cote_min":2.2,"pour":"...","contre":"..."},{"marche":"...","verdict":"🔴","proba":35,"cote_min":3.2,"pour":"...","contre":"..."},{"marche":"...","verdict":"⚪","proba":40,"cote_min":2.5,"pour":"...","contre":"..."}],
 "verdict":{"reco":"pari logique OU 'NO BET'","alternative":"alternative prudente","no_bet":false,"risque":"risque principal","confiance":"faible|moyenne|élevée","mise":"faible|modérée|aucune"},
-"synthese":"1 phrase pour décider vite","incertitude":"faible|moyenne|élevée"}
+"synthese":"1 phrase pour décider vite","mt_note":"qui commence fort / qui finit mieux, en 1 phrase simple (ou 'Non confirmé')","incertitude":"faible|moyenne|élevée"}
 probas 1N2 entiers somme 100, eqA=${a}. "xg" = buts attendus ESTIMÉS prudemment (pas des xG officiels).`;}
 function pEquipe(e){return `Analyste football. Coupe du monde 2026, pendant le tournoi. Équipe : ${e.nom} (Groupe ${e.groupe}).
 ${ANTI_HALLU}
@@ -590,8 +597,9 @@ function tauDC(a,b,la,lb,rho){ // correction Dixon-Coles des scores faibles
  if(a===1&&b===1)return 1-rho;
  return 1;}
 function quantPoisson(xa,xb){
- const MAX=8,RHO=-0.10;let p1=0,pn=0,p2=0,btts=0,csA=0,csB=0,tot=0;const ov={"1.5":0,"2.5":0,"3.5":0};let best={a:1,b:0,p:0};
+ const MAX=8,RHO=-0.10;let p1=0,pn=0,p2=0,btts=0,csA=0,csB=0,tot=0;const ov={"0.5":0,"1.5":0,"2.5":0,"3.5":0};let best={a:1,b:0,p:0};
  const mg={a1:0,a2:0,n:0,b1:0,b2:0}; // marges façon Skellam (différence de buts)
+ const tops=[];
  for(let a=0;a<=MAX;a++)for(let b=0;b<=MAX;b++){
   let p=poissonP(a,xa)*poissonP(b,xb)*tauDC(a,b,xa,xb,RHO);
   if(p<0)p=0; tot+=p;
@@ -599,11 +607,23 @@ function quantPoisson(xa,xb){
   const d=a-b;
   if(d===1)mg.a1+=p;else if(d>=2)mg.a2+=p;else if(d===0)mg.n+=p;else if(d===-1)mg.b1+=p;else mg.b2+=p;
   if(a>0&&b>0)btts+=p; if(b===0)csA+=p; if(a===0)csB+=p;
-  for(const k of["1.5","2.5","3.5"])if(a+b>+k)ov[k]+=p;
+  for(const k of["0.5","1.5","2.5","3.5"])if(a+b>+k)ov[k]+=p;
+  if(a<=5&&b<=5)tops.push({a,b,p});
   if(p>best.p)best={a,b,p};}
  p1/=tot;pn/=tot;p2/=tot;btts/=tot;csA/=tot;csB/=tot;for(const k in ov)ov[k]/=tot;
  for(const k in mg)mg[k]/=tot;
- return{p1,pn,p2,btts,csA,csB,ov,best,mg};}
+ tops.sort((x,y)=>y.p-x.p);
+ return{p1,pn,p2,btts,csA,csB,ov,best,mg,tops:tops.slice(0,4).map(x=>({s:x.a+'-'+x.b,p:x.p/tot}))};}
+/* Mi-temps : Poisson sur ~45 % des buts attendus en 1re période */
+function quantHalf(xa,xb){
+ const la=xa*0.45,lb=xb*0.45;let aM=0,nu=0,bM=0,g0=0;
+ for(let a=0;a<=5;a++)for(let b=0;b<=5;b++){
+  const p=poissonP(a,la)*poissonP(b,lb);
+  if(a>b)aM+=p;else if(a===b)nu+=p;else bM+=p;
+  if(a===0&&b===0)g0+=p;}
+ const l2a=xa*0.55,l2b=xb*0.55;
+ const but2=1-poissonP(0,l2a)*poissonP(0,l2b);
+ return{aMene:aM,nul:nu,bMene:bM,but1:1-g0,but2};}
 function quantMC(xa,xb,n){
  n=n||10000;let w1=0,wn=0,w2=0,o25=0,bt=0;const sc={};
  for(let i=0;i<n;i++){
@@ -924,6 +944,185 @@ function htmlParisSimples(info,Q,M,m){
   <span class="note" style="flex:1 0 100%">→ ${esc(o.expl)}. Ne prends ce pari que si ton book offre PLUS que ${cmin}.</span></div>`;}).join('');
  h+=`<p class="note" style="margin-top:8px">*🟢 « très sûr » = forte probabilité selon le modèle, <b>jamais une garantie</b> — même un 85 % perd 15 fois sur 100. Une seule option par match, jamais de combiné de tout ça.</p>`;
  return h;}
+/* ============================================================
+   PAGE MATCH SIMPLE — lecture humaine, calculs avancés derrière
+   ============================================================ */
+function buildOptions(info,Q,m){
+ const nA=info.eqA[0],nB=info.eqB[0];
+ const favA=Q.ens.p1>=Q.ens.p2, fav=favA?nA:nB, out=favA?nB:nA;
+ const pF=Math.max(Q.ens.p1,Q.ens.p2), pO=Math.min(Q.ens.p1,Q.ens.p2), pN=Q.ens.pn;
+ const H=quantHalf(Q.xg.a,Q.xg.b);
+ const o=[];const add=(nom,expl,p,force)=>{p=Math.round(p*100);if(p>0&&p<100)o.push({nom,expl,p,force:force||null});};
+ add(`${fav} gagne ou nul (double chance)`,`tu perds seulement si ${out} gagne`,pF+pN);
+ add(`Au moins 1 but dans le match (over 0.5)`,`un seul but suffit, peu importe qui`,Q.po.ov["0.5"]);
+ add(`Moins de 4 buts (under 3.5)`,`tu gagnes avec 0 à 3 buts au total`,1-Q.po.ov["3.5"]);
+ add(`Au moins 2 buts (over 1.5)`,`2 buts au total suffisent`,Q.po.ov["1.5"]);
+ add(`But en 2e mi-temps`,`au moins 1 but après la pause`,H.but2);
+ add(`But en 1re mi-temps`,`au moins 1 but avant la pause`,H.but1);
+ add(`${fav} gagne, remboursé si nul (DNB)`,`le nul te rend ta mise`,pF/(pF+pO));
+ add(`${fav} marque au moins 1 but`,`peu importe le résultat final`,favA?1-Q.po.csB:1-Q.po.csA);
+ add(`${fav} gagne le match (victoire simple)`,`un nul = perdu, c'est le piège classique`,pF);
+ if(Q.po.btts>=0.5)add(`Les deux équipes marquent (BTTS oui)`,`1 but minimum de chaque côté`,Q.po.btts);
+ else add(`Au moins une équipe ne marque pas (BTTS non)`,`un des deux finit à zéro`,1-Q.po.btts);
+ add(`Plus de 2 buts (over 2.5)`,`il faut 3 buts ou plus`,Q.po.ov["2.5"]);
+ add(`${fav} mène à la mi-temps`,`il faut être devant à la pause`,favA?H.aMene:H.bMene);
+ add(`Nul à la mi-temps`,`0-0 ou égalité à la pause`,H.nul);
+ add(`${fav} gagne par 2 buts d'écart (-1.5)`,`1-0 ne suffit pas`,favA?Q.po.mg.a2:Q.po.mg.b2,'risque');
+ add(`Score exact ${Q.po.best.a}-${Q.po.best.b}`,`même le score le plus probable reste un coup de dés`,Q.po.best.p,'avoid');
+ o.sort((a,b)=>b.p-a.p);
+ return{o,fav,out,favA,H};}
+function renderSimplePage(info,A,t,m,Q,M){
+ const nA=info.eqA[0],nB=info.eqB[0];
+ const {o,fav,H}=buildOptions(info,Q,m);
+ const xgT=Q.xg.a+Q.xg.b;
+ const typeMatch=xgT>=2.9?'plutôt ouvert (des buts probables)':xgT<=2.15?'plutôt fermé (peu de buts attendus)':'équilibré';
+ const risque=Q.chaos<=35?'faible':Q.chaos<=55?'moyen':Q.chaos<=70?'élevé':'très élevé';
+ const confW=Q.conf>=75?'très bon':Q.conf>=60?'bon':Q.conf>=45?'moyen':'faible';
+ const composOK=!!(A.compos&&A.compos.data&&A.compos.data.dispo);
+ const dec=M?M.dec:'WATCH';
+ const decC=dec==='BET'?'g':dec==='WATCH'?'y':dec==='AVOID'?'r':'n';
+ const action=dec==='BET'?'jouer (mise faible)':dec==='WATCH'?'attendre':dec==='AVOID'?'éviter':'ne rien faire';
+ const bestIdee=dec==='NO BET'?'Ne rien faire — c\'est le bon choix ici':(o.find(x=>x.p>=60&&!x.force)||o[0]).nom;
+ const avoids=[`Score exact (trop aléatoire)`];
+ if(M&&M.favFrag>55)avoids.unshift(`Victoire sèche de ${fav} (favori possiblement surcoté)`);
+ if(!composOK)avoids.push(`Buteur (compositions pas confirmées)`);
+ if(xgT<=2.3)avoids.push(`Over 2.5 (match annoncé fermé)`);
+ const pire=avoids[0];
+ const tier=p=>p>=70?['g','BON PARI POSSIBLE']:p>=55?['y','PARI INTÉRESSANT']:p>=40?['r','PARI RISQUÉ']:['n','MAUVAIS PARI'];
+ /* catégories d'idées */
+ let good=o.filter(x=>x.p>=62&&!x.force).slice(0,4);
+ let watch=o.filter(x=>x.p>=48&&x.p<62&&!x.force);
+ let avoid=o.filter(x=>(x.p<48||x.force)).slice(0,5);
+ if(dec==='NO BET'||Q.chaos>70){watch=[...good,...watch];good=[];}
+ const detA=t.scores?.detA||{},detB=t.scores?.detB||{};
+ const nv=(d,off)=>{const s=off?((+d.effectif||10)+(+d.forme||10))/2:((+d.tactique||10)*0.5+(+d.absences||7));return off?(s>=14?'forte':s>=10?'moyenne':'faible'):(s>=14?'solide':s>=10?'moyenne':'fragile');};
+ const ligne=(l,v)=>`<div class="kv"><b>${l}</b><span>${v}</span></div>`;
+ const optRow=x=>{const[c,lab]=tier(x.p);const cm=(100/x.p*1.1).toFixed(2);
+  return `<div class="orow"><span><b>${esc(x.nom)}</b></span><span><span class="pill ${c}">${lab}</span> <span class="em">${x.p}%</span> <span class="pill b">cote min ${cm}</span></span><span class="note" style="flex:1 0 100%">→ ${esc(x.expl)}.</span></div>`;};
+ let h='';
+ /* --- 1 · Lecture rapide --- */
+ h+=`<div class="blk" style="margin-bottom:11px"><h3>⚡ Lecture rapide</h3>
+  <p style="font-size:14px;line-height:1.55">${esc(t.resume?.lecture||'')}</p>
+  ${ligne('Favori probable',`<b>${esc(M?M.fav:'—')}</b> (${pct(Math.max(Q.ens.p1,Q.ens.p2))} % de chances de gagner)`)}
+  ${ligne('Score le + probable',`<b>${Q.po.best.a}-${Q.po.best.b}</b>`)}
+  ${ligne('Type de match',typeMatch)}
+  ${ligne('Niveau de risque',risque)}
+  ${ligne('Meilleure idée',`<b>${esc(bestIdee)}</b>`)}
+  ${ligne('À éviter',esc(pire))}
+ </div>`;
+ /* --- 2 · Décision froide simple --- */
+ h+=`<div class="cold ${decClass(dec)}">
+  <div class="row"><span class="vd">🧊 ${dec}</span><span class="pill ${decC}" style="margin-left:auto">CONFIANCE : ${confW.toUpperCase()}</span></div>
+  ${ligne('Pourquoi ?',esc(m?.synthese||t.resume?.lecture||'—'))}
+  ${ligne('Meilleur pari possible',`<b>${esc(bestIdee)}</b>`)}
+  ${ligne('Pari à éviter',esc(pire))}
+  ${ligne('Exposition conseillée',dec==='BET'?(Q.chaos>50?'très faible':'faible'):'rien')}
+  ${ligne('Que faire ?',`<b>${action.toUpperCase()}</b>`)}
+  ${composOK?'':'<p class="note" style="margin-top:6px">⏱️ Compositions pas encore confirmées → re-clique « lineups » ~75 min avant le match, l\'analyse peut changer.</p>'}
+ </div>`;
+ /* --- 3 · Équipes --- */
+ h+=`<details class="tech"><summary>📈 Les deux équipes — qui attaque, qui défend, qui est en forme ?</summary><div class="blk" style="border:0">
+  <div class="kv"><b>${flagH(nA,16)} ${esc(nA)}</b><span>Attaque <b>${nv(detA,true)}</b> · Défense <b>${nv(detA,false)}</b><br><span class="note">${esc(t.forme?.A||'')}</span></span></div>
+  <div class="kv"><b>${flagH(nB,16)} ${esc(nB)}</b><span>Attaque <b>${nv(detB,true)}</b> · Défense <b>${nv(detB,false)}</b><br><span class="note">${esc(t.forme?.B||'')}</span></span></div>
+  ${t.qualite?ligne('Effectifs',esc(t.qualite.A)+'<br>'+esc(t.qualite.B)):''}
+  ${ligne('Absences',esc(t.absences?.A||'—')+' / '+esc(t.absences?.B||'—'))}
+  <p class="note" style="margin-top:6px">${esc(t.scores?.commentaire||'')}</p>
+ </div></details>`;
+ /* --- 4 · Mi-temps --- */
+ h+=`<details class="tech"><summary>⏱️ Mi-temps — quand est-ce que ça peut marquer ?</summary><div class="blk" style="border:0">
+  ${mini(nA.slice(0,9).toUpperCase()+' MÈNE MT',Math.round(H.aMene*100))}
+  ${mini('NUL À LA MT',Math.round(H.nul*100))}
+  ${mini(nB.slice(0,9).toUpperCase()+' MÈNE MT',Math.round(H.bMene*100))}
+  ${mini('BUT EN 1re MT',Math.round(H.but1*100))}
+  ${mini('BUT EN 2e MT',Math.round(H.but2*100))}
+  ${mini('BUT APRÈS 75e',M?M.lateGoal:50)}
+  <p class="note" style="margin-top:6px">${H.but2>H.but1+0.04?'Le meilleur angle semble être un but en 2e mi-temps : les matchs de Mondial se débrident souvent après la pause.':H.nul>=0.42?'Le nul à la mi-temps est fréquent sur ce profil de match — la 1re période s\'annonce prudente.':'Les deux mi-temps semblent pouvoir offrir des buts.'} ${esc(m?.mt_note||'')}</p>
+ </div></details>`;
+ /* --- 5 · Probabilités --- */
+ h+=`<details class="tech" open><summary>📊 Probabilités du match</summary><div class="blk" style="border:0">
+  ${pbar(m?.probas||{eqA:pct(Q.ens.p1),nul:pct(Q.ens.pn),eqB:pct(Q.ens.p2)},nA,nB)}
+  ${mini('AU MOINS 1 BUT',Math.round(Q.po.ov["0.5"]*100))}
+  ${mini('AU MOINS 2 BUTS',Math.round(Q.po.ov["1.5"]*100))}
+  ${mini('PLUS DE 2.5 BUTS',Math.round(Q.po.ov["2.5"]*100))}
+  ${mini('MOINS DE 3.5 BUTS',Math.round((1-Q.po.ov["3.5"])*100))}
+  ${mini('LES 2 MARQUENT',Math.round(Q.po.btts*100))}
+  ${mini(nA.slice(0,9).toUpperCase()+' À 0 ENCAISSÉ',Math.round(Q.po.csA*100))}
+  ${mini(nB.slice(0,9).toUpperCase()+' À 0 ENCAISSÉ',Math.round(Q.po.csB*100))}
+  <p class="note" style="margin-top:7px">Scores les plus crédibles : ${Q.po.tops.map(x=>`<b>${x.s}</b> (${Math.round(x.p*100)} %)`).join(' · ')}</p>
+ </div></details>`;
+ /* --- 6 · Idées de paris --- */
+ h+=`<div class="blk" style="margin-top:11px"><h3>💰 Idées de paris — triées pour toi</h3>`;
+ if(good.length)h+=`<p class="note" style="margin:4px 0"><b style="color:var(--green)">🟢 Bons paris possibles</b> (si la cote est au-dessus du minimum)</p>`+good.map(optRow).join('');
+ h+=`<p class="note" style="margin:10px 0 4px"><b style="color:var(--gold)">🟡 À surveiller</b> (attendre compos / meilleure cote)</p>`+(watch.length?watch.map(optRow).join(''):'<p class="note">—</p>');
+ h+=`<p class="note" style="margin:10px 0 4px"><b style="color:var(--red)">🔴 Mauvais paris / à éviter aujourd'hui</b></p>`+avoid.map(optRow).join('');
+ if(dec==='NO BET')h+=`<div class="nobetbox">⚪ NO BET — le match est trop incertain ou les cotes ne donnent pas assez d'avantage. Ne rien faire est la meilleure décision ici.</div>`;
+ h+=`<p class="note" style="margin-top:8px">⚠️ Un % élevé n'est jamais une garantie. Une seule option par match, jamais de combiné.</p></div>`;
+ /* --- 7 · Buteurs --- */
+ const SC=DB.scorers&&DB.scorers[CUR];
+ h+=`<details class="tech"><summary>🎯 Buteurs possibles</summary><div class="blk" style="border:0">`;
+ if(SC){const d=SC.data;
+  h+=(d.compos_confirmees?'<span class="pill g">COMPOS CONFIRMÉES</span>':'<p class="note">⚠️ Compos pas confirmées → tout est « à surveiller », rien de fort.</p>')
+  +(d.buteurs||[]).map(j=>{const v=gvs(j,!!d.compos_confirmees);let lab=v>=70&&d.compos_confirmees?'INTÉRESSANT':v>=50?'À SURVEILLER':'À ÉVITER';const c=lab==='INTÉRESSANT'?'g':lab==='À SURVEILLER'?'y':'r';
+   return `<div class="orow"><span>${flagH(j.equipe,14)} <b>${esc(j.nom)}</b> <span class="note">${esc(j.statut)}${j.penalty?' · tire les penaltys':''}</span></span><span><span class="em">${j.proba??'–'}%</span> <span class="pill ${c}">${lab}</span></span></div>`;}).join('');
+ } else h+=`<p class="note">Pas encore analysé.</p><button class="btn mini sec" id="sp-scorers">🎯 Analyser les buteurs</button><span class="statut" id="sp-sc-st"></span>`;
+ h+=`</div></details>`;
+ /* --- 8 · Risques --- */
+ const risks=[];
+ if(!composOK)risks.push('Les compositions ne sont pas encore confirmées');
+ if(t.absences&&/non confirm/i.test((t.absences.A||'')+(t.absences.B||'')))risks.push('Des absences ne sont pas confirmées');
+ if(Q.chaos>60)risks.push('Match difficile à lire (beaucoup d\'incertitude)');
+ if(M&&M.trap>55)risks.push('Piège possible : ne joue pas juste le nom de l\'équipe');
+ if(M&&M.favFrag>60)risks.push('Le favori est peut-être surcoté');
+ if(/J3/.test(A.titre||''))risks.push('3e journée de groupe : calculs et rotations possibles');
+ if(t.tactique?.risque)risks.push(t.tactique.risque);
+ h+=`<details class="tech"><summary>⚠️ Pourquoi ce pari peut mal tourner</summary><div class="blk" style="border:0">
+  <ul>${risks.map(r=>`<li>${esc(r)}</li>`).join('')||'<li>Pas de risque majeur identifié — méfiance quand même.</li>'}</ul>
+  ${ligne('Risque global',risque)}
+  ${ligne('Conseil',`<b>${action}</b>`)}
+ </div></details>`;
+ /* --- 9 · Cotes & value simple --- */
+ h+=`<details class="tech"><summary>📈 Tes cotes — bon prix ou pas ?</summary><div class="blk" style="border:0">
+  <p class="note">Entre les cotes de ton bookmaker : si notre probabilité est plus haute que celle de la cote, le prix peut être bon. Ça ne garantit rien.</p>
+  <div class="ogrid" style="margin-top:8px">
+   <div><label class="lb">1 · ${esc(nA)}</label><input type="number" step="0.01" min="1.01" id="sp-c1" value="${A.cotes?.a||''}" inputmode="decimal"></div>
+   <div><label class="lb">N · Nul</label><input type="number" step="0.01" min="1.01" id="sp-cn" value="${A.cotes?.n||''}" inputmode="decimal"></div>
+   <div><label class="lb">2 · ${esc(nB)}</label><input type="number" step="0.01" min="1.01" id="sp-c2" value="${A.cotes?.b||''}" inputmode="decimal"></div>
+   <div><label class="lb">Over 2.5</label><input type="number" step="0.01" min="1.01" id="sp-o25" inputmode="decimal"></div>
+  </div>
+  <div class="row" style="margin-top:9px"><button class="btn mini" id="sp-calc">Vérifier les prix</button></div>
+  <div id="sp-val"></div>
+ </div></details>`;
+ /* --- 10 · Conclusion 20 secondes --- */
+ h+=`<div class="blk" style="margin-top:11px"><h3>🧠 Ce que je retiens (20 secondes)</h3>
+  ${ligne('Match plutôt',typeMatch)}
+  ${ligne('Équipe la + fiable',`<b>${esc(M?M.fav:'—')}</b>`)}
+  ${ligne('Risque principal',esc(m?.verdict?.risque||risks[0]||'—'))}
+  ${ligne('Meilleur pari possible',`<b>${esc(bestIdee)}</b>`)}
+  ${ligne('Pari à éviter',esc(pire))}
+  ${ligne('Décision',`<span class="pill ${decC}">${dec}</span>`)}
+  ${ligne('À revoir après compos ?',composOK?'non — compos connues':'<b>oui</b> (~75 min avant le match)')}
+  <p class="note" style="margin-top:8px"><b>Décision froide : ${dec}.</b> Pourquoi : ${esc(m?.synthese||'—')} Risque : ${esc(m?.verdict?.risque||'—')}. Action : <b>${action}</b>.</p>
+ </div>`;
+ /* --- barre sticky --- */
+ h+=`<div class="coldbar"><span>🧊</span><b style="color:${dec==='BET'?'var(--green)':dec==='WATCH'?'var(--gold)':dec==='AVOID'?'var(--red)':'var(--grey)'}">${dec}</b><span class="muted">${esc(bestIdee).slice(0,46)}</span><span style="margin-left:auto" class="muted">${action}</span></div>`;
+ return h;}
+function wireSimple(info){
+ const A=DB.analyses[CUR];if(!A)return;
+ const bs=document.getElementById('sp-scorers');
+ if(bs)bs.onclick=async()=>{const st=document.getElementById('sp-sc-st');bs.disabled=true;st.innerHTML='<span class="spin"></span>web…';
+  try{const d=await appelIA(pButeurs(A.eqA[0],A.eqB[0],A.titre),1300);DB.scorers=DB.scorers||{};DB.scorers[CUR]={data:d,ts:Date.now()};await sauver();rendreCenter();}
+  catch(e){bs.disabled=false;st.innerHTML=`<span class="err">${esc(e.message)}</span>`;}};
+ const bc=document.getElementById('sp-calc');
+ if(bc)bc.onclick=async()=>{
+  const g=id=>parseFloat(document.getElementById(id).value)||null;
+  const c1=g('sp-c1'),cn=g('sp-cn'),c2=g('sp-c2'),o25=g('sp-o25');
+  A.cotes={a:c1,n:cn,b:c2};await sauver();
+  const p=A.marche?.probas||{};
+  const rows=[[`Victoire ${info.eqA[0]}`,c1,+p.eqA],[`Match nul`,cn,+p.nul],[`Victoire ${info.eqB[0]}`,c2,+p.eqB],[`Over 2.5`,o25,+p.over25]];
+  const w=(d,pia)=>d<0?'🔴 Pas intéressant — la cote est trop basse':d<3?'🟡 Correct, sans plus':d<7?'🟢 Bon prix':'💎 Très bon prix (vérifie qu\'il ne manque pas une info)';
+  document.getElementById('sp-val').innerHTML=rows.filter(r=>r[1]&&r[2]).map(([l,c,pia])=>{
+   const d=pia-100/c;
+   return `<div class="orow"><span><b>${esc(l)}</b> · cote ${c.toFixed(2)}</span><span>${w(d,pia)}${pia<42?' <span class="note">(pari risqué de base)</span>':''}</span></div>`;}).join('')||'<p class="note">Entre au moins une cote avec sa probabilité connue.</p>';};}
 function getMatchInfo(id){
  const m=MATCHS.find(x=>x.id===id);
  if(m)return{id,eqA:m.eqA,eqB:m.eqB,ctx:`Groupe ${m.groupe}, ${JOURNEES[m.journee]}`,titre:`${m.eqA[1]} ${m.eqA[0]} vs ${m.eqB[0]} ${m.eqB[1]} · Gr.${m.groupe} ${JOURNEES[m.journee]}`};
@@ -958,8 +1157,11 @@ function rendreCenter(){
   h+=`<div class="empty">PAS ENCORE ANALYSÉ.<br>CLIQUE ⚡ ANALYZE — L'IA FAIT UNE RECHERCHE WEB EN DIRECT (~20–30 S).</div>`;
   body.innerHTML=h;brancherCenter(info);return;}
  const Q=quantTout(A),M=m?mendes(A,Q):null;
- /* --- 6 blocs --- */
- h+=`<div class="mcgrid">`;
+ /* --- PAGE SIMPLE (lecture humaine) --- */
+ h+=renderSimplePage(info,A,t,m,Q,M);
+ /* --- ancienne analyse complète, repliée pour les curieux --- */
+ h+=`<details class="tech" style="margin-top:14px"><summary>🔬 Analyse technique complète — moteur quantitatif, 16 scores, sources</summary>`;
+ h+=`<div class="mcgrid" style="margin-top:10px">`;
  h+=`<div class="blk"><h3>⚡ Summary</h3>
   <div class="kv"><b>Lecture</b><span>${esc(t.resume?.lecture)}</span></div>
   <div class="kv"><b>Enjeu</b><span>${esc(t.resume?.enjeu)}</span></div>
@@ -1074,7 +1276,8 @@ function rendreCenter(){
    <p class="note" style="margin-top:6px;font-family:var(--mono);font-size:10px;letter-spacing:.04em">LE MODÈLE NE CHERCHE PAS À DEVINER LE FUTUR. IL CHERCHE À IDENTIFIER SI LE RISQUE VAUT RÉELLEMENT LA RÉCOMPENSE.</p>
   </div>
   <div class="coldbar"><span>🧊</span><b style="color:${M.dec==='BET'?'var(--green)':M.dec==='WATCH'?'var(--gold)':M.dec==='AVOID'?'var(--red)':'var(--grey)'}">${M.dec}</b><span class="muted">CBS ${M.cbs} · Chaos ${Q.chaos} · Trap ${M.trap}</span><span style="margin-left:auto" class="muted">${pref?esc(pref.marche):''}</span></div>`;}
- body.innerHTML=h;brancherCenter(info);}
+ h+=`</details>`;
+ body.innerHTML=h;brancherCenter(info);wireSimple(info);}
 function brancherCenter(info){
  const st=()=>document.getElementById('c-st');
  const b=document.getElementById('c-analyze');

@@ -1,95 +1,112 @@
 {
-  "generatedAt": "2026-06-11T12:39:36.301Z",
+  "generatedAt": "2026-06-11T17:48:08.760Z",
   "news": {
     "data": {
       "items": [
         {
           "niveau": "critique",
           "cat": "meteo",
-          "titre": "Alerte orange orages Mexico",
-          "detail": "Les autorités mexicaines ont émis une alerte météo orange pour des orages dans la capitale, menaçant le match d'ouverture Mexique-Afrique du Sud ce soir au Stade Azteca.",
+          "titre": "Alerte météo orange sur Mexico",
+          "detail": "Alerte orange émise pour des orages dans la capitale mexicaine, menace sur le match d'ouverture Mexique - Afrique du Sud.",
           "equipes": [
             "Mexique",
             "Afrique du Sud"
           ],
-          "quand": "Il y a 17h"
+          "quand": "11 juin 2026, il y a 1 jour"
+        },
+        {
+          "niveau": "important",
+          "cat": "resultat",
+          "titre": "Début officiel de la Coupe du monde 2026",
+          "detail": "Match d'ouverture Mexique - Afrique du Sud à 21h au Stade Azteca de Mexico, première édition à 48 équipes.",
+          "equipes": [
+            "Mexique",
+            "Afrique du Sud"
+          ],
+          "quand": "11 juin 2026 21h00"
         },
         {
           "niveau": "important",
           "cat": "blessure",
-          "titre": "Forfaits Maroc : Aguerd et Abde",
-          "detail": "Le défenseur Nayef Aguerd et l'ailier Abde Ezzalzouli ont été officiellement écartés de la liste marocaine et remplacés par Marwane Saadane et Amine Sbai.",
+          "titre": "Forfaits de dernière minute au Maroc",
+          "detail": "Nayef Aguerd et Abde Ezzalzouli forfaits depuis cette nuit, remplacés par Marwane Saadane et Amine Sbai.",
           "equipes": [
             "Maroc"
           ],
-          "quand": "Il y a 4h"
+          "quand": "11 juin 2026, dernière nuit"
         },
         {
-          "niveau": "info",
+          "niveau": "important",
           "cat": "compo",
-          "titre": "Compositions probables Mexique-Afrique du Sud",
-          "detail": "Mexique : Rangel - Sanchez, Montes, Vasquez, Gallardo - Alvarez (c) - Alvarado, Lira, Gutierrez, Quinones - Jimenez. Afrique du Sud : Williams (c) - Mudau, Mbokazi, Okon, Modiba - Sithole, Mokoena - Appollis, Zwane, Mofokeng - Foster.",
+          "titre": "Équipe de France arrivée à Boston",
+          "detail": "Les Bleus installés à Boston, entraînement ouvert au public prévu jeudi après-midi avant le premier match contre le Sénégal le 16 juin.",
           "equipes": [
-            "Mexique",
-            "Afrique du Sud"
+            "France"
           ],
-          "quand": "Il y a 5h"
+          "quand": "10 juin 2026"
         },
         {
           "niveau": "info",
-          "cat": "resultat",
-          "titre": "Ouverture Coupe du monde 2026",
-          "detail": "Le Mondial 2026 débute aujourd'hui avec le match Mexique-Afrique du Sud à 21h au Stade Azteca de Mexico, première d'une compétition à 48 équipes.",
+          "cat": "autre",
+          "titre": "Problème maillot pour Haïti",
+          "detail": "La sélection haïtienne sommée de changer son maillot trois jours avant son entrée en lice face à l'Écosse.",
           "equipes": [
-            "Mexique",
-            "Afrique du Sud"
+            "Haïti"
           ],
-          "quand": "Il y a 15h"
+          "quand": "8 juin 2026"
+        },
+        {
+          "niveau": "info",
+          "cat": "blessure",
+          "titre": "William Saliba incertain mais devrait tenir",
+          "detail": "Le défenseur d'Arsenal blessé depuis le 1er juin mais devrait être apte pour la compétition.",
+          "equipes": [
+            "France"
+          ],
+          "quand": "1er juin 2026"
         }
       ],
-      "resume": "La Coupe du monde 2026 démarre ce soir avec Mexique-Afrique du Sud sous menace d'orages, tandis que le Maroc perd Aguerd et Abde sur blessure.",
-      "fraicheur": "11 juin 2026, 14:37"
+      "resume": "La Coupe du monde 2026 débute ce soir avec Mexique-Afrique du Sud sous menace d'orages à Mexico.",
+      "fraicheur": "11 juin 2026 19h40"
     },
-    "ts": 1781181490188
+    "ts": 1781199656913
   },
   "briefing": {
     "data": {
       "matchs": [
         {
           "affiche": "Mexique vs Afrique du Sud",
-          "heure": "21:00 (CET)",
+          "heure": "21h00 CET",
           "stade": "Estadio Azteca, Mexico City",
           "groupe": "A",
           "badges": [
             "🔥",
-            "🎉"
+            "🌟"
           ],
-          "note": "Match d'ouverture de la Coupe du monde 2026, avec cérémonie officielle à 18:00 CET"
+          "note": "Match d'ouverture historique avec cérémonie"
         },
         {
-          "affiche": "Corée du Sud vs République Tchèque",
-          "heure": "04:00 (CET, vendredi)",
+          "affiche": "Corée du Sud vs Tchéquie",
+          "heure": "04h00 CET (vendredi)",
           "stade": "Estadio Akron, Guadalajara",
           "groupe": "A",
           "badges": [
-            "🌙"
+            "⚽"
           ],
-          "note": "Second match du Groupe A, horaire tardif pour l'Europe"
+          "note": "Premier jour du Mondial 2026 en nocturne"
         }
       ],
-      "top": "Mexique vs Afrique du Sud - Match inaugural historique au mythique Estadio Azteca avec cérémonie d'ouverture, enjeu énorme pour le pays hôte",
-      "eviter": "Corée du Sud vs République Tchèque - Horaire très tardif (4h du matin CET), équipes moins spectaculaires que le match d'ouverture",
+      "top": "Mexique vs Afrique du Sud - Match d'ouverture avec cérémonie, Shakira et Burna Boy, dans le légendaire Estadio Azteca où le Mexique devient le 1er pays à organiser 3 Coupes du monde",
+      "eviter": "Corée du Sud vs Tchéquie - Match tardif (4h du matin CET) avec bilan équilibré entre les deux équipes (1 victoire chacun), risque de météo pluvieuse à Guadalajara",
       "alertes": [
-        "Blessures confirmées : Jurriën Timber (Pays-Bas) forfait pour inguinale, remplacé par Geertruida",
-        "Blessures confirmées : Wesley (Brésil) forfait, remplacé par Éderson Silva le 7 juin",
-        "Blessures confirmées : Kaoru Mitoma (Japon) forfait pour ischio-jambiers",
-        "Blessures confirmées : Fermín López (Espagne) forfait pour fracture métatarse",
-        "Johnny Cardoso (États-Unis) forfait pour cheville - Non confirmé — à vérifier",
-        "Lionel Messi (Argentine) incertain pour ischios mais devrait jouer - Non confirmé — à vérifier"
+        "25% de risque d'orages au coup d'envoi Mexico-Afrique du Sud, montant à 75% à 23h CET",
+        "Guillermo Ochoa titulaire pour son 5e Mondial avec le Mexique",
+        "Andrea Bocelli chantera l'hymne officiel 'DNA' lors de la cérémonie",
+        "Non confirmé — à vérifier : compositions définitives et blessures de dernière minute"
       ],
-      "fraicheur": "11 juin 2026, 14:37 CET"
+      "fraicheur": "11 juin 2026, 19h40 CET"
     },
-    "ts": 1781181467250
+    "ts": 1781199630141
   },
   "analyses": {
     "GA-J1-01": {
@@ -106,144 +123,538 @@
       ],
       "terrain": {
         "resume": {
-          "date": "<cite index='2-1,3-2,6-1'>jeudi 11 juin, 13h00 (19h00 heure suisse)</cite>",
-          "stade": "<cite index='3-1,8-1'>Estadio Azteca, Mexico City</cite>",
-          "enjeu": "<cite index='2-1,21-15,21-17'>Match d'ouverture Coupe du monde 2026 - Groupe A, J1</cite>",
-          "lecture": "<cite index='9-1,9-9'>Le Mexique co-organisateur ouvre le tournoi contre l'Afrique du Sud dans une revanche de l'ouverture 2010</cite>",
-          "interet": 5
+          "date": "11 juin 2026, 21h00 (heure suisse)",
+          "stade": "Estadio Azteca (Estadio Banorte), Mexico City",
+          "enjeu": "Match d'ouverture historique - 3e Coupe du Monde organisée par l'Azteca",
+          "lecture": "Le Mexique, co-organisateur, débute à domicile face à l'Afrique du Sud dans un match d'ouverture historique à l'altitude de Mexico City.",
+          "interet": 4
         },
         "contexte": {
-          "classement": "<cite index='21-15,21-16'>Groupe A : Mexique (co-organisateur), Afrique du Sud, Corée du Sud, Tchéquie</cite> - <cite index='23-2,23-6,23-18'>Mexique 1er, Afrique du Sud 2e position actuelle</cite>",
-          "conditions": "Non confirmé — à vérifier",
-          "pression": "<cite index='8-5,9-7'>80 000 spectateurs attendus, pression énorme sur le Mexique pour délivrer devant ses supporters</cite>"
+          "classement": "Groupe A : Mexique, Afrique du Sud, Corée du Sud, République tchèque - Premier match du groupe pour les deux équipes",
+          "conditions": "Altitude 2200m au-dessus du niveau de la mer, air plus raréfié, température douce en soirée de juin avec risque de pluie après-midi",
+          "pression": "Énorme pression sur le Mexique comme pays hôte avec 87 000 supporters attendus, match d'ouverture historique avec arrêt national mexicain"
         },
         "forme": {
-          "A": "<cite index='6-11,15-17'>Mexique invaincu sur 8 matchs amicaux en 2026, victoires récentes : Ghana 2-0, Australie 1-0, Serbie 5-1</cite>",
-          "B": "<cite index='6-10,15-12'>Afrique du Sud : 3 nuls et 2 défaites sur 5 matchs, derniers résultats : Nicaragua 0-0, Jamaïque 1-1</cite>"
+          "A": "Mexique invaincu en 8 matchs en 2026 (6V-2N), victoire 5-1 face à la Serbie en préparation, nuls face au Portugal (0-0) et Belgique (1-1)",
+          "B": "Afrique du Sud forme mitigée sur 5 derniers matchs (1V-2N-2D), victoire 1-0 face à Jamaïque, défaites face au Panama (1-2) et Cameroun (1-2)"
         },
         "absences": {
-          "A": "<cite index='15-8,16-11'>Luis Ángel Malagón (gardien) et Marcel Ruiz (milieu) absents pour blessures - Montes, Álvarez, Chávez, Vega aptes</cite>",
-          "B": "<cite index='16-14,13-11'>Thapelo Morena et Mohau Nkota (ailiers) forfait pour blessures - Modiba incertain mais disponible</cite>",
+          "A": "Gardien Luis Ángel Malagón et milieu Marcel Ruiz absents (blessures graves), Santiago Giménez incertain",
+          "B": "Thapelo Morena et Mohau Nkota absents (blessures), Aubrey Modiba déclaré apte",
           "fiable": true
         },
         "tactique": {
-          "styleA": "<cite index='17-31,17-32'>4-3-3 avec Álvarez sentinelle, transitions rapides, discipline défensive</cite>",
-          "styleB": "<cite index='17-33,17-34'>4-3-2-1 compact, absorption de pression, contre-attaques avec Appollis et Mofokeng</cite>",
-          "duel": "<cite index='17-6,17-21'>Performance de Lyle Foster déterminante pour l'Afrique du Sud</cite>",
-          "zone": "<cite index='17-35'>Altitude et pression Azteca pourraient affecter la discipline défensive sud-africaine</cite>",
-          "risque": "<cite index='17-13,17-14'>Mexique sous pression à domicile, Afrique du Sud peut frustrer avec compact</cite>"
+          "styleA": "4-3-3 offensif avec Jiménez en pointe, jeu vertical et pressing haut sous Aguirre",
+          "styleB": "Jeu de possession sous Hugo Broos avec Foster en attaque, ailiers Mofokeng et Appollis",
+          "duel": "Midfield Edson Álvarez vs Teboho Mokoena - contrôle du tempo",
+          "zone": "Couloirs latéraux mexicains face aux ailiers sud-africains rapides",
+          "risque": "Gestion altitude pour l'Afrique du Sud, pression énorme sur défense mexicaine"
         },
         "scores": {
           "A": 75,
           "B": 60,
           "detA": {
-            "forme": 16,
-            "effectif": 15,
-            "tactique": 14,
+            "forme": 18,
+            "effectif": 16,
+            "tactique": 15,
             "mental": 12,
-            "absences": 8,
-            "conditions": 8,
-            "momentum": 2
+            "absences": 6,
+            "conditions": 9,
+            "momentum": 4
           },
           "detB": {
-            "forme": 10,
-            "effectif": 12,
+            "forme": 12,
+            "effectif": 13,
             "tactique": 13,
             "mental": 8,
             "absences": 7,
-            "conditions": 6,
-            "momentum": 4
+            "conditions": 5,
+            "momentum": 2
           },
-          "commentaire": "Mexique favori avec avantage domicile et forme supérieure, mais pression énorme. Afrique du Sud solide défensivement peut créer surprise comme en 2010. Incertitude sur conditions météo/altitude."
+          "commentaire": "Avantage net au Mexique grâce au statut de co-organisateur, forme excellente et conditions favorables (altitude, public). Incertitude sur la réaction de l'Afrique du Sud à la pression du match d'ouverture."
         },
         "sources": [
           {
             "nom": "ESPN",
-            "info": "Horaires et compositions",
-            "date": "1-2 jours"
-          },
-          {
-            "nom": "Al Jazeera",
-            "info": "Contexte match et enjeux",
-            "date": "8 heures"
-          },
-          {
-            "nom": "Sports Mole",
-            "info": "Blessures et absences",
+            "info": "Horaire et stade confirmés",
             "date": "1 jour"
+          },
+          {
+            "nom": "Yahoo Sports",
+            "info": "Forme récente et absences",
+            "date": "13 heures"
+          },
+          {
+            "nom": "FourFourTwo",
+            "info": "Conditions altitude et tactiques",
+            "date": "12 heures"
           }
         ]
       },
       "marche": {
         "probas": {
-          "eqA": 68,
-          "nul": 21,
-          "eqB": 11,
-          "over25": 35,
-          "under25": 65,
-          "btts": 42,
-          "over15": 78,
-          "over35": 18
+          "eqA": 65,
+          "nul": 22,
+          "eqB": 13,
+          "over25": 48,
+          "under25": 52,
+          "btts": 45,
+          "over15": 75,
+          "over35": 25
         },
-        "score_probable": "1-0",
+        "score_probable": "2-1",
         "scenarios": {
-          "dominant": "Mexique maîtrise rapidement avec avantage domicile et altitude, victoire 2-0 ou 2-1 avec buts de Jiménez/Giménez",
-          "alternatif": "Afrique du Sud défend compact et frustre, match serré 1-0 ou nul 0-0 grâce à discipline défensive",
-          "pire": "Pression énorme sur Mexique provoque nervosité, Afrique du Sud contre-attaque efficacement et crée surprise 0-1"
+          "dominant": "Le Mexique prend rapidement l'avantage à domicile avec le soutien de 87000 spectateurs, Jiménez ou Quiñones ouvre le score en première période, l'Afrique du Sud égalise en fin de match mais le Mexique l'emporte 2-1 grâce à l'altitude et l'expérience",
+          "alternatif": "Match serré avec peu d'occasions, l'Afrique du Sud résiste bien défensivement, match nul 1-1 comme en 2010 avec des buts tardifs dans les deux camps",
+          "pire": "L'Afrique du Sud surprend complètement en première période avec un but rapide de Foster ou Appollis, le Mexique subit la pression énorme du match d'ouverture et n'arrive pas à revenir, défaite 0-1"
         },
         "marches": [
           {
-            "marche": "Mexique victoire",
+            "marche": "Victoire Mexique",
             "verdict": "🟢",
-            "proba": 68,
-            "cote_min": 1.6,
-            "pour": "Avantage domicile énorme, forme supérieure (invaincu 8 matchs), altitude favorable, effectif plus fort",
-            "contre": "Pression énorme du match d'ouverture, Afrique du Sud peut défendre compact"
-          },
-          {
-            "marche": "Under 2.5 buts",
-            "verdict": "🟡",
             "proba": 65,
             "cote_min": 1.7,
-            "pour": "Style défensif sud-africain, Mexique souvent peu prolifique, enjeu d'ouverture",
-            "contre": "Mexique très en forme offensivement (5-1 vs Serbie), domination attendue"
+            "pour": "Avantage du terrain, forme excellente (8 matchs sans défaite), altitude favorable, public acquis",
+            "contre": "Pression énorme du match d'ouverture, Afrique du Sud motivée après 16 ans d'absence"
+          },
+          {
+            "marche": "Plus de 1.5 buts",
+            "verdict": "🟢",
+            "proba": 75,
+            "cote_min": 1.4,
+            "pour": "Attaque mexicaine prolifique, Afrique du Sud a marqué dans 9 de ses 11 derniers matchs",
+            "contre": "Enjeu du premier match peut fermer la partie"
+          },
+          {
+            "marche": "Les deux équipes marquent",
+            "verdict": "🟡",
+            "proba": 45,
+            "cote_min": 2.4,
+            "pour": "Afrique du Sud capable de marquer (9/11 derniers matchs), attaque avec Foster et Appollis",
+            "contre": "Mexique solide défensivement (6 clean sheets sur 8 matchs), altitude peut handicaper l'Afrique du Sud"
           },
           {
             "marche": "Jiménez buteur",
             "verdict": "🟡",
-            "proba": 55,
-            "cote_min": 2,
-            "pour": "Leader d'attaque expérimenté, cotes intéressantes à +135, forme récente correcte",
-            "contre": "Défense sud-africaine solide, peut manquer d'espaces"
-          },
-          {
-            "marche": "Nul",
-            "verdict": "🔴",
-            "proba": 21,
-            "cote_min": 5.2,
-            "pour": "Historique 2010 (1-1), Afrique du Sud peut frustrer défensivement",
-            "contre": "Mexique trop fort à domicile, forme supérieure évidente"
+            "proba": 52,
+            "cote_min": 2.1,
+            "pour": "Attaquant de référence (45 buts en sélection), motivation pour égaler le record de Borgetti",
+            "contre": "35 ans, peut être préservé, concurrence avec Giménez et Quiñones"
           }
         ],
         "verdict": {
-          "reco": "Mexique victoire simple",
-          "alternative": "Under 2.5 buts si recherche sécurité",
+          "reco": "Victoire Mexique + Plus de 1.5 buts",
+          "alternative": "Match nul ou victoire Mexique (double chance X1)",
           "no_bet": false,
-          "risque": "modéré",
-          "confiance": "élevée",
+          "risque": "Pression énorme sur le Mexique en tant qu'hôte",
+          "confiance": "moyenne",
           "mise": "modérée"
         },
-        "synthese": "Mexique largement favori avec <cite index='2-27'>69% de probabilité de victoire selon les traders</cite> et avantage domicile décisif.",
-        "incertitude": "faible"
+        "synthese": "Le Mexique part largement favori grâce à son statut d'hôte, sa forme excellente et les conditions favorables, mais la pression du match d'ouverture et la motivation de l'Afrique du Sud peuvent créer la surprise.",
+        "incertitude": "moyenne"
       },
-      "ts": 1781181550291,
+      "devil": {
+        "data": {
+          "failles": [
+            "Stade incorrect : match au Mexico City Stadium/Estadio Azteca, pas 'Estadio Banorte'",
+            "Heure incorrecte : 3pm EDT/20h BST selon sources, pas 21h heure suisse",
+            "Santiago Giménez déclaré apte - pas d'incertitude confirmée récemment",
+            "Aubrey Modiba confirmé fit et disponible - pas d'incertitude sur sa forme",
+            "Aucune source sur les notes chiffrées de forme/effectif/tactique",
+            "Pas de données vérifiées sur les cotes de paris mentionnées"
+          ],
+          "trop_optimiste": false,
+          "verdict_tient": true,
+          "note": "L'analyse générale est cohérente mais contient des erreurs factuelles mineures sur le stade, l'horaire et le statut de certains joueurs."
+        },
+        "ts": 1781199739612
+      },
+      "ts": 1781199739612,
       "cotes": null,
       "resultat": {
         "joue": false,
         "score": "",
         "vainqueur": "",
         "resume": "Match pas encore joué"
-      }
+      },
+      "compos": {
+        "data": {
+          "dispo": true,
+          "compoA": "Compositions officielles non confirmées — Plusieurs sources indiquent des XI probables mais aucune confirmation officielle trouvée : Ochoa/Rangel en débat au but, défense Gallardo-Vásquez-Montes-Sánchez, milieu avec Lira-Fidalgo-Gutiérrez, attaque Jiménez-Alvarado-Quiñones",
+          "compoB": "Compositions officielles non confirmées — XI probable Afrique du Sud selon sources : Williams au but, défense avec Modiba-Mudau-Sibisi-Ndamane, milieu Mokoena-Sithole, Foster en pointe avec Zwane-Mofokeng-Appollis",
+          "surprises": [
+            "Ochoa pourrait devenir le premier joueur à disputer 6 Coupes du monde s'il débute, mais Rangel semble favori selon certaines sources",
+            "Santiago Giménez incertain selon une source (blessure non spécifiée)",
+            "Gilberto Mora (17 ans) pourrait débuter, ce qui en ferait le plus jeune joueur de la Coupe du monde 2026"
+          ],
+          "ajustement": {
+            "sens": "Mexique invaincus sur 8 matchs dont victoire 5-1 contre Serbie en préparation. Avantage terrain avec 80 000 spectateurs attendus à l'Azteca qui accueillera son 3ème match d'ouverture de Coupe du monde",
+            "confiance": "hausse",
+            "no_bet": false
+          }
+        },
+        "ts": 1781200010188
+      },
+      "postmatch": null
+    },
+    "GA-J1-23": {
+      "type": "match",
+      "auto": true,
+      "titre": "🇰🇷 Corée du Sud vs Tchéquie 🇨🇿 · Gr.A J1 · 11–17 juin",
+      "eqA": [
+        "Corée du Sud",
+        "🇰🇷"
+      ],
+      "eqB": [
+        "Tchéquie",
+        "🇨🇿"
+      ],
+      "terrain": {
+        "resume": {
+          "date": "12 juin 2026, 4h00 (heure suisse)",
+          "stade": "Estadio Akron, Guadalajara, Mexique",
+          "enjeu": "Match d'ouverture décisif du Groupe A pour les chances de qualification",
+          "lecture": "Première confrontation officielle entre deux équipes visant la 2e place qualificative derrière le Mexique favori.",
+          "interet": 4
+        },
+        "contexte": {
+          "classement": "Corée du Sud 25e FIFA vs Tchéquie 41e FIFA - Groupe A avec Mexique et Afrique du Sud, 2 qualifiés + possible repêchage 3e",
+          "conditions": "Température moyenne 25°C (19-31°C), saison des pluies début juin à Guadalajara (259mm précipitations moyennes, 56% jours pluvieux), altitude 1550m",
+          "pression": "Corée du Sud: 11e participation consécutive, vise répéter les 8es de finale 2022 - Tchéquie: retour après 20 ans d'absence, qualification laborieuse aux tirs au but"
+        },
+        "forme": {
+          "A": "Invaincue en éliminatoires asiatiques (11V-5N), préparation contrastée: défaites vs Côte d'Ivoire (0-4) et Autriche (1-0) en mars, puis victoires vs Trinité-et-Tobago (5-0) et Salvador (1-0)",
+          "B": "Qualification chaotique (2e du groupe derrière Croatie), victoires aux TAB vs Irlande et Danemark en barrages, invaincue sur 5 derniers matchs, victoires récentes vs Kosovo (2-1) et Guatemala (3-1)"
+        },
+        "absences": {
+          "A": "Cho Yu-min (défenseur, rupture fascia plantaire, forfait compétition), Bae Jun-ho (incertain, cheville), Lee Tae-seok et Bae Jun-ho (incertains physiquement)",
+          "B": "Jan Kuchta (attaquant, incertain blessure cheville vs Kosovo), Jemelka et Vitik (forfait blessure), Kral et Cerny (non convoqués)",
+          "fiable": true
+        },
+        "tactique": {
+          "styleA": "3-4-2-1 de Hong Myung-Bo, défense solide (8 buts encaissés en 16 matchs qualifs), jeu rapide avec Son Heung-min et Lee Kang-in",
+          "styleB": "3-4-1-2 de Koubek, bloc défensif discipliné, 50% des buts sur coups de pied arrêtés en qualifications, danger aérien avec Soucek-Schick",
+          "duel": "Kim Min-jae (Bayern) vs Patrik Schick (Leverkusen) dans la surface",
+          "zone": "Coups de pied arrêtés où la Tchéquie excelle face à la défense coréenne à 3",
+          "risque": "Corée du Sud vulnérable sur phases arrêtées, Tchéquie dépendante de son jeu physique"
+        },
+        "scores": {
+          "A": 63,
+          "B": 57,
+          "detA": {
+            "forme": 13,
+            "effectif": 15,
+            "tactique": 15,
+            "mental": 10,
+            "absences": 6,
+            "conditions": 6,
+            "momentum": 3
+          },
+          "detB": {
+            "forme": 12,
+            "effectif": 13,
+            "tactique": 13,
+            "mental": 8,
+            "absences": 5,
+            "conditions": 6,
+            "momentum": 3
+          },
+          "commentaire": "Légère faveur coréenne basée sur classement FIFA supérieur et qualité individuelle (Son, Lee Kang-in), mais écart faible car première confrontation officielle avec incertitudes tactiques des deux côtés"
+        },
+        "sources": [
+          {
+            "nom": "TopMercato",
+            "info": "Confrontations, absences, compositions probables",
+            "date": "2h"
+          },
+          {
+            "nom": "Eurosport",
+            "info": "Statistiques, blessures confirmées",
+            "date": "1j"
+          },
+          {
+            "nom": "Météo Guadalajara",
+            "info": "Conditions climatiques juin",
+            "date": "Données historiques"
+          }
+        ]
+      },
+      "marche": {
+        "probas": {
+          "eqA": 42,
+          "nul": 28,
+          "eqB": 30,
+          "over25": 58,
+          "under25": 42,
+          "btts": 52,
+          "over15": 74,
+          "over35": 31
+        },
+        "score_probable": "1-1",
+        "scenarios": {
+          "dominant": "Match équilibré avec légère faveur coréenne, décidé par l'expérience Son Heung-min/Lee Kang-in face au bloc discipliné tchèque. Défenses solides des deux côtés limitant les occasions.",
+          "alternatif": "Tchéquie exploite sa supériorité physique et aérienne sur coups de pied arrêtés face à la défense coréenne à 3, Schick-Soucek dangereux. Conditions pluvieuses favorisent le jeu au sol coréen.",
+          "pire": "Match fermé 0-0 sans véritable occasion, première confrontation officielle créant blocages tactiques. Pression du match d'ouverture paralysant les deux équipes."
+        },
+        "marches": [
+          {
+            "marche": "Match nul",
+            "verdict": "🟢",
+            "proba": 62,
+            "cote_min": 1.7,
+            "pour": "Première confrontation officielle, équilibre des forces, défenses solides (8 buts/16 matchs CDS, bloc discipliné TCH), enjeu énorme",
+            "contre": "Qualité individuelle coréenne supérieure, Tchéquie sans clean sheet 2026, besoin victoire rapide"
+          },
+          {
+            "marche": "Moins 2,5 buts",
+            "verdict": "🟡",
+            "proba": 58,
+            "cote_min": 1.9,
+            "pour": "Défense coréenne solide (8 buts/16 matchs), première confrontation prudente, enjeu qualification, bloc tchèque discipliné",
+            "contre": "Attaques de qualité (Son, Schick), 50% buts tchèques sur coups de pied arrêtés, moyenne 4 buts/match historique"
+          },
+          {
+            "marche": "Victoire Corée du Sud",
+            "verdict": "🟡",
+            "proba": 42,
+            "cote_min": 2.4,
+            "pour": "Classement FIFA supérieur (25e vs 41e), qualité individuelle (Son 56 buts, Lee Kang-in), invaincue éliminatoires, momentum récent",
+            "contre": "Tchéquie invaincue 5 derniers matchs, qualification difficile forge caractère, défaite 0-4 vs Côte d'Ivoire inquiétante"
+          },
+          {
+            "marche": "Les deux équipes marquent",
+            "verdict": "⚪",
+            "proba": 52,
+            "cote_min": 1.95,
+            "pour": "Attaques qualitatives des deux côtés, Tchéquie sans clean sheet 2026, danger aérien tchèque, vitesse coréenne",
+            "contre": "Défense coréenne très solide, bloc tchèque discipliné, prudence match d'ouverture, incertitudes tactiques"
+          }
+        ],
+        "verdict": {
+          "reco": "Match nul",
+          "alternative": "Moins 2,5 buts",
+          "no_bet": false,
+          "risque": "Première confrontation officielle avec incertitudes tactiques majeures",
+          "confiance": "moyenne",
+          "mise": "modérée"
+        },
+        "synthese": "Match équilibré entre deux équipes aux profils complémentaires dans un contexte d'ouverture de Mondial très tendu.",
+        "incertitude": "moyenne"
+      },
+      "devil": {
+        "data": {
+          "failles": [
+            "Erreur sur la blessure de Cho Yu-min : l'analyse indique 'rupture fascia plantaire' alors que les sources confirment 'partial tear of the plantar fascia' (déchirure partielle, pas rupture)",
+            "Match décrit comme 'première confrontation officielle' : faux, les équipes se sont déjà rencontrées en match amical (2-1 pour la Corée du Sud en 2016)",
+            "Date et heure du match incorrectes : l'analyse dit '12 juin 2026, 4h00 heure suisse' mais les sources confirment 12 juin à 02h00/03h00 BST",
+            "Bae Jun-ho listé comme 'incertain cheville' : aucune source ne confirme cette blessure spécifique",
+            "Enjeu du match surévalué : le groupe comprend Mexique et Afrique du Sud, pas seulement 'Mexique favori' - tous les analystes considèrent le groupe très ouvert",
+            "Kuchta et autres absents tchèques : Non confirmé — à vérifier dans les sources actuelles"
+          ],
+          "trop_optimiste": true,
+          "verdict_tient": false,
+          "note": "L'analyse contient plusieurs erreurs factuelles majeures sur les blessures, l'historique et les détails du match."
+        },
+        "ts": 1781199846199
+      },
+      "ts": 1781199846199,
+      "cotes": null,
+      "resultat": {
+        "joue": false,
+        "score": "",
+        "vainqueur": "",
+        "resume": "Match pas encore joué"
+      },
+      "compos": {
+        "data": {
+          "dispo": true,
+          "compoA": "Non confirmé — à vérifier. Compositions officielles prévues ~75 minutes avant le coup d'envoi (22h00 ET/3h00 BST vendredi). Composition probable: Kim Seung-gyu; Kim Min-jae, Kim Tae-hyeon, Lee Han-beom; Seol Young-woo, Hwang In-beom, Paik Seung-ho, Lee Tae-seok; Lee Kang-in, Son Heung-min, Hwang Hee-chan (3-4-3/3-4-2-1)",
+          "compoB": "Non confirmé — à vérifier. Compositions officielles prévues ~75 minutes avant le coup d'envoi. Composition probable: Kovar; Krejci, Hranac, Holes; Jurasek, Soucek, Darida, Coufal; Provod, Sulc; Schick (3-5-2/3-4-1-2)",
+          "surprises": [
+            "Hwang Hee-chan rétabli d'une blessure à la cheville en fin de saison (Goal.com)",
+            "Miroslav Koubek (74 ans) devient le plus vieux sélectionneur du Mondial 2026",
+            "Tchéquie qualifiée via 2 tirs au but consécutifs contre Irlande et Danemark en mars 2026"
+          ],
+          "ajustement": {
+            "sens": "L'altitude de Guadalajara (1560m) pourrait favoriser la Corée du Sud qui s'entraîne sur place vs Tchéquie arrivée de Dallas. Koubek n'a dirigé que 2 matches compétitifs.",
+            "confiance": "stable",
+            "no_bet": false
+          }
+        },
+        "ts": 1781200031394
+      },
+      "postmatch": null
+    },
+    "GB-J1-01": {
+      "type": "match",
+      "auto": true,
+      "titre": "🇨🇦 Canada vs Bosnie-Herzégovine 🇧🇦 · Gr.B J1 · 11–17 juin",
+      "eqA": [
+        "Canada",
+        "🇨🇦"
+      ],
+      "eqB": [
+        "Bosnie-Herzégovine",
+        "🇧🇦"
+      ],
+      "terrain": {
+        "resume": {
+          "date": "12 juin 2026, 21h00 (heure suisse)",
+          "stade": "BMO Field, Toronto",
+          "enjeu": "Premier match du Canada à domicile en Coupe du monde, première confrontation entre les deux équipes",
+          "lecture": "Le Canada, pays hôte, débute son Mondial par un match crucial face à une Bosnie-Herzégovine surprise qualifiée après avoir battu l'Italie aux tirs au but",
+          "interet": 4
+        },
+        "contexte": {
+          "classement": "Groupe B : Canada, Bosnie-Herzégovine, Qatar et Suisse — première journée, aucune équipe n'a encore joué",
+          "conditions": "Non confirmé — à vérifier",
+          "pression": "Énorme pression sur le Canada jouant à domicile pour son premier point en Coupe du monde, Bosnie-Herzégovine en outsider sans pression"
+        },
+        "forme": {
+          "A": "Canada : 8 matchs sans défaite, 6 clean sheets sur cette série, 2 victoires et 3 nuls sur les 5 derniers matchs, derniers résultats : 1-1 vs Irlande et 2-0 vs Ouzbékistan",
+          "B": "Bosnie-Herzégovine : aussi 8 matchs sans défaite, qualifiée via les barrages UEFA en battant l'Italie et le Pays de Galles aux penalties, 1-1 vs Panama et 0-0 vs Macédoine du Nord récemment"
+        },
+        "absences": {
+          "A": "Alphonso Davies (blessure ischio-jambiers, incertain pour le premier match), Marcelo Flores (rupture des ligaments croisés), Moise Bombito (blessure au tibia, incertain)",
+          "B": "Edin Dzeko (blessure à l'épaule, incertain), Haris Tabakovic (fracture du métatarse), Ivan Sunjic (problèmes musculaires)",
+          "fiable": true
+        },
+        "tactique": {
+          "styleA": "4-2-3-1 canadien, jeu offensif avec Buchanan et Millar sur les côtés, David en pointe",
+          "styleB": "Formation défensive bosniaque comptant sur l'expérience de Dzeko et le contre-attaque",
+          "duel": "Système défensif canadien vs expérience offensive bosniaque avec Dzeko",
+          "zone": "Couloirs latéraux canadiens face à la défense compacte bosniaque",
+          "risque": "Dépendance du Canada à Davies absent, reliance bosniaque sur un Dzeko de 40 ans"
+        },
+        "scores": {
+          "A": 73,
+          "B": 62,
+          "detA": {
+            "forme": 16,
+            "effectif": 15,
+            "tactique": 15,
+            "mental": 12,
+            "absences": 6,
+            "conditions": 8,
+            "momentum": 4
+          },
+          "detB": {
+            "forme": 14,
+            "effectif": 12,
+            "tactique": 13,
+            "mental": 10,
+            "absences": 6,
+            "conditions": 7,
+            "momentum": 3
+          },
+          "commentaire": "Léger avantage au Canada grâce au facteur domicile et à la profondeur d'effectif, mais match serré avec deux équipes invaincues depuis 8 matchs. Incertitudes sur Davies et Dzeko."
+        },
+        "sources": [
+          {
+            "nom": "Yahoo Sports",
+            "info": "Date, stade et composition du groupe B",
+            "date": "9 minutes"
+          },
+          {
+            "nom": "Sports Mole",
+            "info": "Blessures et compositions probables",
+            "date": "2 jours"
+          },
+          {
+            "nom": "Khel Now",
+            "info": "Confrontations directes historiques",
+            "date": "12 heures"
+          }
+        ]
+      },
+      "marche": {
+        "probas": {
+          "eqA": 45,
+          "nul": 28,
+          "eqB": 27,
+          "over25": 52,
+          "under25": 48,
+          "btts": 45,
+          "over15": 70,
+          "over35": 30
+        },
+        "score_probable": "1-0",
+        "scenarios": {
+          "dominant": "Le Canada exploite l'avantage du domicile et la pression sur la Bosnie avec Davies absent mais compense par l'intensité collective, David marque sur service de Buchanan",
+          "alternatif": "Match serré avec peu d'occasions, défenses bien organisées, un but décisif en fin de match ou match nul logique entre deux équipes prudentes",
+          "pire": "La Bosnie profite de l'inexpérience du Canada en Coupe du monde, Demirović surprend la défense canadienne réorganisée sans Bombito"
+        },
+        "marches": [
+          {
+            "marche": "Canada Victoire",
+            "verdict": "🟡",
+            "proba": 45,
+            "cote_min": 2.4,
+            "pour": "Facteur domicile décisif, effectif plus profond, dynamique positive sur 8 matchs sans défaite",
+            "contre": "Pression énorme pour premier match à domicile, absence de Davies perturbante, inexpérience en Coupe du monde"
+          },
+          {
+            "marche": "Moins de 2,5 buts",
+            "verdict": "🟡",
+            "proba": 48,
+            "cote_min": 2.3,
+            "pour": "Deux équipes solides défensivement, Bosnie peu productive offensivement (0,8 but/match récemment), première confrontation",
+            "contre": "Canada doit marquer à domicile, potentiel offensif de David et Buchanan, pression pour spectacle d'ouverture"
+          },
+          {
+            "marche": "Les deux équipes marquent - Non",
+            "verdict": "🟢",
+            "proba": 55,
+            "cote_min": 1.9,
+            "pour": "Canada 6 clean sheets sur 8 matchs, Bosnie en difficulté offensive sans Dzeko et Tabaković, défenses organisées",
+            "contre": "Canada doit attaquer à domicile, Demirović en forme avec Stuttgart, match d'ouverture souvent spectaculaire"
+          },
+          {
+            "marche": "Match nul",
+            "verdict": "⚪",
+            "proba": 28,
+            "cote_min": 3.9,
+            "pour": "Première confrontation, prudence mutuelle, forces équilibrées sur le papier, incertitudes sur Davies et Dzeko",
+            "contre": "Canada doit gagner à domicile, Bosnie affaiblie offensivement, pression du public canadien"
+          }
+        ],
+        "verdict": {
+          "reco": "Les deux équipes marquent - Non",
+          "alternative": "Pari sur moins de 2,5 buts si cotes favorables",
+          "no_bet": false,
+          "risque": "Incertitudes majeures sur Davies et Dzeko, première confrontation difficile à cerner",
+          "confiance": "moyenne",
+          "mise": "modérée"
+        },
+        "synthese": "Match serré entre un Canada à domicile mais privé de Davies face à une Bosnie défensivement solide mais limitée offensivement sans ses cadres.",
+        "incertitude": "moyenne"
+      },
+      "devil": {
+        "data": {
+          "failles": [
+            "Blessures non confirmées : Davies n'a qu'une 'blessure ischio-jambiers incertain' selon analyse, mais recherches confirment qu'il s'entraîne à l'écart et Marsch a dit 'Non, je ne pense pas qu'il sera tout à fait prêt le 12 juin'",
+            "Dzeko : analyse dit 'blessure à l'épaule incertain', mais sources confirment qu'il s'est entraîné à l'écart du groupe et n'était que sur le banc contre Panama",
+            "Première confrontation : analyse dit 'première confrontation entre les deux équipes' mais ne précise pas qu'aucun historique direct existe pour évaluer styles",
+            "Série de 8 matchs sans défaite pour les deux : Non confirmé — à vérifier pour données exactes sur les séries récentes",
+            "Scores détaillés (forme 16/14, momentum 4/3) : basés sur quels critères concrets ? Trop précis sans source",
+            "Probabilités trop affirmatives : 45% victoire Canada, 52% over 2.5 buts - présentées comme faits alors que ce sont des estimations personnelles"
+          ],
+          "trop_optimiste": true,
+          "verdict_tient": false,
+          "note": "L'analyse sous-estime gravement l'incertitude sur Davies et Dzeko, deux joueurs clés dont l'absence probable change complètement la donne."
+        },
+        "ts": 1781199991056
+      },
+      "ts": 1781199991056,
+      "cotes": null,
+      "resultat": {
+        "joue": false,
+        "score": "",
+        "vainqueur": "",
+        "resume": "Match pas encore joué"
+      },
+      "compos": null,
+      "postmatch": null
     }
   },
   "standings": {
@@ -279,20 +690,79 @@
             "bc": 0
           }
         ],
-        "resultats": "Aucun match joué - Les premiers matches (Mexique vs Afrique du Sud et Corée du Sud vs Tchéquie) étaient prévus le 11 juin 2026",
-        "scenarios": "Non confirmé — à vérifier les résultats des premiers matches. Non confirmé — à vérifier l'évolution du classement après les premières journées.",
+        "resultats": "Aucun match joué",
+        "scenarios": "Les deux premiers du groupe et potentiellement le meilleur troisième se qualifieront pour les seizièmes de finale. Le Mexique part favori en tant que pays hôte, avec la Corée du Sud comme principal concurrent.",
         "fraicheur": "11 juin 2026"
       },
-      "ts": 1781181568956
+      "ts": 1781200049917
+    },
+    "B": {
+      "data": {
+        "classement": [
+          {
+            "nom": "Canada",
+            "pts": 0,
+            "j": 0,
+            "bp": 0,
+            "bc": 0
+          },
+          {
+            "nom": "Bosnie-Herzégovine",
+            "pts": 0,
+            "j": 0,
+            "bp": 0,
+            "bc": 0
+          },
+          {
+            "nom": "Qatar",
+            "pts": 0,
+            "j": 0,
+            "bp": 0,
+            "bc": 0
+          },
+          {
+            "nom": "Suisse",
+            "pts": 0,
+            "j": 0,
+            "bp": 0,
+            "bc": 0
+          }
+        ],
+        "resultats": "Aucun match joué",
+        "scenarios": "Non confirmé — à vérifier. Les deux premiers du groupe se qualifient automatiquement pour les huitièmes de finale, avec une possible qualification du troisième.",
+        "fraicheur": "11 juin 2026"
+      },
+      "ts": 1781200070325
     }
   },
   "value": [
     {
       "id": "GA-J1-01",
       "titre": "🇲🇽 Mexique vs Afrique du Sud 🇿🇦 · Gr.A J1 · 11–17 juin",
-      "marche": "Mexique victoire",
-      "proba": 68,
-      "cote_min": 1.6
+      "marche": "Plus de 1.5 buts",
+      "proba": 75,
+      "cote_min": 1.4
+    },
+    {
+      "id": "GA-J1-01",
+      "titre": "🇲🇽 Mexique vs Afrique du Sud 🇿🇦 · Gr.A J1 · 11–17 juin",
+      "marche": "Victoire Mexique",
+      "proba": 65,
+      "cote_min": 1.7
+    },
+    {
+      "id": "GA-J1-23",
+      "titre": "🇰🇷 Corée du Sud vs Tchéquie 🇨🇿 · Gr.A J1 · 11–17 juin",
+      "marche": "Match nul",
+      "proba": 62,
+      "cote_min": 1.7
+    },
+    {
+      "id": "GB-J1-01",
+      "titre": "🇨🇦 Canada vs Bosnie-Herzégovine 🇧🇦 · Gr.B J1 · 11–17 juin",
+      "marche": "Les deux équipes marquent - Non",
+      "proba": 55,
+      "cote_min": 1.9
     }
   ]
 }

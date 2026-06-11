@@ -1311,6 +1311,7 @@ async function rendreCalib(){
   rows+=`<tr><td>${lo}–${hi===100?'100':hi}%</td><td class="sc">${b.length}</td><td class="sc">${Math.round(reel)}%</td><td>${Math.abs(ec)<6?'✅ cohérent':ec<0?`⚠️ optimiste (${Math.round(ec)})`:`prudent (+${Math.round(ec)})`}</td></tr>`;}
  const score=nP?Math.max(0,Math.min(100,Math.round(100-(errP/nP)*3))):null;
  const brier=ev.reduce((s,e)=>s+Math.pow(e.proba/100-(e.ok?1:0),2),0)/ev.length;
+ const logloss=-ev.reduce((s,e)=>{const p=Math.min(.99,Math.max(.01,e.proba/100));return s+(e.ok?Math.log(p):Math.log(1-p));},0)/ev.length;
  const reg=(DB.ghosts||[]).filter(g=>g.statut==='réglé');
  const roi=reg.length?Math.round(100*reg.reduce((s,g)=>s+(g.gagne?g.cote-1:-1),0)/reg.length):null;
  let corr=0;
@@ -1323,6 +1324,7 @@ async function rendreCalib(){
  <div class="stgrid" style="margin-top:10px">
   <div class="st"><div class="n">${score===null?'–':score}</div><div class="l">Calibration /100</div></div>
   <div class="st"><div class="n">${brier.toFixed(3)}</div><div class="l">Brier (≤0.25 = bon)</div></div>
+  <div class="st"><div class="n">${logloss.toFixed(3)}</div><div class="l">Log Loss (↓ = mieux)</div></div>
   <div class="st"><div class="n" style="color:${roi===null?'var(--txt)':roi>=0?'var(--green)':'var(--red)'}">${roi===null?'–':(roi>0?'+':'')+roi+'%'}</div><div class="l">ROI théorique</div></div>
   <div class="st"><div class="n">—</div><div class="l">CLV (closing odds requises)</div></div></div>
  ${corr>0?`<div class="warnbox">🎯 Correction AUTO active : probas du favori réduites de <b>${corr} pts</b> partout.</div>`:`<p class="note" style="margin-top:8px">Aucune correction automatique nécessaire.</p>`}`;}

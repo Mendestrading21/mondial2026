@@ -1571,12 +1571,14 @@ function initReglages(){
   if(cfg.key) document.getElementById('cfg-key').value=cfg.key;
   if(cfg.model) document.getElementById('cfg-model').value=cfg.model;
   majEtatIA();
-  // enregistrement automatique dès qu'une clé est collée/tapée
+  // enregistrement automatique dès qu'une clé est collée/tapée (nettoyée de tout espace/retour à la ligne)
   document.getElementById('cfg-key').addEventListener('input',()=>{
-    const v=document.getElementById('cfg-key').value.trim();
+    const brut=document.getElementById('cfg-key').value;
+    const v=brut.replace(/\s+/g,'');
+    if(v!==brut) document.getElementById('cfg-key').value=v;
     const c=getCfg(); c.key=v||undefined; setCfg(c); IA_OK=true; majEtatIA();
     const st=document.getElementById('cfg-st');
-    st.textContent = v ? '✅ Clé enregistrée automatiquement — clique 🧪 Tester pour vérifier.' : '';
+    st.textContent = v ? `✅ Clé enregistrée : ${v.length} caractères, finit par « ${v.slice(-4)} » — clique 🧪 Tester.` : '';
   });
   document.getElementById('cfg-save').onclick=()=>{
     const c=getCfg(); c.key=document.getElementById('cfg-key').value.trim(); c.model=document.getElementById('cfg-model').value;

@@ -41,5 +41,11 @@ jobs:
             echo "Aucun changement à committer."
           else
             git commit -m "🤖 MAJ auto analyses Mondial 2026 — $(date -u '+%Y-%m-%d %H:%M UTC')"
-            git push
+            # si quelqu'un a poussé pendant le run, on rejoue notre commit par-dessus (3 tentatives)
+            for i in 1 2 3; do
+              if git push; then break; fi
+              echo "Push rejeté (tentative $i) — rebase sur la branche distante…"
+              git pull --rebase origin master || git rebase --abort
+              sleep 5
+            done
           fi

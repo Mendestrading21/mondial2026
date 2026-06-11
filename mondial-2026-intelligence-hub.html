@@ -8,9 +8,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#06101F; --bg2:#0B1628; --card:#101B2E; --card2:#14233A; --line:#25344E;
-  --txt:#F5F7FA; --txt2:#9AA8BD; --gold:#D6B45A; --green:#28C76F; --red:#EA5455;
-  --blue:#3B82F6; --violet:#8B5CF6; --grey:#A0AEC0;
+  --bg:#030712; --bg2:#07111F; --card:#0B1628; --card2:#101B2E; --line:#24324A;
+  --txt:#F8FAFC; --txt2:#94A3B8; --gold:#D6B45A; --green:#22C55E; --red:#EF4444;
+  --blue:#3B82F6; --violet:#8B5CF6; --cyan:#06B6D4; --grey:#CBD5E1;
   --sora:'Sora',sans-serif; --inter:'Inter',sans-serif; --mono:'JetBrains Mono',monospace;
   --r:18px; --rb:12px;
 }
@@ -203,6 +203,8 @@ table.tt td.sc{font-family:var(--mono);font-weight:700;white-space:nowrap;}
 .modal{background:var(--bg2);border:1px solid var(--gold);border-radius:var(--r);padding:16px;max-width:640px;width:100%;}
 .mx{float:right;cursor:pointer;color:var(--txt2);font-size:21px;line-height:1;}
 .empty{color:var(--txt2);font-size:12px;padding:26px 0;text-align:center;font-family:var(--mono);letter-spacing:.05em;line-height:1.8;}
+img.flx{display:inline-block;border-radius:3px;vertical-align:middle;object-fit:cover;box-shadow:0 0 0 1px rgba(36,50,74,.8);background:var(--bg2);}
+.guardbox{background:rgba(6,182,212,.06);border:1px solid rgba(6,182,212,.4);border-radius:var(--rb);padding:10px 12px;font-size:12.5px;color:var(--cyan);margin-top:8px;line-height:1.55;}
 .subtabs{display:flex;gap:6px;margin-bottom:12px;}
 .subtab{background:var(--card);border:1px solid var(--line);color:var(--txt2);padding:8px 14px;border-radius:var(--rb);font-size:12px;font-weight:600;cursor:pointer;}
 .subtab.on{background:var(--card2);color:var(--gold);border-color:var(--gold);}
@@ -213,17 +215,20 @@ footer{margin:30px 0 8px;font-family:var(--mono);font-size:9px;color:var(--txt2)
 <div class="wrap">
 
 <header>
-  <div class="logo">World Cup 2026 <span class="au">Betting Lab</span><small>DATA · PROBABILITIES · VALUE · NO BET</small></div>
+  <div class="logo">WC 2026 <span class="au">Quant War Room</span><small>TEAMS · TACTICS · PROBABILITIES · MARKETS · VALUE · RISK · NO BET</small></div>
   <span class="robotts" id="robot-ts"></span>
   <button class="gear" id="btn-gear" title="Settings">⚙️</button>
 </header>
+<div id="demo-banner" class="warnbox" style="display:none;margin:0 0 10px">🔌 <b>Mode démo</b> — connecte les APIs (⚙️ Settings) pour données réelles. Aucune donnée mock n'est présentée comme un fait.</div>
 
 <nav id="mainnav">
   <button data-v="today" class="on"><span class="ic">🏟️</span>Today</button>
   <button data-v="matches"><span class="ic">📅</span>Matches</button>
-  <button data-v="center"><span class="ic">⚽</span>Match Center</button>
-  <button data-v="odds"><span class="ic">📈</span>Odds Lab</button>
   <button data-v="teams"><span class="ic">🌍</span>Teams</button>
+  <button data-v="groups"><span class="ic">📊</span>Groups</button>
+  <button data-v="center"><span class="ic">🧠</span>War Room</button>
+  <button data-v="odds"><span class="ic">📈</span>Markets</button>
+  <button data-v="scorers"><span class="ic">🎯</span>Scorers</button>
   <button data-v="lab"><span class="ic">🧪</span>My Lab</button>
 </nav>
 
@@ -270,7 +275,7 @@ footer{margin:30px 0 8px;font-family:var(--mono);font-size:9px;color:var(--txt2)
 
 <!-- ================= ODDS LAB ================= -->
 <section id="v-odds" hidden>
-  <h2 class="sec">Odds Lab — calculateur froid</h2>
+  <h2 class="sec">Markets — Market Intelligence 💰</h2>
   <div class="card">
     <div class="ktop"><span class="au">MATCH (OPTIONNEL — IMPORTE LES PROBAS IA)</span></div>
     <select id="ol-match"><option value="">— Calcul libre (entre tes probas) —</option></select>
@@ -304,6 +309,25 @@ footer{margin:30px 0 8px;font-family:var(--mono);font-size:9px;color:var(--txt2)
 <section id="v-teams" hidden>
   <h2 class="sec">Les 48 équipes</h2>
   <div class="tgrid" id="teams-grid"></div>
+</section>
+
+<!-- ================= GROUPS ================= -->
+<section id="v-groups" hidden>
+  <h2 class="sec">Groupes & scénarios</h2>
+  <p class="note" style="margin-bottom:10px">Classements réels via IA + recherche web. Avant la J1 d'un groupe, le classement est vierge — rien n'est inventé.</p>
+  <div class="mgrid" id="groups-grid"></div>
+</section>
+
+<!-- ================= GOALSCORERS ================= -->
+<section id="v-scorers" hidden>
+  <h2 class="sec">Goalscorer Lab 🎯</h2>
+  <div class="card">
+    <div class="ktop"><span class="au">BUTEURS PROBABLES — ANALYSE PAR MATCH</span></div>
+    <select id="sc-match"><option value="">— Choisis un match analysé —</option></select>
+    <div class="row" style="margin-top:10px"><button class="btn mini" id="sc-go">🎯 Analyser les buteurs</button><span class="statut" id="sc-st"></span></div>
+    <p class="note" style="margin-top:8px">Règle stricte : <b>compositions non confirmées = aucune recommandation buteur forte</b> (WATCH maximum). Cotes buteur jamais inventées.</p>
+  </div>
+  <div id="sc-out"></div>
 </section>
 
 <!-- ================= MY LAB ================= -->
@@ -403,6 +427,12 @@ for(const g of Object.keys(GROUPES))for(const j of[1,2,3])for(const[a,b]of SCHEM
  MATCHS.push({id:`G${g}-J${j}-${a}${b}`,groupe:g,journee:j,eqA:GROUPES[g][a],eqB:GROUPES[g][b]});
 const TOUTES=Object.entries(GROUPES).flatMap(([g,e])=>e.map(x=>({nom:x[0],flag:x[1],conf:x[2],groupe:g}))).sort((a,b)=>a.nom.localeCompare(b.nom,'fr'));
 const flagDe=n=>(TOUTES.find(e=>e.nom===n)||{}).flag||'';
+/* ---- FlagService : vrais drapeaux SVG (flagcdn), secours emoji si offline ---- */
+const ISO={"Mexique":"mx","Afrique du Sud":"za","Corée du Sud":"kr","Tchéquie":"cz","Canada":"ca","Bosnie-Herzégovine":"ba","Qatar":"qa","Suisse":"ch","Brésil":"br","Maroc":"ma","Haïti":"ht","Écosse":"gb-sct","États-Unis":"us","Paraguay":"py","Australie":"au","Turquie":"tr","Allemagne":"de","Curaçao":"cw","Côte d'Ivoire":"ci","Équateur":"ec","Pays-Bas":"nl","Japon":"jp","Suède":"se","Tunisie":"tn","Belgique":"be","Égypte":"eg","Iran":"ir","Nouvelle-Zélande":"nz","Espagne":"es","Cap-Vert":"cv","Arabie saoudite":"sa","Uruguay":"uy","France":"fr","Sénégal":"sn","Irak":"iq","Norvège":"no","Argentine":"ar","Algérie":"dz","Autriche":"at","Jordanie":"jo","Portugal":"pt","Colombie":"co","Ouzbékistan":"uz","RD Congo":"cd","Angleterre":"gb-eng","Croatie":"hr","Panama":"pa","Ghana":"gh"};
+function flagH(nom,h){
+ const iso=ISO[nom];h=h||20;
+ if(!iso)return `<span style="font-size:${h}px">${flagDe(nom)}</span>`;
+ return `<img class="flx" src="https://flagcdn.com/${iso}.svg" alt="${esc(nom)}" style="height:${h}px;width:${Math.round(h*1.45)}px" onerror="this.outerHTML='<span style=&quot;font-size:${h}px&quot;>${flagDe(nom)}</span>'">`;}
 const EN={"Mexique":"Mexico","Afrique du Sud":"South Africa","Corée du Sud":"South Korea","Tchéquie":"Czech","Canada":"Canada","Bosnie-Herzégovine":"Bosnia","Qatar":"Qatar","Suisse":"Switzerland","Brésil":"Brazil","Maroc":"Morocco","Haïti":"Haiti","Écosse":"Scotland","États-Unis":"United States","Paraguay":"Paraguay","Australie":"Australia","Turquie":"Turkey","Allemagne":"Germany","Curaçao":"Curacao","Côte d'Ivoire":"Ivory Coast","Équateur":"Ecuador","Pays-Bas":"Netherlands","Japon":"Japan","Suède":"Sweden","Tunisie":"Tunisia","Belgique":"Belgium","Égypte":"Egypt","Iran":"Iran","Nouvelle-Zélande":"New Zealand","Espagne":"Spain","Cap-Vert":"Cape Verde","Arabie saoudite":"Saudi Arabia","Uruguay":"Uruguay","France":"France","Sénégal":"Senegal","Irak":"Iraq","Norvège":"Norway","Argentine":"Argentina","Algérie":"Algeria","Autriche":"Austria","Jordanie":"Jordan","Portugal":"Portugal","Colombie":"Colombia","Ouzbékistan":"Uzbekistan","RD Congo":"Congo","Angleterre":"England","Croatie":"Croatia","Panama":"Panama","Ghana":"Ghana"};
 
 /* ============================================================
@@ -526,6 +556,27 @@ Réponds UNIQUEMENT en JSON :
 "note":{"tactique":15,"contexte":14,"absences":12,"probas":16,"marche":13,"risque":14,"total":78}}
 critères /20, total = moyenne /100.`;}
 
+function pClassement(g){const noms=GROUPES[g].map(e=>e[0]).join(', ');
+return `Coupe du monde 2026, pendant le tournoi. Groupe ${g} : ${noms}.
+${ANTI_HALLU} Si aucun match joué, classement à 0 points et indique-le.
+UTILISE la recherche web (1-2 recherches) : classement ACTUEL (points, joués, buts) + résultats.
+Réponds UNIQUEMENT en JSON :
+{"classement":[{"nom":"...","pts":0,"j":0,"bp":0,"bc":0}],
+"resultats":"résultats joués ou 'Aucun match joué'",
+"scenarios":"scénarios de qualification (2 phrases)",
+"lecture":{"favori":"favori + pourquoi (court)","outsider":"outsider dangereux","pression":"équipe sous pression","decisif":"match décisif"},
+"fraicheur":"date"}
+Classe par points décroissants. Noms exacts : ${noms}.`;}
+function pButeurs(a,b,titre){return `Analyste buteurs. Coupe du monde 2026. Match : ${a} vs ${b} (${titre}).
+${ANTI_HALLU} N'invente AUCUNE cote buteur ni composition.
+UTILISE la recherche web (2-3 recherches) : compos probables/officielles, attaquants en forme, tireurs de penalty, défenses adverses.
+Réponds UNIQUEMENT en JSON, français :
+{"compos_confirmees":false,
+"buteurs":[{"nom":"...","equipe":"${a}|${b}","poste":"ATT","statut":"titulaire confirmé|titulaire probable|incertain|remplaçant probable","minutes":"~90","penalty":true,"forme":"1 phrase factuelle","raison":"pourquoi il peut marquer (court)","proba":28},
+{"nom":"..."},{"nom":"..."},{"nom":"..."}],
+"note":"contexte buteurs en 1-2 phrases (défense adverse, style du match)"}
+"proba" = ta probabilité estimée (%) qu'il marque (anytime), prudente. 4 à 6 joueurs max, classés du plus probable au moins probable.`;}
+
 /* ============================================================
    4 · MOTEUR QUANTITATIF — Mendes Match Engine V4
    (Poisson + Dixon-Coles · Monte Carlo · Elo · ensemble · calibration)
@@ -540,15 +591,19 @@ function tauDC(a,b,la,lb,rho){ // correction Dixon-Coles des scores faibles
  return 1;}
 function quantPoisson(xa,xb){
  const MAX=8,RHO=-0.10;let p1=0,pn=0,p2=0,btts=0,csA=0,csB=0,tot=0;const ov={"1.5":0,"2.5":0,"3.5":0};let best={a:1,b:0,p:0};
+ const mg={a1:0,a2:0,n:0,b1:0,b2:0}; // marges façon Skellam (différence de buts)
  for(let a=0;a<=MAX;a++)for(let b=0;b<=MAX;b++){
   let p=poissonP(a,xa)*poissonP(b,xb)*tauDC(a,b,xa,xb,RHO);
   if(p<0)p=0; tot+=p;
   if(a>b)p1+=p;else if(a===b)pn+=p;else p2+=p;
+  const d=a-b;
+  if(d===1)mg.a1+=p;else if(d>=2)mg.a2+=p;else if(d===0)mg.n+=p;else if(d===-1)mg.b1+=p;else mg.b2+=p;
   if(a>0&&b>0)btts+=p; if(b===0)csA+=p; if(a===0)csB+=p;
   for(const k of["1.5","2.5","3.5"])if(a+b>+k)ov[k]+=p;
   if(p>best.p)best={a,b,p};}
  p1/=tot;pn/=tot;p2/=tot;btts/=tot;csA/=tot;csB/=tot;for(const k in ov)ov[k]/=tot;
- return{p1,pn,p2,btts,csA,csB,ov,best};}
+ for(const k in mg)mg[k]/=tot;
+ return{p1,pn,p2,btts,csA,csB,ov,best,mg};}
 function quantMC(xa,xb,n){
  n=n||10000;let w1=0,wn=0,w2=0,o25=0,bt=0;const sc={};
  for(let i=0;i<n;i++){
@@ -593,7 +648,12 @@ function quantTout(A){
  if(/faible/i.test(m.incertitude||''))fiab+=10;else if(/moyenne/i.test(m.incertitude||''))fiab+=4;
  fiab=Math.max(10,Math.min(100,fiab));
  const conf=Math.round(Math.max(5,Math.min(95,58+gap*0.7-chaos*0.35-div*0.4)));
- return{xg,po,mc,el,ens:{p1:e1,pn:en,p2:e2},div,gap,chaos,fiab,conf,corr};}
+ // Match Entropy : incertitude informationnelle de la distribution 1/N/2 (max = équiprobable)
+ const H=-[e1,en,e2].reduce((s,p)=>s+(p>0?p*Math.log(p):0),0);
+ const entropy=Math.round(100*H/Math.log(3));
+ // Model Agreement : accord entre IA, Poisson et Elo (100 = unanimes)
+ const agree=Math.max(0,Math.min(100,100-div*2.5));
+ return{xg,po,mc,el,ens:{p1:e1,pn:en,p2:e2},div,gap,chaos,fiab,conf,corr,entropy,agree};}
 function mendes(A,Q){
  const t=A.terrain||{},m=A.marche||{};
  const sA=+(t.scores?.A)||60,sB=+(t.scores?.B)||60;
@@ -619,16 +679,38 @@ function mendes(A,Q){
  const rvs=bestEdge===null?null:Math.max(0,Math.min(100,Math.round(Math.max(0,bestEdge)*3.5+(100-Q.chaos)*0.2+iqs*0.2+(100-trap)*0.15+(td-50)*0.3)));
  let cbs=45+(bestEdge===null?-8:bestEdge*3)+(td-50)*0.3+iqs*0.2-Q.chaos*0.3-trap*0.2;
  cbs=Math.max(0,Math.min(100,Math.round(cbs)));
- let dec;
+ /* ---- scores V100 supplémentaires (heuristiques transparentes) ---- */
+ const favP=Math.max(Q.ens.p1,Q.ens.p2);
+ const rr=Math.max(0,Math.min(100,Math.round(50+(bestEdge===null?-10:bestEdge*3.5)-(Q.chaos-50)*0.5-(trap-40)*0.25)));          // Risk/Reward
+ const xgT=Q.xg.a+Q.xg.b;
+ const lateGoal=Math.max(0,Math.min(100,Math.round(xgT/3.4*55+Q.chaos*0.25)));                                                  // but tardif
+ const setPiece=Math.max(0,Math.min(100,Math.round(30+(+(m.probas?.btts)||45)*0.25+(100-pg)*0.15)));                            // danger CPA
+ const favFrag=Math.max(0,Math.min(100,Math.round((GR.includes(fav)?28:10)+Math.max(0,(0.62-favP))*220+(trap-40)*0.4)));        // favori fragile
+ const shock=Math.max(0,Math.min(100,Math.round(Q.entropy*0.5+(100-pg)*0.35+(Q.chaos-40)*0.2)));                                // surprise outsider
+ /* ---- décision mathématique brute ---- */
  const edgeOk=bestEdge!==null&&bestEdge>=3;
- if(Q.chaos>80)dec='NO BET';
- else if(trap>70&&!(bestEdge!==null&&bestEdge>=10&&iqs>=70))dec='NO BET';
- else if(cbs<40)dec='NO BET';
- else if(cbs<55)dec='AVOID';
- else if(cbs>=70&&edgeOk&&Q.chaos<=70&&trap<=65&&iqs>=60)dec='BET';
- else dec='WATCH';
+ let mathDec;
+ if(cbs<40)mathDec='NO BET';else if(cbs<55)mathDec='AVOID';
+ else if(cbs>=70&&edgeOk)mathDec='BET';else mathDec='WATCH';
+ /* ---- RISK GUARD : dernier mot, toujours ---- */
+ const guards=[];
+ if(Q.chaos>80)guards.push('Chaos Index > 80 → NO BET par défaut');
+ else if(Q.chaos>70)guards.push('Chaos Index > 70 → exposition très faible maximum');
+ if(iqs<60)guards.push('Data Confidence < 60 → verdict rétrogradé');
+ if(trap>70)guards.push('Trap Risk > 70 → AVOID/NO BET sauf edge énorme confirmé');
+ if(Q.agree<60)guards.push('Model Agreement < 60 (modèles contradictoires) → NO BET');
+ if(bestEdge!==null&&bestEdge<3)guards.push('Edge < 3 pts → value insuffisante');
+ if(bestEdge===null)guards.push('Aucune cote saisie → BET impossible');
+ if(Q.entropy>75)guards.push('Entropy > 75 → no bet ou exposition minimale');
+ if(favFrag>70&&mathDec==='BET'&&fav===((m.verdict?.reco||'').includes(fav)?fav:fav))guards.push('Favorite Fragility > 70 → éviter la victoire sèche du favori');
+ let dec=mathDec;
+ if(Q.chaos>80||Q.agree<60||Q.entropy>75&&mathDec==='BET')dec='NO BET';
+ if(trap>70&&!(bestEdge!==null&&bestEdge>=10&&iqs>=70)&&dec!=='NO BET')dec=(dec==='BET'||dec==='WATCH')?'NO BET':dec;
+ if(!edgeOk&&dec==='BET')dec='WATCH';
  if(iqs<60){if(dec==='BET')dec='WATCH';else if(dec==='WATCH')dec='NO BET';}
- return{pg,td,me,iqs,trap,nbi,rvs,cbs,bestEdge,dec,fav};}
+ if(Q.chaos>70&&dec==='BET')dec='WATCH';
+ const guardVeto=(mathDec==='BET'&&dec!=='BET');
+ return{pg,td,me,iqs,trap,nbi,rvs,cbs,bestEdge,dec,fav,mathDec,guards,guardVeto,rr,lateGoal,setPiece,favFrag,shock,agree:Q.agree,entropy:Q.entropy};}
 
 /* ============================================================
    5 · DATA HUB — connecteurs modulaires + Data Confidence Score
@@ -703,12 +785,14 @@ function decClass(d){return d==='NO BET'?'NOBET':d;}
 /* ============================================================
    7 · ROUTER
    ============================================================ */
-const VIEWS=['today','matches','center','odds','teams','lab'];
+const VIEWS=['today','matches','center','odds','teams','groups','scorers','lab'];
 function showView(v){
  VIEWS.forEach(x=>{document.getElementById('v-'+x).hidden=(x!==v);});
  document.querySelectorAll('#mainnav button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));
  if(v==='lab')rendreLab();
  if(v==='odds')rendreOddsSel();
+ if(v==='groups')rendreGroups();
+ if(v==='scorers')rendreScorersSel();
  window.scrollTo({top:0,behavior:'smooth'});}
 document.querySelectorAll('#mainnav button').forEach(b=>b.onclick=()=>showView(b.dataset.v));
 
@@ -738,8 +822,8 @@ function rendreToday(){
   return `<div class="mc" ${m?`data-open="${m.id}"`:''}>
    <div class="top"><span style="color:var(--blue)">${esc(brief.heure||'')}</span><span>·</span><span>GR.${esc(brief.groupe||'?')}</span><span style="margin-left:auto">${(brief.badges||[]).join(' ')}</span></div>
    <div class="face">${m?`
-     <div class="eq"><span class="fl">${m.eqA[1]}</span><span class="nm">${m.eqA[0]}</span></div><span class="vs">VS</span>
-     <div class="eq d"><span class="nm">${m.eqB[0]}</span><span class="fl">${m.eqB[1]}</span></div>`
+     <div class="eq">${flagH(m.eqA[0],18)}<span class="nm">${m.eqA[0]}</span></div><span class="vs">VS</span>
+     <div class="eq d"><span class="nm">${m.eqB[0]}</span>${flagH(m.eqB[0],18)}</div>`
     :`<div style="grid-column:1/4;font-weight:600">${esc(brief.affiche)}</div>`}</div>
    <div class="bot">${vPill(A)}<span class="muted" style="font-size:11px">${esc(brief.stade||'')}</span>${m?`<button class="btn mini" style="margin-left:auto">Open →</button>`:''}</div>
   </div>`;}).join('');
@@ -787,8 +871,8 @@ function rendreMatches(){
   return `<div class="mc" data-open="${m.id}">
    <div class="top"><span>GR.${m.groupe}</span><span>·</span><span>${JOURNEES[m.journee]}</span>${A?.resultat?.joue?`<span class="score" style="margin-left:auto">${esc(A.resultat.score)}</span>`:''}</div>
    <div class="face">
-    <div class="eq"><span class="fl">${m.eqA[1]}</span><span class="nm">${m.eqA[0]}</span></div><span class="vs">VS</span>
-    <div class="eq d"><span class="nm">${m.eqB[0]}</span><span class="fl">${m.eqB[1]}</span></div>
+    <div class="eq">${flagH(m.eqA[0],18)}<span class="nm">${m.eqA[0]}</span></div><span class="vs">VS</span>
+    <div class="eq d"><span class="nm">${m.eqB[0]}</span>${flagH(m.eqB[0],18)}</div>
    </div>
    <div class="bot">${vPill(A)}<button class="btn mini sec" style="margin-left:auto">Open →</button></div>
   </div>`;}).join('');
@@ -824,9 +908,9 @@ function rendreCenter(){
  const t=A?.terrain,m=A?.marche;
  let h=`<div class="mchero">
   <div class="face">
-   <div class="eq"><span class="fl">${info.eqA[1]}</span><span class="nm">${esc(info.eqA[0])}</span></div>
+   <div class="eq">${flagH(info.eqA[0],42)}<span class="nm">${esc(info.eqA[0])}</span></div>
    <div class="vs">VS</div>
-   <div class="eq"><span class="fl">${info.eqB[1]}</span><span class="nm">${esc(info.eqB[0])}</span></div>
+   <div class="eq">${flagH(info.eqB[0],42)}<span class="nm">${esc(info.eqB[0])}</span></div>
   </div>
   <div class="meta">${esc(info.ctx)}${t?` · ${esc(t.resume?.date||'')} · ${esc(t.resume?.stade||'')}`:''}${A?.resultat?.joue?` · <span style="color:var(--gold);font-weight:700">SCORE FINAL ${esc(A.resultat.score)}</span>`:''}</div>
  </div>
@@ -873,22 +957,35 @@ function rendreCenter(){
   ${pbar(m.probas||{},info.eqA[0],info.eqB[0])}
   ${mini('OVER 1.5',m.probas?.over15)}${mini('OVER 2.5',m.probas?.over25)}${mini('UNDER 3.5',100-(+m.probas?.over35||33))}${mini('BTTS',m.probas?.btts)}
   ${m.score_probable?`<span class="scorepred">SCORE PROBABLE · ${esc(m.score_probable)}</span>`:''}
-  <p class="note" style="margin-top:8px">Poisson+DC : ${pct(Q.po.p1)}/${pct(Q.po.pn)}/${pct(Q.po.p2)} % · Monte Carlo ${Q.mc.n.toLocaleString('fr-CH')} sims : ${pct(Q.mc.p1)}/${pct(Q.mc.pn)}/${pct(Q.mc.p2)} % · scores fréquents ${Q.mc.top.map(x=>x.s).join(', ')} · xG ${Q.xg.estime?'estimés':''} ${Q.xg.a}–${Q.xg.b}</p>
+  <p class="note" style="margin-top:8px">Poisson+Dixon-Coles : ${pct(Q.po.p1)}/${pct(Q.po.pn)}/${pct(Q.po.p2)} % · Monte Carlo ${Q.mc.n.toLocaleString('fr-CH')} sims : ${pct(Q.mc.p1)}/${pct(Q.mc.pn)}/${pct(Q.mc.p2)} % · scores fréquents ${Q.mc.top.map(x=>x.s).join(', ')} · xG ${Q.xg.estime?'estimés':''} ${Q.xg.a}–${Q.xg.b}</p>
+  <p class="note">Skellam (marges) : ${esc(info.eqA[0])} +1 ${pct(Q.po.mg.a1)} % · +2+ ${pct(Q.po.mg.a2)} % · nul ${pct(Q.po.mg.n)} % · ${esc(info.eqB[0])} +1 ${pct(Q.po.mg.b1)} % · +2+ ${pct(Q.po.mg.b2)} % → lecture handicap asiatique</p>
   ${Q.corr>0?`<div class="warnbox">🎯 Calibration active : favori raboté de ${Q.corr} pts (historique trop optimiste).</div>`:''}</div>`;
- h+=`<div class="blk"><h3>🧠 Mendes Engine V4</h3>
+ h+=`<div class="blk"><h3>🧠 Mendes Quant Engine V100</h3>
   <table class="tt">
    <tr><th>INDICATEUR</th><th>SCORE</th><th>LECTURE</th></tr>
    <tr><td>Power Gap</td><td class="sc">${M.pg}</td><td>${M.pg<=10?'très proches':M.pg<=20?'léger avantage':M.pg<=35?'avantage clair':'domination'}</td></tr>
    <tr><td>Tactical Dominance</td><td class="sc">${M.td}</td><td>${M.td<=40?'aucun net':M.td<=60?'léger':M.td<=75?'intéressant':'mismatch fort'}</td></tr>
-   <tr><td>Market Error</td><td class="sc">${M.me===null?'—':M.me}</td><td>${M.me===null?'entre tes cotes (Odds Lab)':M.me<=30?'marché juste':M.me<=50?'petite anomalie':M.me<=70?'anomalie exploitable':'⚠️ vérifier les données'}</td></tr>
+   <tr><td>Market Error</td><td class="sc">${M.me===null?'—':M.me}</td><td>${M.me===null?'entre tes cotes (Markets)':M.me<=30?'marché juste':M.me<=50?'petite anomalie':M.me<=70?'anomalie exploitable':'⚠️ vérifier les données'}</td></tr>
    <tr><td>Chaos Index</td><td class="sc">${Q.chaos}</td><td>${Q.chaos<=30?'lisible':Q.chaos<=50?'normal':Q.chaos<=70?'dangereux':'chaos élevé'}</td></tr>
-   <tr><td>Info Quality</td><td class="sc">${M.iqs}</td><td>${M.iqs>=80?'solides':M.iqs>=65?'correctes':M.iqs>=50?'incomplètes':'fragiles'}</td></tr>
+   <tr><td>Match Entropy</td><td class="sc">${Q.entropy}</td><td>${Q.entropy<=30?'lisible':Q.entropy<=55?'incertitude normale':Q.entropy<=75?'dangereux':'chaos élevé'}</td></tr>
+   <tr><td>Data Confidence</td><td class="sc">${M.iqs}</td><td>${M.iqs>=80?'solides':M.iqs>=65?'correctes':M.iqs>=50?'incomplètes':'fragiles'}</td></tr>
+   <tr><td>Model Agreement</td><td class="sc">${M.agree}</td><td>${M.agree>=80?'modèles alignés':M.agree>=60?'accord correct':'contradictoires → NO BET'}</td></tr>
    <tr><td>Trap Risk</td><td class="sc">${M.trap}</td><td>${M.trap<=30?'faible':M.trap<=50?'attention':M.trap<=70?'piège possible':'gros piège'}</td></tr>
    <tr><td>Real Value</td><td class="sc">${M.rvs===null?'—':M.rvs}</td><td>${M.rvs===null?'cotes requises':M.rvs>=80?'vraie value':M.rvs>=65?'intéressante':M.rvs>=50?'légère':'fausse value probable'}</td></tr>
+   <tr><td>Risk / Reward</td><td class="sc">${M.rr}</td><td>${M.rr>=70?'rapport favorable':M.rr>=50?'équilibré':'risque > récompense'}</td></tr>
+   <tr><td>Late Goal Risk</td><td class="sc">${M.lateGoal}</td><td>${M.lateGoal>=65?'but tardif probable':M.lateGoal>=45?'possible':'match qui peut se figer'}</td></tr>
+   <tr><td>Set Piece Danger</td><td class="sc">${M.setPiece}</td><td>${M.setPiece>=65?'CPA décisifs possibles':'impact CPA modéré'}</td></tr>
+   <tr><td>Favorite Fragility</td><td class="sc">${M.favFrag}</td><td>${M.favFrag>70?'⚠️ favori surcoté — éviter victoire sèche':M.favFrag>50?'favori sous pression':'favori solide'}</td></tr>
+   <tr><td>Underdog Shock</td><td class="sc">${M.shock}</td><td>${M.shock>=65?'surprise crédible':M.shock>=45?'surprise possible':'surprise peu probable'}</td></tr>
    <tr><td>No Bet Intelligence</td><td class="sc">${M.nbi}</td><td>${M.nbi<=30?'peu nécessaire':M.nbi<=50?'prudence':M.nbi<=70?'sérieux':'fortement conseillé'}</td></tr>
    <tr><td><b>🧊 COLD BET SCORE</b></td><td class="sc" style="color:var(--gold)">${M.cbs}</td><td><b>${M.cbs>=85?'très intéressant':M.cbs>=70?'intéressant':M.cbs>=55?'à surveiller':M.cbs>=40?'trop juste':'no bet'}</b></td></tr>
   </table>
   ${M.trap>65?`<div class="warnbox">🪤 Pari potentiellement piégeux — ne pas se fier au nom de l'équipe.</div>`:''}</div>`;
+ h+=`<div class="blk"><h3>🛡️ Risk Guard</h3>
+  ${M.guards.length?`<ul>`+M.guards.map(g=>`<li>${esc(g)}</li>`).join('')+`</ul>`:'<p class="note">Aucun blocage actif — les règles de protection sont respectées.</p>'}
+  ${M.guardVeto?`<div class="guardbox">🛡️ <b>Le modèle voit une opportunité (${M.mathDec}), mais le Risk Guard bloque le pari. Capital protégé.</b></div>`:''}
+  ${(A.bayes||[]).length?`<h3 style="margin-top:12px">📜 Bayesian Adjustment Log</h3>`+(A.bayes||[]).slice(-5).map(x=>`<div class="orow"><span>${dateFR(x.ts)} · ${esc(x.info)}</span><span class="pill b">${esc(x.impact)}</span></div>`).join(''):''}
+ </div>`;
  }
  h+=`</div>`; /* mcgrid */
  /* --- marchés IA --- */
@@ -939,8 +1036,9 @@ function rendreCenter(){
    <div class="kv"><b>Risque principal</b><span>${esc(m.verdict?.risque||'—')}</span></div>
    <div class="kv"><b>Exposition</b><span>${expo}</span></div>
    <div class="kv"><b>Ré-analyser</b><span>~75 min avant le coup d'envoi (⏱️ lineups)</span></div>
-   <p class="note" style="margin-top:8px"><b>Décision froide : ${M.dec}.</b> Raison principale : ${esc(m.synthese||'—')} Risque principal : ${esc(m.verdict?.risque||'—')}. Capital protégé : oui.</p>
+   <p class="note" style="margin-top:8px"><b>Décision froide : ${M.dec}.</b> Raison principale : ${esc(m.synthese||'—')} Risque principal : ${esc(m.verdict?.risque||'—')}. Confiance : ${esc(m.verdict?.confiance||'—')}. Capital protégé : oui.</p>
    ${M.nbi>50?`<p class="note">⚪ « Ne pas parier est aussi une décision stratégique. »</p>`:''}
+   <p class="note" style="margin-top:6px;font-family:var(--mono);font-size:10px;letter-spacing:.04em">LE MODÈLE NE CHERCHE PAS À DEVINER LE FUTUR. IL CHERCHE À IDENTIFIER SI LE RISQUE VAUT RÉELLEMENT LA RÉCOMPENSE.</p>
   </div>
   <div class="coldbar"><span>🧊</span><b style="color:${M.dec==='BET'?'var(--green)':M.dec==='WATCH'?'var(--gold)':M.dec==='AVOID'?'var(--red)':'var(--grey)'}">${M.dec}</b><span class="muted">CBS ${M.cbs} · Chaos ${Q.chaos} · Trap ${M.trap}</span><span style="margin-left:auto" class="muted">${pref?esc(pref.marche):''}</span></div>`;}
  body.innerHTML=h;brancherCenter(info);}
@@ -960,7 +1058,9 @@ function brancherCenter(info){
   }catch(e){b.disabled=false;b.textContent='⚡ Analyze';st().innerHTML=`<span class="err">${esc(e.message)}</span>`;}};
  const bl=document.getElementById('c-lineups');
  if(bl)bl.onclick=async()=>{const A=DB.analyses[CUR];st().textContent='Recherche des XI officiels…';
-  try{const d=await appelIA(pCompos(info.eqA[0],info.eqB[0],info.titre),900);A.compos={data:d,ts:Date.now()};await sauver();rendreCenter();}
+  try{const d=await appelIA(pCompos(info.eqA[0],info.eqB[0],info.titre),900);A.compos={data:d,ts:Date.now()};
+   A.bayes=A.bayes||[];A.bayes.push({ts:Date.now(),info:'Compos officielles : '+(d.dispo?(d.ajustement?.sens||'publiées').slice(0,70):'non publiées'),impact:d.dispo?('confiance '+(d.ajustement?.confiance||'stable')):'inchangé'});
+   await sauver();rendreCenter();}
   catch(e){st().innerHTML=`<span class="err">${esc(e.message)}</span>`;}};
  const br=document.getElementById('c-result');
  if(br)br.onclick=async()=>{const A=DB.analyses[CUR];st().textContent='Recherche du score final…';
@@ -1003,7 +1103,9 @@ function initOdds(){
    const ev=matchOddsEvent(evs,A.eqA[0],A.eqB[0]);
    if(!ev)throw new Error('Match introuvable chez les bookmakers (pas encore coté ?)');
    const o=moyenneCotes(ev,A.eqA[0],A.eqB[0]);
-   A.cotes={a:o.a,n:o.n,b:o.b};A.oddsTs=Date.now();A.oddsNb=o.nb;await sauver();
+   A.cotes={a:o.a,n:o.n,b:o.b};A.oddsTs=Date.now();A.oddsNb=o.nb;
+   A.bayes=A.bayes||[];A.bayes.push({ts:Date.now(),info:`Cotes importées (${o.nb} books) : 1@${o.a} N@${o.n} 2@${o.b}`,impact:'edge recalculé'});
+   await sauver();
    document.getElementById('ol-c1').value=o.a||'';document.getElementById('ol-cn').value=o.n||'';document.getElementById('ol-c2').value=o.b||'';
    document.getElementById('ol-o25').value=o.o25||'';document.getElementById('ol-u25').value=o.u25||'';
    st.textContent=`✅ Moyenne de ${o.nb} bookmaker(s) importée.`;
@@ -1059,7 +1161,7 @@ function rendreTeams(){
  z.innerHTML=TOUTES.map(e=>{
   const d=DB.equipes[e.nom];
   return `<div class="tc" data-team="${esc(e.nom)}">
-   <div class="fl">${e.flag}</div><div class="nm">${e.nom}</div>
+   <div class="fl">${flagH(e.nom,30)}</div><div class="nm">${e.nom}</div>
    <div class="gp">GR.${e.groupe} · ${e.conf}</div>
    <div class="bd">${d?`<span class="pill vi">${esc((d.niveau||'').toUpperCase())}</span> ${(d.badges||[]).slice(0,1).map(b=>`<span class="pill y">${esc(b)}</span>`).join('')}`:`<span class="pill n">TAP POUR ANALYSER</span>`}</div>
   </div>`;}).join('');
@@ -1226,6 +1328,92 @@ async function rendreCalib(){
  ${corr>0?`<div class="warnbox">🎯 Correction AUTO active : probas du favori réduites de <b>${corr} pts</b> partout.</div>`:`<p class="note" style="margin-top:8px">Aucune correction automatique nécessaire.</p>`}`;}
 
 /* ============================================================
+   13b · GROUP SCENARIO ENGINE
+   ============================================================ */
+function groupPressure(g){
+ const S=DB.standings[g];if(!S||!S.data.classement)return null;
+ const c=S.data.classement;if(!c.length||c.every(r=>!r.j))return 15;
+ const pts=c.map(r=>+r.pts||0);
+ const spread=Math.max(...pts)-Math.min(...pts);
+ const jouees=Math.max(...c.map(r=>+r.j||0));
+ let p=30+(3-jouees)* -5 + jouees*12;                 // tension monte avec les journées
+ p+=Math.max(0,18-spread*4);                           // groupe serré = pression
+ const diffs=c.map(r=>(+r.bp||0)-(+r.bc||0));
+ if(Math.max(...diffs)-Math.min(...diffs)<=3)p+=12;    // différence de buts décisive
+ return Math.max(5,Math.min(100,Math.round(p)));}
+function rendreGroups(){
+ const z=document.getElementById('groups-grid');
+ z.innerHTML=Object.keys(GROUPES).map(g=>{
+  const S=DB.standings[g];
+  const rows=S?S.data.classement:GROUPES[g].map(e=>({nom:e[0],pts:'–',j:'–',bp:'–',bc:'–'}));
+  const gpi=groupPressure(g);
+  const table=`<table class="tt"><tr><th>ÉQUIPE</th><th>J</th><th>+/-</th><th>PTS</th></tr>`+
+   rows.map((r,i)=>{const diff=(typeof r.bp==='number')?(r.bp-r.bc):'–';
+    return `<tr${S&&i<2?' style="background:rgba(34,197,94,.05)"':''}><td>${flagH(r.nom,14)} ${esc(r.nom)}</td><td class="sc">${r.j??'–'}</td><td class="sc">${diff>0?'+'+diff:diff}</td><td class="sc"><b>${r.pts??'–'}</b></td></tr>`;}).join('')+`</table>`;
+  return `<div class="card">
+   <div class="ktop"><span class="au">GROUPE ${g}</span>${gpi!==null?`<span class="pill ${gpi>65?'r':gpi>45?'y':'b'}" style="margin-left:auto">PRESSURE ${gpi}/100</span>`:''}</div>
+   ${table}
+   ${S?`<p class="note" style="margin-top:8px"><b>Résultats :</b> ${esc(S.data.resultats)}<br><b>Scénarios :</b> ${esc(S.data.scenarios)}</p>
+   ${S.data.lecture?`<p class="note" style="margin-top:4px">⭐ ${esc(S.data.lecture.favori)} · 🔥 ${esc(S.data.lecture.outsider)} · 😰 ${esc(S.data.lecture.pression)} · ⚔️ ${esc(S.data.lecture.decisif)}</p>`:''}`
+   :`<p class="note" style="margin-top:8px">Classement non confirmé — actualisation nécessaire.</p>`}
+   <div class="row" style="margin-top:9px"><button class="btn mini sec" data-grp="${g}">🔄 Actualiser</button><span class="statut" id="st-grp-${g}"></span></div>
+  </div>`;}).join('');
+ z.querySelectorAll('[data-grp]').forEach(b=>b.onclick=async()=>{
+  const g=b.dataset.grp,st=document.getElementById('st-grp-'+g);
+  b.disabled=true;st.innerHTML='<span class="spin"></span>web…';
+  try{const d=await appelIA(pClassement(g),900);DB.standings[g]={data:d,ts:Date.now()};await sauver();rendreGroups();}
+  catch(e){b.disabled=false;st.innerHTML=`<span class="err">${esc(e.message)}</span>`;}});}
+
+/* ============================================================
+   13c · GOALSCORER LAB
+   ============================================================ */
+function gvs(j,compos){ // Goalscorer Value Score /100 — heuristique transparente
+ let s=0;
+ s+=/confirmé/.test(j.statut||'')?20:/probable/.test(j.statut||'')&&!/remplaçant/.test(j.statut||'')?14:/incertain/.test(j.statut||'')?6:3;
+ s+=/~9|90/.test(j.minutes||'')?15:/~7|~8/.test(j.minutes||'')?10:5;
+ s+=Math.min(15,Math.round((+j.proba||0)*0.4));
+ s+=j.penalty?10:0;
+ s+=compos?15:0;
+ s+=10; // base contexte (défense adverse intégrée dans proba IA)
+ return Math.max(0,Math.min(100,s));}
+function rendreScorersSel(){
+ const sel=document.getElementById('sc-match');
+ const arr=Object.entries(DB.analyses).filter(([,A])=>A.terrain).sort((a,b)=>(b[1].ts||0)-(a[1].ts||0));
+ const cur=sel.value;
+ sel.innerHTML='<option value="">— Choisis un match analysé —</option>'+arr.map(([id,A])=>`<option value="${id}">${esc(A.titre)}</option>`).join('');
+ if([...sel.options].some(o=>o.value===cur))sel.value=cur;
+ rendreScorersOut();}
+function rendreScorersOut(){
+ const id=document.getElementById('sc-match').value,z=document.getElementById('sc-out');
+ const S=id&&DB.scorers&&DB.scorers[id];
+ if(!S){z.innerHTML='';return;}
+ const d=S.data,compos=!!d.compos_confirmees;
+ z.innerHTML=`<div class="card">
+  <div class="ktop"><span class="au">🎯 BUTEURS — ${esc((DB.analyses[id]||{}).titre||'')}</span><span style="margin-left:auto">${dateFR(S.ts)}</span></div>
+  ${compos?'<span class="pill g">COMPOS CONFIRMÉES</span>':'<div class="warnbox">⚠️ Compositions non confirmées — aucune recommandation buteur forte (WATCH maximum). Ré-analyse après les XI officiels.</div>'}
+  <p class="note" style="margin:8px 0">${esc(d.note||'')}</p>
+  ${(d.buteurs||[]).map(j=>{
+   const v=gvs(j,compos);
+   let verd=v>=70&&compos?'BET':v>=55?'WATCH':v>=40?'AVOID':'NO BET';
+   if(!compos&&verd==='BET')verd='WATCH';
+   const c=verd==='BET'?'g':verd==='WATCH'?'y':verd==='AVOID'?'r':'n';
+   return `<div class="orow"><span>${flagH(j.equipe,14)} <b>${esc(j.nom)}</b> <span class="note">${esc(j.poste)} · ${esc(j.statut)} · ${esc(j.minutes)}${j.penalty?' · 🎯 penaltys':''}</span></span>
+   <span class="em">IA ${j.proba??'–'}% anytime</span>
+   <span><span class="pill b">GVS ${v}</span> <span class="pill ${c}">${verd}</span></span>
+   <span class="note" style="flex:1 0 100%">${esc(j.forme)} — ${esc(j.raison)}</span></div>`;}).join('')}
+  <p class="note" style="margin-top:8px">Cote buteur jamais inventée : compare la proba IA à la cote réelle de ton book (cote min intéressante ≈ 100/proba +10 %).</p>
+ </div>`;}
+function initScorers(){
+ document.getElementById('sc-match').onchange=rendreScorersOut;
+ document.getElementById('sc-go').onclick=async()=>{
+  const id=document.getElementById('sc-match').value,st=document.getElementById('sc-st');
+  if(!id){st.innerHTML='<span class="err">Choisis un match analysé.</span>';return;}
+  const A=DB.analyses[id];st.innerHTML='<span class="spin"></span>Recherche buteurs…';
+  try{const d=await appelIA(pButeurs(A.eqA[0],A.eqB[0],A.titre),1300);
+   DB.scorers=DB.scorers||{};DB.scorers[id]={data:d,ts:Date.now()};await sauver();st.textContent='';rendreScorersOut();}
+  catch(e){st.innerHTML=`<span class="err">${esc(e.message)}</span>`;}};}
+
+/* ============================================================
    14 · SETTINGS + DATA HUB UI
    ============================================================ */
 function initSettings(){
@@ -1287,7 +1475,8 @@ async function testerConnexions(){
 (async function(){
  await charger();await chargerAuto();
  if(DB.autoTs)document.getElementById('robot-ts').textContent='🤖 '+dateFR(new Date(DB.autoTs).getTime());
- rendreToday();rendreFiltres();rendreMatches();initKO();rendreTeams();initOdds();initSettings();rendreGhostSel();
+ rendreToday();rendreFiltres();rendreMatches();initKO();rendreTeams();initOdds();initSettings();rendreGhostSel();initScorers();
+ document.getElementById('demo-banner').style.display=getCfg().key?'none':'block';
  document.getElementById('btn-brief').onclick=actualiserJour;
  document.getElementById('gb-add').onclick=ajouterGhost;
  document.getElementById('btn-checkall').onclick=verifierTous;

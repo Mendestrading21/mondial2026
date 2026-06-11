@@ -1570,6 +1570,13 @@ function initReglages(){
   if(cfg.key) document.getElementById('cfg-key').value=cfg.key;
   if(cfg.model) document.getElementById('cfg-model').value=cfg.model;
   majEtatIA();
+  // enregistrement automatique dès qu'une clé est collée/tapée
+  document.getElementById('cfg-key').addEventListener('input',()=>{
+    const v=document.getElementById('cfg-key').value.trim();
+    const c=getCfg(); c.key=v||undefined; setCfg(c); IA_OK=true; majEtatIA();
+    const st=document.getElementById('cfg-st');
+    st.textContent = v ? '✅ Clé enregistrée automatiquement — clique 🧪 Tester pour vérifier.' : '';
+  });
   document.getElementById('cfg-save').onclick=()=>{
     const c=getCfg(); c.key=document.getElementById('cfg-key').value.trim(); c.model=document.getElementById('cfg-model').value;
     setCfg(c); IA_OK=true; majEtatIA();

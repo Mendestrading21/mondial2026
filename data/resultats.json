@@ -1,75 +1,54 @@
 {
-  "generatedAt": "2026-06-11T17:48:08.760Z",
+  "generatedAt": "2026-06-11T20:25:10.352Z",
   "news": {
     "data": {
       "items": [
         {
-          "niveau": "critique",
-          "cat": "meteo",
-          "titre": "Alerte météo orange sur Mexico",
-          "detail": "Alerte orange émise pour des orages dans la capitale mexicaine, menace sur le match d'ouverture Mexique - Afrique du Sud.",
-          "equipes": [
-            "Mexique",
-            "Afrique du Sud"
-          ],
-          "quand": "11 juin 2026, il y a 1 jour"
-        },
-        {
           "niveau": "important",
           "cat": "resultat",
-          "titre": "Début officiel de la Coupe du monde 2026",
-          "detail": "Match d'ouverture Mexique - Afrique du Sud à 21h au Stade Azteca de Mexico, première édition à 48 équipes.",
+          "titre": "Mexique bat Afrique du Sud 1-0",
+          "detail": "Match d'ouverture de la Coupe du monde 2026 remporté 1-0 par le Mexique. Julian Quiñones marque le premier but de la compétition.",
           "equipes": [
             "Mexique",
             "Afrique du Sud"
           ],
-          "quand": "11 juin 2026 21h00"
-        },
-        {
-          "niveau": "important",
-          "cat": "blessure",
-          "titre": "Forfaits de dernière minute au Maroc",
-          "detail": "Nayef Aguerd et Abde Ezzalzouli forfaits depuis cette nuit, remplacés par Marwane Saadane et Amine Sbai.",
-          "equipes": [
-            "Maroc"
-          ],
-          "quand": "11 juin 2026, dernière nuit"
+          "quand": "22h18 le 11 juin 2026"
         },
         {
           "niveau": "important",
           "cat": "compo",
-          "titre": "Équipe de France arrivée à Boston",
-          "detail": "Les Bleus installés à Boston, entraînement ouvert au public prévu jeudi après-midi avant le premier match contre le Sénégal le 16 juin.",
+          "titre": "Compositions officielles confirmées",
+          "detail": "Mexique en 4-1-4-1 avec Jiménez en pointe et Rangel dans les buts. Afrique du Sud en 3-5-2 avec Foster et Rayners en attaque.",
           "equipes": [
-            "France"
+            "Mexique",
+            "Afrique du Sud"
           ],
-          "quand": "10 juin 2026"
+          "quand": "2h avant le match"
         },
         {
           "niveau": "info",
           "cat": "autre",
-          "titre": "Problème maillot pour Haïti",
-          "detail": "La sélection haïtienne sommée de changer son maillot trois jours avant son entrée en lice face à l'Écosse.",
-          "equipes": [
-            "Haïti"
-          ],
-          "quand": "8 juin 2026"
+          "titre": "Première journée officielle du Mondial 2026",
+          "detail": "Le tournoi débute avec 48 équipes au Mexique, États-Unis et Canada jusqu'au 19 juillet 2026.",
+          "equipes": [],
+          "quand": "11 juin 2026"
         },
         {
           "niveau": "info",
-          "cat": "blessure",
-          "titre": "William Saliba incertain mais devrait tenir",
-          "detail": "Le défenseur d'Arsenal blessé depuis le 1er juin mais devrait être apte pour la compétition.",
+          "cat": "cote",
+          "titre": "Mexique grand favori avant le match",
+          "detail": "Mexique coté à 1,4 (68% de chance de victoire), Afrique du Sud à 9,0. Match joué au stade Azteca de Mexico.",
           "equipes": [
-            "France"
+            "Mexique",
+            "Afrique du Sud"
           ],
-          "quand": "1er juin 2026"
+          "quand": "9 juin 2026"
         }
       ],
-      "resume": "La Coupe du monde 2026 débute ce soir avec Mexique-Afrique du Sud sous menace d'orages à Mexico.",
-      "fraicheur": "11 juin 2026 19h40"
+      "resume": "La Coupe du monde 2026 a débuté avec la victoire 1-0 du Mexique face à l'Afrique du Sud dans le match d'ouverture.",
+      "fraicheur": "11 juin 2026 à 22h19"
     },
-    "ts": 1781199656913
+    "ts": 1781209206270
   },
   "briefing": {
     "data": {
@@ -77,36 +56,36 @@
         {
           "affiche": "Mexique vs Afrique du Sud",
           "heure": "21h00 CET",
-          "stade": "Estadio Azteca, Mexico City",
+          "stade": "Estadio Azteca, Mexico",
           "groupe": "A",
           "badges": [
             "🔥",
-            "🌟"
+            "🏟️"
           ],
-          "note": "Match d'ouverture historique avec cérémonie"
+          "note": "Match d'ouverture historique dans le mythique Azteca qui accueille sa 3e Coupe du monde"
         },
         {
-          "affiche": "Corée du Sud vs Tchéquie",
-          "heure": "04h00 CET (vendredi)",
+          "affiche": "Corée du Sud vs République tchèque",
+          "heure": "02h00 CET (vendredi 12 juin - heure locale mexicaine jeudi 11 juin)",
           "stade": "Estadio Akron, Guadalajara",
           "groupe": "A",
           "badges": [
-            "⚽"
+            "⚡"
           ],
-          "note": "Premier jour du Mondial 2026 en nocturne"
+          "note": "Premier duel officiel entre ces deux nations, enjeu crucial pour la qualification"
         }
       ],
-      "top": "Mexique vs Afrique du Sud - Match d'ouverture avec cérémonie, Shakira et Burna Boy, dans le légendaire Estadio Azteca où le Mexique devient le 1er pays à organiser 3 Coupes du monde",
-      "eviter": "Corée du Sud vs Tchéquie - Match tardif (4h du matin CET) avec bilan équilibré entre les deux équipes (1 victoire chacun), risque de météo pluvieuse à Guadalajara",
+      "top": "Mexique vs Afrique du Sud - Match d'ouverture dans l'enceinte légendaire de l'Azteca, atmosphère électrique garantie avec 87 000 supporters mexicains",
+      "eviter": "Corée du Sud vs République tchèque - Match programmé à 2h du matin heure française, première confrontation imprévisible entre deux équipes sans historique",
       "alertes": [
-        "25% de risque d'orages au coup d'envoi Mexico-Afrique du Sud, montant à 75% à 23h CET",
-        "Guillermo Ochoa titulaire pour son 5e Mondial avec le Mexique",
-        "Andrea Bocelli chantera l'hymne officiel 'DNA' lors de la cérémonie",
-        "Non confirmé — à vérifier : compositions définitives et blessures de dernière minute"
+        "🚨 Incidents à l'extérieur de l'Azteca : manifestants et forces de l'ordre selon l'AFP",
+        "⏰ Attention aux horaires : le 2e match débute techniquement vendredi en heure européenne",
+        "🏆 Premier Mondial à 48 équipes de l'histoire - format inédit avec 12 groupes de 4",
+        "🎭 Cérémonie d'ouverture avec Shakira et Burna Boy avant Mexique-Afrique du Sud"
       ],
-      "fraicheur": "11 juin 2026, 19h40 CET"
+      "fraicheur": "11 juin 2026 - 22h19 CET"
     },
-    "ts": 1781199630141
+    "ts": 1781209186787
   },
   "analyses": {
     "GA-J1-01": {
@@ -124,176 +103,181 @@
       "terrain": {
         "resume": {
           "date": "11 juin 2026, 21h00 (heure suisse)",
-          "stade": "Estadio Azteca (Estadio Banorte), Mexico City",
-          "enjeu": "Match d'ouverture historique - 3e Coupe du Monde organisée par l'Azteca",
-          "lecture": "Le Mexique, co-organisateur, débute à domicile face à l'Afrique du Sud dans un match d'ouverture historique à l'altitude de Mexico City.",
+          "stade": "Estadio Azteca, Mexico City",
+          "enjeu": "Match d'ouverture de la Coupe du Monde 2026, groupe A",
+          "lecture": "Le Mexique, pays hôte et grand favori (68% de chances), doit battre l'outsider sud-africain pour bien débuter son Mondial à domicile.",
           "interet": 4
         },
         "contexte": {
-          "classement": "Groupe A : Mexique, Afrique du Sud, Corée du Sud, République tchèque - Premier match du groupe pour les deux équipes",
-          "conditions": "Altitude 2200m au-dessus du niveau de la mer, air plus raréfié, température douce en soirée de juin avec risque de pluie après-midi",
-          "pression": "Énorme pression sur le Mexique comme pays hôte avec 87 000 supporters attendus, match d'ouverture historique avec arrêt national mexicain"
+          "classement": "Mexique (FIFA #14, 17e participation en CDM) vs Afrique du Sud (FIFA #60, 4e participation)",
+          "conditions": "Pluie orageuse prévue (90% de chances), température 24-26°C, altitude 2244m, forte humidité",
+          "pression": "Pression énorme sur le Mexique en tant que pays hôte, stade mythique de 87 000 places bouillant"
         },
         "forme": {
-          "A": "Mexique invaincu en 8 matchs en 2026 (6V-2N), victoire 5-1 face à la Serbie en préparation, nuls face au Portugal (0-0) et Belgique (1-1)",
-          "B": "Afrique du Sud forme mitigée sur 5 derniers matchs (1V-2N-2D), victoire 1-0 face à Jamaïque, défaites face au Panama (1-2) et Cameroun (1-2)"
+          "A": "Excellente : 6V-4N-0D sur 10 matchs, 16 buts pour/4 contre, victoire impressionnante 5-1 vs Serbie le 5 juin",
+          "B": "Mitigée : 5V-2N-3D sur 10 matchs, 13 buts pour/10 contre, dernière victoire 1-0 vs Jamaïque le 6 juin"
         },
         "absences": {
-          "A": "Gardien Luis Ángel Malagón et milieu Marcel Ruiz absents (blessures graves), Santiago Giménez incertain",
-          "B": "Thapelo Morena et Mohau Nkota absents (blessures), Aubrey Modiba déclaré apte",
+          "A": "Malagon (gardien, blessure tendon d'Achille), Lozano (écarté), Martin (retour de blessure) non convoqués",
+          "B": "Aubrey Modiba incertain (blessure musculaire cuisse), sinon effectif complet",
           "fiable": true
         },
         "tactique": {
-          "styleA": "4-3-3 offensif avec Jiménez en pointe, jeu vertical et pressing haut sous Aguirre",
-          "styleB": "Jeu de possession sous Hugo Broos avec Foster en attaque, ailiers Mofokeng et Appollis",
-          "duel": "Midfield Edson Álvarez vs Teboho Mokoena - contrôle du tempo",
-          "zone": "Couloirs latéraux mexicains face aux ailiers sud-africains rapides",
-          "risque": "Gestion altitude pour l'Afrique du Sud, pression énorme sur défense mexicaine"
+          "styleA": "4-3-3 offensif avec Jiménez en pointe, pressing haut, jeu vertical",
+          "styleB": "5-3-2 défensif compact, jeu de contre-attaque, discipline tactique",
+          "duel": "Milieu de terrain : créativité mexicaine vs solidité sud-africaine",
+          "zone": "Couloirs latéraux où le Mexique peut exploiter ses qualités techniques",
+          "risque": "Pression du match d'ouverture pouvant tétaniser les joueurs mexicains"
         },
         "scores": {
           "A": 75,
           "B": 60,
           "detA": {
-            "forme": 18,
+            "forme": 17,
             "effectif": 16,
             "tactique": 15,
-            "mental": 12,
-            "absences": 6,
-            "conditions": 9,
+            "mental": 10,
+            "absences": 7,
+            "conditions": 6,
             "momentum": 4
           },
           "detB": {
             "forme": 12,
             "effectif": 13,
             "tactique": 13,
-            "mental": 8,
-            "absences": 7,
-            "conditions": 5,
-            "momentum": 2
+            "mental": 12,
+            "absences": 6,
+            "conditions": 4,
+            "momentum": 0
           },
-          "commentaire": "Avantage net au Mexique grâce au statut de co-organisateur, forme excellente et conditions favorables (altitude, public). Incertitude sur la réaction de l'Afrique du Sud à la pression du match d'ouverture."
+          "commentaire": "Le Mexique part largement favori grâce à sa forme exceptionnelle et l'avantage du domicile, mais les conditions météorologiques défavorables et la pression du match d'ouverture peuvent créer des incertitudes"
         },
         "sources": [
           {
-            "nom": "ESPN",
-            "info": "Horaire et stade confirmés",
-            "date": "1 jour"
+            "nom": "Sofascore",
+            "info": "Date, heure, stade, classements",
+            "date": "7 heures"
           },
           {
-            "nom": "Yahoo Sports",
-            "info": "Forme récente et absences",
-            "date": "13 heures"
+            "nom": "Unibet",
+            "info": "Cotes, forme récente, contexte",
+            "date": "11 heures"
           },
           {
-            "nom": "FourFourTwo",
-            "info": "Conditions altitude et tactiques",
-            "date": "12 heures"
+            "nom": "Goal.com",
+            "info": "Compositions, absences, confrontations",
+            "date": "1 heure"
+          },
+          {
+            "nom": "Weather Underground",
+            "info": "Météo Mexico City 11 juin",
+            "date": "Temps réel"
           }
         ]
       },
       "marche": {
         "probas": {
-          "eqA": 65,
-          "nul": 22,
-          "eqB": 13,
-          "over25": 48,
-          "under25": 52,
-          "btts": 45,
-          "over15": 75,
-          "over35": 25
+          "eqA": 48,
+          "nul": 27,
+          "eqB": 25,
+          "over25": 52,
+          "under25": 48,
+          "btts": 44,
+          "over15": 68,
+          "over35": 29
         },
         "score_probable": "2-1",
         "scenarios": {
-          "dominant": "Le Mexique prend rapidement l'avantage à domicile avec le soutien de 87000 spectateurs, Jiménez ou Quiñones ouvre le score en première période, l'Afrique du Sud égalise en fin de match mais le Mexique l'emporte 2-1 grâce à l'altitude et l'expérience",
-          "alternatif": "Match serré avec peu d'occasions, l'Afrique du Sud résiste bien défensivement, match nul 1-1 comme en 2010 avec des buts tardifs dans les deux camps",
-          "pire": "L'Afrique du Sud surprend complètement en première période avec un but rapide de Foster ou Appollis, le Mexique subit la pression énorme du match d'ouverture et n'arrive pas à revenir, défaite 0-1"
+          "dominant": "Le Mexique domine face à son public, créé plusieurs occasions et s'impose 2-1 grâce à ses qualités offensives, malgré une résistance sud-africaine organisée",
+          "alternatif": "L'Afrique du Sud défend compact et arrache un nul 1-1 précieux, profitant des conditions météo défavorables qui perturbent le jeu mexicain",
+          "pire": "La pression du match d'ouverture tétanise le Mexique qui concède une défaite surprise 0-1 face à des Sud-Africains opportunistes"
         },
         "marches": [
           {
             "marche": "Victoire Mexique",
             "verdict": "🟢",
-            "proba": 65,
-            "cote_min": 1.7,
-            "pour": "Avantage du terrain, forme excellente (8 matchs sans défaite), altitude favorable, public acquis",
-            "contre": "Pression énorme du match d'ouverture, Afrique du Sud motivée après 16 ans d'absence"
+            "proba": 48,
+            "cote_min": 2.3,
+            "pour": "Forme excellente (6V-4N-0D), avantage domicile au stade Azteca, effectif supérieur, pression positive du public",
+            "contre": "Conditions météo (pluie orageuse 90%), pression énorme du match d'ouverture, adversaire discipliné tactiquement"
           },
           {
-            "marche": "Plus de 1.5 buts",
-            "verdict": "🟢",
-            "proba": 75,
-            "cote_min": 1.4,
-            "pour": "Attaque mexicaine prolifique, Afrique du Sud a marqué dans 9 de ses 11 derniers matchs",
-            "contre": "Enjeu du premier match peut fermer la partie"
+            "marche": "Plus de 2.5 buts",
+            "verdict": "🟡",
+            "proba": 52,
+            "cote_min": 2.1,
+            "pour": "Attaque mexicaine performante (16 buts sur 10 matchs), style offensif 4-3-3, joueurs techniques sur les côtés",
+            "contre": "Défense sud-africaine 5-3-2 compacte, conditions météo défavorables, enjeu du match pouvant rendre les équipes prudentes"
+          },
+          {
+            "marche": "Mexique -1 handicap",
+            "verdict": "🔴",
+            "proba": 31,
+            "cote_min": 3.5,
+            "pour": "Différence de niveau FIFA (#14 vs #60), forme exceptionnelle mexicaine récente",
+            "contre": "Premier match souvent serré, conditions climatiques difficiles, discipline tactique sud-africaine, expérience limitée face à ce type d'adversaire"
           },
           {
             "marche": "Les deux équipes marquent",
             "verdict": "🟡",
-            "proba": 45,
-            "cote_min": 2.4,
-            "pour": "Afrique du Sud capable de marquer (9/11 derniers matchs), attaque avec Foster et Appollis",
-            "contre": "Mexique solide défensivement (6 clean sheets sur 8 matchs), altitude peut handicaper l'Afrique du Sud"
-          },
-          {
-            "marche": "Jiménez buteur",
-            "verdict": "🟡",
-            "proba": 52,
-            "cote_min": 2.1,
-            "pour": "Attaquant de référence (45 buts en sélection), motivation pour égaler le record de Borgetti",
-            "contre": "35 ans, peut être préservé, concurrence avec Giménez et Quiñones"
+            "proba": 44,
+            "cote_min": 2.5,
+            "pour": "Attaque mexicaine créative, Sud-Africains en contre-attaque, match d'ouverture souvent ouvert",
+            "contre": "Système défensif compact de l'Afrique du Sud (5-3-2), pluie pouvant limiter les occasions, gardien Williams solide"
           }
         ],
         "verdict": {
-          "reco": "Victoire Mexique + Plus de 1.5 buts",
-          "alternative": "Match nul ou victoire Mexique (double chance X1)",
+          "reco": "Victoire Mexique simple",
+          "alternative": "Under 2.5 buts par sécurité",
           "no_bet": false,
-          "risque": "Pression énorme sur le Mexique en tant qu'hôte",
+          "risque": "moyen",
           "confiance": "moyenne",
           "mise": "modérée"
         },
-        "synthese": "Le Mexique part largement favori grâce à son statut d'hôte, sa forme excellente et les conditions favorables, mais la pression du match d'ouverture et la motivation de l'Afrique du Sud peuvent créer la surprise.",
+        "synthese": "Le Mexique part favori logique mais les conditions météo orageuses et la pression du match d'ouverture créent des incertitudes face à une Afrique du Sud disciplinée.",
         "incertitude": "moyenne"
       },
       "devil": {
         "data": {
           "failles": [
-            "Stade incorrect : match au Mexico City Stadium/Estadio Azteca, pas 'Estadio Banorte'",
-            "Heure incorrecte : 3pm EDT/20h BST selon sources, pas 21h heure suisse",
-            "Santiago Giménez déclaré apte - pas d'incertitude confirmée récemment",
-            "Aubrey Modiba confirmé fit et disponible - pas d'incertitude sur sa forme",
-            "Aucune source sur les notes chiffrées de forme/effectif/tactique",
-            "Pas de données vérifiées sur les cotes de paris mentionnées"
+            "Le match est EN COURS (Mexico 1-0 contre Afrique du Sud) - l'analyse évalue un futur match déjà joué",
+            "Météo orageuse confirmée pour le coup d'envoi mais match non suspendu - impact réel limité",
+            "Blessure Malagon confirmée (tendon d'Achille en mars 2026) mais Lozano et Martin 'écartés/non convoqués' - Non confirmé — à vérifier",
+            "Stade incorrect : match à l'Estadio Azteca, pas 'Estadio Azteca' générique",
+            "Probabilités 48%-27%-25% versus cotes live ESPN -900 favori Mexique après le but - écart majeur",
+            "Modiba blessure cuisse 'incertain' - Non confirmé — à vérifier dans sources actuelles"
           ],
-          "trop_optimiste": false,
-          "verdict_tient": true,
-          "note": "L'analyse générale est cohérente mais contient des erreurs factuelles mineures sur le stade, l'horaire et le statut de certains joueurs."
+          "trop_optimiste": true,
+          "verdict_tient": false,
+          "note": "L'analyse porte sur un match déjà en cours (1-0 Mexico), rendant caduques toutes les prédictions pré-match."
         },
-        "ts": 1781199739612
+        "ts": 1781209288631
       },
-      "ts": 1781199739612,
+      "ts": 1781209288631,
       "cotes": null,
       "resultat": {
         "joue": false,
-        "score": "",
-        "vainqueur": "",
-        "resume": "Match pas encore joué"
+        "score": "Non confirmé — à vérifier",
+        "vainqueur": "Non confirmé — à vérifier",
+        "resume": "Match en cours ou résultat final non confirmé - Mexique menait 1-0 à la mi-temps (but Quiñones 9e minute)"
       },
       "compos": {
         "data": {
           "dispo": true,
-          "compoA": "Compositions officielles non confirmées — Plusieurs sources indiquent des XI probables mais aucune confirmation officielle trouvée : Ochoa/Rangel en débat au but, défense Gallardo-Vásquez-Montes-Sánchez, milieu avec Lira-Fidalgo-Gutiérrez, attaque Jiménez-Alvarado-Quiñones",
-          "compoB": "Compositions officielles non confirmées — XI probable Afrique du Sud selon sources : Williams au but, défense avec Modiba-Mudau-Sibisi-Ndamane, milieu Mokoena-Sithole, Foster en pointe avec Zwane-Mofokeng-Appollis",
+          "compoA": "Mexique : Rangel ; Reyes, Montes, Vásquez, Gallardo ; Lira, Gutierrez, Fidalgo ; Alvarado, Jimenez, Quiñones",
+          "compoB": "Afrique du Sud : Williams ; Mudau, Okon, Mbokazi, Modiba ; Sithole, Mokoena ; Moremi, Mbatha, Appollis ; Foster",
           "surprises": [
-            "Ochoa pourrait devenir le premier joueur à disputer 6 Coupes du monde s'il débute, mais Rangel semble favori selon certaines sources",
-            "Santiago Giménez incertain selon une source (blessure non spécifiée)",
-            "Gilberto Mora (17 ans) pourrait débuter, ce qui en ferait le plus jeune joueur de la Coupe du monde 2026"
+            "Guillermo Ochoa et Santiago Giménez débutent sur le banc pour le Mexique",
+            "Raul Rangel commence dans les buts à la place d'Ochoa pour les hôtes",
+            "Aubrey Modiba récupéré à temps de sa blessure aux ischio-jambiers pour l'Afrique du Sud"
           ],
           "ajustement": {
-            "sens": "Mexique invaincus sur 8 matchs dont victoire 5-1 contre Serbie en préparation. Avantage terrain avec 80 000 spectateurs attendus à l'Azteca qui accueillera son 3ème match d'ouverture de Coupe du monde",
-            "confiance": "hausse",
+            "sens": "Le choix d'Aguirre de titulariser Rangel plutôt qu'Ochoa et de laisser Giménez sur le banc pourrait impacter la confiance de l'équipe en ouverture",
+            "confiance": "stable",
             "no_bet": false
           }
         },
-        "ts": 1781200010188
+        "ts": 1781209408574
       },
       "postmatch": null
     },
@@ -655,6 +639,181 @@
       },
       "compos": null,
       "postmatch": null
+    },
+    "GD-J1-01": {
+      "type": "match",
+      "auto": true,
+      "titre": "🇺🇸 États-Unis vs Paraguay 🇵🇾 · Gr.D J1 · 11–17 juin",
+      "eqA": [
+        "États-Unis",
+        "🇺🇸"
+      ],
+      "eqB": [
+        "Paraguay",
+        "🇵🇾"
+      ],
+      "terrain": {
+        "resume": {
+          "date": "13 juin 2026, 03:00 (heure suisse)",
+          "stade": "Stade de Los Angeles (SoFi Stadium), Inglewood",
+          "enjeu": "Match d'ouverture du groupe D - avantage à domicile crucial pour les États-Unis",
+          "lecture": "Favoris américains sous pression face à un Paraguay défensif et imprévisible",
+          "interet": 4
+        },
+        "contexte": {
+          "classement": "Groupe D: États-Unis (FIFA #16, cote 70), Paraguay (FIFA #40, cote 150), avec Turquie et Australie",
+          "conditions": "Non confirmé — à vérifier",
+          "pression": "Énorme pression sur les États-Unis en tant que pays hôte, Paraguay détendu sans expectatives"
+        },
+        "forme": {
+          "A": "États-Unis: 5V-1N-4D sur 10 derniers matchs. Forme récente mitigée avec défaites 2-5 vs Belgique et 0-2 vs Portugal en mars, mais victoire 5-1 vs Uruguay. Dirigés par Pochettino depuis septembre 2024",
+          "B": "Paraguay: 4V-2N-4D sur 10 derniers matchs. Victoire récente 4-0 vs Nicaragua, mais défaite 2-1 vs Maroc. Retour en Coupe du Monde après 16 ans d'absence. Style défensif sous Gustavo Alfaro"
+        },
+        "absences": {
+          "A": "Cardoso, Luna, Carter-Vickers, Agyemang, Tolkin (blessés/non convoqués), Tessmann, Musah (choix)",
+          "B": "Julio Enciso incertain - blessure cuisse/hanche lors du match vs Nicaragua, examens en cours. Jumeaux Romero et Villasanti non retenus",
+          "fiable": true
+        },
+        "tactique": {
+          "styleA": "4-3-3/4-2-3-1 - Pressing haut, possession, culture tactique européenne de Pochettino",
+          "styleB": "4-4-2/4-3-3 - Bloc défensif rigoureux, discipline, jeu de contre-attaque",
+          "duel": "Pulisic vs défense centrale paraguayenne (Gomez/Alderete)",
+          "zone": "Milieu de terrain - bataille physique entre Adams/Berhalter et Cubas/Ojeda",
+          "risque": "Contre-attaques paraguayennes sur les montées américaines"
+        },
+        "scores": {
+          "A": 75,
+          "B": 60,
+          "detA": {
+            "forme": 15,
+            "effectif": 16,
+            "tactique": 15,
+            "mental": 10,
+            "absences": 8,
+            "conditions": 8,
+            "momentum": 3
+          },
+          "detB": {
+            "forme": 12,
+            "effectif": 12,
+            "tactique": 14,
+            "mental": 12,
+            "absences": 6,
+            "conditions": 4,
+            "momentum": 0
+          },
+          "commentaire": "Avantage États-Unis basé sur statut FIFA, domicile et effectif. Paraguay dangereux par son organisation défensive et expérience sud-américaine. Incertitude sur Enciso pèse sur le Paraguay. Match serré probable."
+        },
+        "sources": [
+          {
+            "nom": "Unibet",
+            "info": "Forme récente et confrontations directes",
+            "date": "12 heures"
+          },
+          {
+            "nom": "DAZN",
+            "info": "Calendrier et horaire match",
+            "date": "Avril 2026"
+          },
+          {
+            "nom": "Footmercato",
+            "info": "Blessure Julio Enciso",
+            "date": "5 jours"
+          },
+          {
+            "nom": "TopMercato",
+            "info": "Compositions probables et tactiques",
+            "date": "2 heures"
+          }
+        ]
+      },
+      "marche": {
+        "probas": {
+          "eqA": 45,
+          "nul": 25,
+          "eqB": 30,
+          "over25": 55,
+          "under25": 45,
+          "btts": 48,
+          "over15": 72,
+          "over35": 33
+        },
+        "score_probable": "2-1",
+        "scenarios": {
+          "dominant": "États-Unis 2-1 : Avantage domicile et qualité offensive avec Pulisic/Balogun face à une défense paraguayenne solide mais privée d'Enciso",
+          "alternatif": "Match nul 1-1 : Paraguay résiste grâce à son organisation défensive, États-Unis peinent à concrétiser malgré la possession",
+          "pire": "Paraguay 1-0 : Contre-attaque parfaite d'Almirón/Sanabria sur une montée américaine, défense paraguayenne impeccable"
+        },
+        "marches": [
+          {
+            "marche": "Victoire États-Unis",
+            "verdict": "🟡",
+            "proba": 45,
+            "cote_min": 2.4,
+            "pour": "Avantage domicile confirmé, qualité offensive supérieure, bilan favorable face Paraguay",
+            "contre": "Forme récente mitigée, pression énorme pays hôte, Paraguay organisé défensivement"
+          },
+          {
+            "marche": "Moins 2.5 buts",
+            "verdict": "🟡",
+            "proba": 45,
+            "cote_min": 2.4,
+            "pour": "Style défensif Paraguay, enjeu énorme première journée, États-Unis peuvent jouer prudent",
+            "contre": "Qualité offensive américaine, Paraguay doit marquer pour espérer"
+          },
+          {
+            "marche": "Les deux équipes ne marquent pas",
+            "verdict": "🟢",
+            "proba": 52,
+            "cote_min": 2.1,
+            "pour": "Paraguay limité offensivement sans Enciso, États-Unis solides défensivement à domicile",
+            "contre": "Expérience sud-américaine Paraguay, Almirón/Sanabria peuvent surprendre"
+          },
+          {
+            "marche": "Handicap États-Unis -0.5",
+            "verdict": "🟡",
+            "proba": 45,
+            "cote_min": 2.4,
+            "pour": "Statut FIFA supérieur, effectif plus profond, soutien public massif",
+            "contre": "Premier match toujours imprévisible, Paraguay expérimenté en Coupe du Monde"
+          }
+        ],
+        "verdict": {
+          "reco": "NO BET",
+          "alternative": "Attendre second match pour plus de certitudes",
+          "no_bet": true,
+          "risque": "Premier match Coupe du Monde, incertitude sur forme réelle équipes",
+          "confiance": "faible",
+          "mise": "aucune"
+        },
+        "synthese": "Match d'ouverture serré entre États-Unis favoris à domicile et Paraguay organisé mais privé d'Enciso, enjeu énorme rend le résultat imprévisible.",
+        "incertitude": "élevée"
+      },
+      "devil": {
+        "data": {
+          "failles": [
+            "<cite index=\"7-2,7-12\">Date incohérente : l'analyse dit 13 juin 03h00 suisse, mais les sources confirment le 12 juin 21h00 ET/9pm PT</cite>",
+            "<cite index=\"17-1,17-2\">Statut Enciso erroné : MRI confirme contusion musculaire et absence probable pour le match d'ouverture, pas juste \"incertain\"</cite>",
+            "<cite index=\"2-1,5-3,9-1\">Heure de match variable selon les sources : 18h00 local, 01h00 BST ou 21h00 EST</cite>",
+            "Aucune confirmation des absences spécifiques américaines mentionnées (Cardoso, Luna, etc.) — Non confirmé à vérifier",
+            "Probabilités de 45% USA trop optimistes face à une équipe paraguayenne qui vient de tenir tête aux géants sud-américains en qualifications"
+          ],
+          "trop_optimiste": true,
+          "verdict_tient": false,
+          "note": "L'analyse contient des erreurs factuelles majeures sur la date/heure du match et minimise l'impact confirmé de la blessure d'Enciso."
+        },
+        "ts": 1781209393094
+      },
+      "ts": 1781209393094,
+      "cotes": null,
+      "resultat": {
+        "joue": false,
+        "score": "",
+        "vainqueur": "",
+        "resume": "Match pas encore joué"
+      },
+      "compos": null,
+      "postmatch": null
     }
   },
   "standings": {
@@ -690,11 +849,11 @@
             "bc": 0
           }
         ],
-        "resultats": "Aucun match joué",
-        "scenarios": "Les deux premiers du groupe et potentiellement le meilleur troisième se qualifieront pour les seizièmes de finale. Le Mexique part favori en tant que pays hôte, avec la Corée du Sud comme principal concurrent.",
+        "resultats": "Non confirmé — à vérifier",
+        "scenarios": "Les deux premiers du groupe se qualifient directement pour les 32es de finale. Les meilleures équipes classées troisièmes peuvent également se qualifier selon le nouveau format à 48 équipes.",
         "fraicheur": "11 juin 2026"
       },
-      "ts": 1781200049917
+      "ts": 1781209427135
     },
     "B": {
       "data": {
@@ -729,27 +888,51 @@
           }
         ],
         "resultats": "Aucun match joué",
-        "scenarios": "Non confirmé — à vérifier. Les deux premiers du groupe se qualifient automatiquement pour les huitièmes de finale, avec une possible qualification du troisième.",
+        "scenarios": "Non confirmé — à vérifier. Les deux premiers du groupe se qualifient directement pour les huitièmes, les 8 meilleurs troisièmes peuvent aussi se qualifier selon les résultats croisés.",
         "fraicheur": "11 juin 2026"
       },
-      "ts": 1781200070325
+      "ts": 1781209470604
+    },
+    "D": {
+      "data": {
+        "classement": [
+          {
+            "nom": "États-Unis",
+            "pts": 0,
+            "j": 0,
+            "bp": 0,
+            "bc": 0
+          },
+          {
+            "nom": "Paraguay",
+            "pts": 0,
+            "j": 0,
+            "bp": 0,
+            "bc": 0
+          },
+          {
+            "nom": "Australie",
+            "pts": 0,
+            "j": 0,
+            "bp": 0,
+            "bc": 0
+          },
+          {
+            "nom": "Turquie",
+            "pts": 0,
+            "j": 0,
+            "bp": 0,
+            "bc": 0
+          }
+        ],
+        "resultats": "Aucun match joué",
+        "scenarios": "Les États-Unis et la Turquie sont légèrement favoris pour finir dans le top 2 du groupe selon les prédictions. Cependant, le groupe D est considéré comme très équilibré où l'Australie et le Paraguay peuvent également se qualifier.",
+        "fraicheur": "11 juin 2026"
+      },
+      "ts": 1781209447640
     }
   },
   "value": [
-    {
-      "id": "GA-J1-01",
-      "titre": "🇲🇽 Mexique vs Afrique du Sud 🇿🇦 · Gr.A J1 · 11–17 juin",
-      "marche": "Plus de 1.5 buts",
-      "proba": 75,
-      "cote_min": 1.4
-    },
-    {
-      "id": "GA-J1-01",
-      "titre": "🇲🇽 Mexique vs Afrique du Sud 🇿🇦 · Gr.A J1 · 11–17 juin",
-      "marche": "Victoire Mexique",
-      "proba": 65,
-      "cote_min": 1.7
-    },
     {
       "id": "GA-J1-23",
       "titre": "🇰🇷 Corée du Sud vs Tchéquie 🇨🇿 · Gr.A J1 · 11–17 juin",
@@ -763,6 +946,20 @@
       "marche": "Les deux équipes marquent - Non",
       "proba": 55,
       "cote_min": 1.9
+    },
+    {
+      "id": "GD-J1-01",
+      "titre": "🇺🇸 États-Unis vs Paraguay 🇵🇾 · Gr.D J1 · 11–17 juin",
+      "marche": "Les deux équipes ne marquent pas",
+      "proba": 52,
+      "cote_min": 2.1
+    },
+    {
+      "id": "GA-J1-01",
+      "titre": "🇲🇽 Mexique vs Afrique du Sud 🇿🇦 · Gr.A J1 · 11–17 juin",
+      "marche": "Victoire Mexique",
+      "proba": 48,
+      "cote_min": 2.3
     }
   ]
 }

@@ -892,6 +892,38 @@ function initKO(){
    10 · MATCH CENTER
    ============================================================ */
 let CUR=null;
+/* ---- Paris expliqués en langage simple, du plus sûr au plus risqué ---- */
+function htmlParisSimples(info,Q,M,m){
+ const nA=info.eqA[0],nB=info.eqB[0];
+ const favA=Q.ens.p1>=Q.ens.p2, fav=favA?nA:nB, out=favA?nB:nA;
+ const pF=Math.max(Q.ens.p1,Q.ens.p2), pO=Math.min(Q.ens.p1,Q.ens.p2), pN=Q.ens.pn;
+ const opts=[];
+ const add=(nom,expl,p)=>{p=Math.round(p*100);if(p>0&&p<100)opts.push({nom,expl,p});};
+ add(`${fav} gagne OU match nul (double chance)`,`tu perds seulement si ${out} gagne — l'option la plus tranquille`,pF+pN);
+ add(`Moins de 4 buts dans le match (under 3.5)`,`tu gagnes avec 0, 1, 2 ou 3 buts au total`,1-Q.po.ov["3.5"]);
+ add(`Au moins 2 buts dans le match (over 1.5)`,`il suffit de 2 buts au total, peu importe qui marque`,Q.po.ov["1.5"]);
+ add(`${fav} gagne, remboursé si nul (DNB)`,`si match nul, tu récupères ta mise — tu ne perds que si ${out} gagne`,pF/(pF+pO));
+ add(`${fav} gagne le match (victoire simple)`,`en 90 minutes — un nul te fait perdre, c'est le piège classique`,pF);
+ if(Q.po.btts>=0.5)add(`Les deux équipes marquent (BTTS oui)`,`chaque équipe doit marquer au moins 1 but`,Q.po.btts);
+ else add(`Une équipe ne marque pas (BTTS non)`,`au moins une des deux équipes finit à 0`,1-Q.po.btts);
+ add(`Plus de 2 buts dans le match (over 2.5)`,`il faut 3 buts ou plus — match ouvert obligatoire`,Q.po.ov["2.5"]);
+ add(`${fav} gagne par 2 buts d'écart ou plus (-1.5)`,`une victoire 1-0 ne suffit PAS — il faut une victoire large`,favA?Q.po.mg.a2:Q.po.mg.b2);
+ add(`Score exact ${Q.po.best.a}-${Q.po.best.b}`,`le score le plus probable selon le modèle… mais un score exact reste un coup de dés`,Q.po.best.p);
+ opts.sort((a,b)=>b.p-a.p);
+ const tier=p=>p>=70?['g','🟢 TRÈS SÛR*']:p>=55?['y','🟡 ÉQUILIBRÉ']:p>=38?['r','🟠 RISQUÉ']:['n','🔴 TRÈS RISQUÉ'];
+ const intro={
+  'BET':`✅ <b>En clair :</b> la machine voit une vraie opportunité sur ce match. Les options du haut de la liste sont les plus raisonnables — reste sur UNE seule, mise faible.`,
+  'WATCH':`⏳ <b>En clair :</b> pas tout de suite. Attends les compositions officielles (~75 min avant) ou une meilleure cote. En attendant, voici ce que le match offrirait, du plus sûr au plus risqué.`,
+  'AVOID':`⚠️ <b>En clair :</b> ce match est piégeux — la machine recommande de NE PAS le jouer. Si tu veux absolument tenter, reste UNIQUEMENT sur les options 🟢 du haut, avec une mise minimale. Tout ce qui est 🟠/🔴 ici est interdit aujourd'hui.`,
+  'NO BET':`⚪ <b>En clair :</b> aucun avantage clair sur ce match — la meilleure décision est de passer ton tour. La liste ci-dessous est purement informative : aujourd'hui, le bon pari, c'est zéro pari.`};
+ let h=`<h3 style="margin-top:14px">🎰 En langage simple — qu'est-ce que ce match offre ?</h3>
+ <p class="note" style="margin-bottom:8px">${intro[M.dec]}</p>`;
+ h+=opts.map(o=>{const[c,l]=tier(o.p);const cmin=(100/o.p*1.1).toFixed(2);
+  return `<div class="orow"><span><b>${esc(o.nom)}</b></span>
+  <span><span class="pill ${c}">${l}</span> <span class="em">${o.p}%</span> <span class="pill b">COTE MIN ${cmin}</span></span>
+  <span class="note" style="flex:1 0 100%">→ ${esc(o.expl)}. Ne prends ce pari que si ton book offre PLUS que ${cmin}.</span></div>`;}).join('');
+ h+=`<p class="note" style="margin-top:8px">*🟢 « très sûr » = forte probabilité selon le modèle, <b>jamais une garantie</b> — même un 85 % perd 15 fois sur 100. Une seule option par match, jamais de combiné de tout ça.</p>`;
+ return h;}
 function getMatchInfo(id){
  const m=MATCHS.find(x=>x.id===id);
  if(m)return{id,eqA:m.eqA,eqB:m.eqB,ctx:`Groupe ${m.groupe}, ${JOURNEES[m.journee]}`,titre:`${m.eqA[1]} ${m.eqA[0]} vs ${m.eqB[0]} ${m.eqB[1]} · Gr.${m.groupe} ${JOURNEES[m.journee]}`};
@@ -1036,6 +1068,7 @@ function rendreCenter(){
    <div class="kv"><b>Risque principal</b><span>${esc(m.verdict?.risque||'—')}</span></div>
    <div class="kv"><b>Exposition</b><span>${expo}</span></div>
    <div class="kv"><b>Ré-analyser</b><span>~75 min avant le coup d'envoi (⏱️ lineups)</span></div>
+   ${htmlParisSimples(info,Q,M,m)}
    <p class="note" style="margin-top:8px"><b>Décision froide : ${M.dec}.</b> Raison principale : ${esc(m.synthese||'—')} Risque principal : ${esc(m.verdict?.risque||'—')}. Confiance : ${esc(m.verdict?.confiance||'—')}. Capital protégé : oui.</p>
    ${M.nbi>50?`<p class="note">⚪ « Ne pas parier est aussi une décision stratégique. »</p>`:''}
    <p class="note" style="margin-top:6px;font-family:var(--mono);font-size:10px;letter-spacing:.04em">LE MODÈLE NE CHERCHE PAS À DEVINER LE FUTUR. IL CHERCHE À IDENTIFIER SI LE RISQUE VAUT RÉELLEMENT LA RÉCOMPENSE.</p>

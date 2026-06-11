@@ -205,6 +205,7 @@ footer{margin-top:36px;padding-top:14px;border-top:1px solid var(--ligne);font-f
   <button class="tab" data-tab="value">💰 Value Bets</button>
   <button class="tab" data-tab="saved">🧠 Mes analyses <span id="count-saved"></span></button>
   <button class="tab" data-tab="bracket">🏆 Phase finale</button>
+  <button class="tab" data-tab="ghost">👻 Ghost Lab</button>
   <button class="tab" data-tab="compare">⚖️ Comparateur</button>
   <button class="tab" data-tab="libre">⚔️ Analyse libre</button>
   <button class="tab" data-tab="reglages">⚙️ Réglages</button>
@@ -374,6 +375,31 @@ footer{margin-top:36px;padding-top:14px;border-top:1px solid var(--ligne);font-f
   </div>
 </section>
 
+<!-- ========== GHOST LAB ========== -->
+<section id="tab-ghost" hidden>
+  <div class="card">
+    <div class="ktop"><span class="b-or">👻 GHOST BET MODE — PARIS FANTÔMES (ZÉRO ARGENT RÉEL)</span></div>
+    <p class="note">Teste la machine sans miser un centime : enregistre un pari théorique, règle-le après le match, et juge sur pièces. <b>Si le modèle ne gagne pas en ghost mode, il ne mérite pas ton argent réel.</b> Vise 20–30 paris fantômes avant d'envisager quoi que ce soit en réel.</p>
+    <div style="margin:10px 0 8px"><select id="gb-match"><option value="">— Choisis un match analysé —</option></select></div>
+    <div class="cotes" style="grid-template-columns:2fr 1fr 1fr">
+      <div><label>MARCHÉ</label><input type="text" id="gb-marche" placeholder="ex : Victoire Mexique"></div>
+      <div><label>COTE</label><input type="number" step="0.01" min="1.01" id="gb-cote" inputmode="decimal"></div>
+      <div><label>PROBA IA %</label><input type="number" step="1" min="1" max="99" id="gb-proba" inputmode="numeric"></div>
+    </div>
+    <div class="actions"><button class="go" id="gb-add">👻 Enregistrer le pari fantôme</button><span class="statut" id="gb-st"></span></div>
+  </div>
+  <div class="card">
+    <div class="ktop"><span class="b-or">📒 GHOST BET JOURNAL</span></div>
+    <div id="gb-stats"></div>
+    <div id="gb-liste"><div class="saved-empty">AUCUN PARI FANTÔME.<br>ENREGISTRE-EN UN CI-DESSUS POUR TESTER LE MODÈLE.</div></div>
+  </div>
+  <div class="card">
+    <div class="ktop"><span class="b-or">🎯 CALIBRATION DU MODÈLE — LES PROBAS DISENT-ELLES LA VÉRITÉ ?</span></div>
+    <p class="note">Principe : si le modèle annonce souvent 70 %, ces événements doivent se réaliser ~70 % du temps. Alimenté par tes matchs vérifiés (🏁) et tes ghost bets réglés. Si le modèle est trop optimiste, ses probabilités futures sont automatiquement réduites de 3 à 8 points.</p>
+    <div id="calib-zone"></div>
+  </div>
+</section>
+
 <!-- ========== RÉGLAGES ========== -->
 <section id="tab-reglages" hidden>
   <div class="card">
@@ -446,7 +472,7 @@ const TOUTES = Object.entries(GROUPES).flatMap(([g,eqs])=>eqs.map(e=>({nom:e[0],
 const flagDe = n => (TOUTES.find(e=>e.nom===n)||{}).flag||'';
 
 /* ================= ÉTAT & STOCKAGE (storage artifact OU localStorage) ================= */
-let DB = {analyses:{}, briefing:null, standings:{}, equipes:{}, news:null, bracket:null};
+let DB = {analyses:{}, briefing:null, standings:{}, equipes:{}, news:null, bracket:null, ghosts:[], calib:null};
 const SKEY = 'wc26-hub-v3';
 const store = {
   async get(k){
@@ -714,7 +740,7 @@ function htmlAnalyseComplete(A, key){
     <div class="kv" style="margin-top:8px"><b>Scénario №1</b><span>${esc(m.scenarios?.dominant)}</span></div>
     <div class="kv"><b>Alternatif</b><span>${esc(m.scenarios?.alternatif)}</span></div>
     <div class="kv"><b>Pire cas</b><span>${esc(m.scenarios?.pire)}</span></div>`;
-  h += htmlQuant(A);
+  h += htmlQuant(A,key);
   h += `<div class="atitle">💰 7 · Marchés analysés</div>` + (m.marches||[]).map(x=>`
     <div class="marche">
       <div class="mh">${esc(x.marche)} <span class="pill ${vdClass(x.verdict)}">${x.verdict||'⚪'} ${vdLabel(x.verdict)}</span></div>
@@ -889,6 +915,7 @@ function brancherEdges(zone){
     A.cotes={a:a||null,n:n||null,b:c||null};
     await sauver();
     document.getElementById('edge-'+k).innerHTML = htmlEdges(A);
+    const mz=document.getElementById('mendes-'+k); if(mz) mz.innerHTML=htmlMendes(A,quantTout(A));
     rendreValue(); rendreDash();
   });
 }
@@ -1037,7 +1064,9 @@ function rendreSaved(){
     const k=b.dataset.edge, realId=k.replace(/^sv-/,''), A=DB.analyses[realId]; if(!A) return;
     const a=parseFloat(document.getElementById('c1-'+k)?.value), n=parseFloat(document.getElementById('cn-'+k)?.value), c=parseFloat(document.getElementById('c2-'+k)?.value);
     A.cotes={a:a||null,n:n||null,b:c||null}; await sauver();
-    document.getElementById('edge-'+k).innerHTML=htmlEdges(A); rendreValue();
+    document.getElementById('edge-'+k).innerHTML=htmlEdges(A);
+    const mz=document.getElementById('mendes-'+k); if(mz) mz.innerHTML=htmlMendes(A,quantTout(A));
+    rendreValue();
   });
 }
 
@@ -1391,6 +1420,14 @@ function quantTout(A){
   const W=ia?[[ia,.4],[po,.35],[el,.25]]:[[po,.6],[el,.4]];
   let e1=0,en=0,e2=0; for(const [x,w] of W){ e1+=x.p1*w; en+=x.pn*w; e2+=x.p2*w; }
   const s=e1+en+e2; e1/=s; en/=s; e2/=s;
+  // correction de calibration : si l'historique montre un modèle trop optimiste, on rabote le favori
+  let corr=0;
+  if(DB.calib&&DB.calib.corr>0){
+    corr=DB.calib.corr;
+    const c=corr/100;
+    if(e1>=en&&e1>=e2){ e1-=c; const tt=en+e2; en+=c*(en/tt); e2+=c*(e2/tt); }
+    else if(e2>=en&&e2>=e1){ e2-=c; const tt=en+e1; en+=c*(en/tt); e1+=c*(e1/tt); }
+  }
   const div=ia?Math.round((Math.abs(ia.p1-po.p1)+Math.abs(ia.pn-po.pn)+Math.abs(ia.p2-po.p2))*50):25;
   const gap=Math.abs(sA-sB);
   const ko=A.type==='ko'||A.type==='libre';
@@ -1408,10 +1445,10 @@ function quantTout(A){
   if(/faible/i.test(m.incertitude||''))fiab+=10; else if(/moyenne/i.test(m.incertitude||''))fiab+=4;
   fiab=Math.max(10,Math.min(100,fiab));
   const conf=Math.round(Math.max(5,Math.min(95, 58 + gap*0.7 - chaos*0.35 - div*0.4)));
-  return {xg,po,mc,el,ens:{p1:e1,pn:en,p2:e2},div,gap,chaos,fiab,conf};
+  return {xg,po,mc,el,ens:{p1:e1,pn:en,p2:e2},div,gap,chaos,fiab,conf,corr};
 }
 function chaosTag(c){ return c<=30?['vert','LISIBLE']:c<=50?['jaune','NORMAL']:c<=70?['rouge','DANGEREUX']:['rouge','CHAOS ÉLEVÉ']; }
-function htmlQuant(A){
+function htmlQuant(A,key){
   const m=A.marche; if(!m) return '';
   const Q=quantTout(A); A.quant={chaos:Q.chaos,fiab:Q.fiab,conf:Q.conf};
   const nA=A.eqA[0], nB=A.eqB[0], pct=x=>Math.round(x*100);
@@ -1430,20 +1467,108 @@ function htmlQuant(A){
   <div class="kv"><b>Ensemble final</b><span><b>${pct(Q.ens.p1)} % / ${pct(Q.ens.pn)} % / ${pct(Q.ens.p2)} %</b> · divergence IA↔Poisson ${Q.div} pts</span></div>
   ${miniBar('FIABILITÉ',Q.fiab)} ${miniBar('CONFIANCE',Q.conf)}
   <div class="kv"><b>Chaos Index</b><span><span class="pill ${cc}">${Q.chaos}/100 · ${cl}</span> ${Q.chaos>70?'— no bet ou mise très faible':Q.chaos>50?'— match dangereux à parier':''}</span></div>`;
+  if(Q.corr>0) h+=`<div class="warn-box">🎯 Calibration active : probabilités du favori réduites de <b>${Q.corr} pts</b> (l'historique montre un modèle trop optimiste).</div>`;
   if(noBetForce) h+=`<div class="nobet-box">⚪ RÈGLE DE SÉCURITÉ — ${Q.chaos>70?'Chaos Index > 70':'fiabilité du modèle < 50'} : NO BET conseillé, quelle que soit l'envie.</div>`;
-  h+=`<div class="atitle">🧾 Tableau final de décision</div>
+  h+=`<div id="mendes-${key||'x'}">`+htmlMendes(A,Q)+`</div>`;
+  return h;
+}
+
+/* ================= MENDES MATCH ENGINE 2026™ ================= */
+function mendes(A,Q){
+  const t=A.terrain||{}, m=A.marche||{};
+  const sA=+(t.scores?.A)||60, sB=+(t.scores?.B)||60;
+  const detA=t.scores?.detA||{}, detB=t.scores?.detB||{};
+  // 19.1 Power Gap — écart réel
+  const pg=Math.max(0,Math.min(100,Math.round(Math.abs(sA-sB)*2 + Math.abs(Q.ens.p1-Q.ens.p2)*60)));
+  // 19.2 Tactical Dominance — du point de vue de l'équipe dominante
+  const tdRaw=50+((+detA.tactique||10)-(+detB.tactique||10))*2.5+((+detA.forme||10)-(+detB.forme||10))*0.8;
+  const td=Math.max(0,Math.min(100,Math.round(Math.max(tdRaw,100-tdRaw))));
+  // edge (si cotes saisies)
+  let bestEdge=null;
+  if(A.cotes&&m.probas){
+    for(const [pr,c] of [[+m.probas.eqA,A.cotes.a],[+m.probas.nul,A.cotes.n],[+m.probas.eqB,A.cotes.b]])
+      if(c&&c>=1.01){ const e=pr-100/c; if(bestEdge===null||e>bestEdge)bestEdge=e; }
+  }
+  // 19.3 Market Error
+  const me=bestEdge===null?null:Math.max(0,Math.min(100,Math.round(30+bestEdge*5)));
+  // 19.5 Information Quality = fiabilité du modèle
+  const iqs=Q.fiab;
+  // 19.6 Trap Risk
+  const GRANDES=['Brésil','France','Argentine','Angleterre','Espagne','Allemagne','Portugal','Pays-Bas'];
+  const fav=Q.ens.p1>Q.ens.p2?A.eqA[0]:A.eqB[0];
+  const j3=/J3/.test(A.titre||'');
+  const absFlou=!!(t.absences&&(t.absences.fiable===false||/non confirm/i.test((t.absences.A||'')+(t.absences.B||''))));
+  let trap=18;
+  if(GRANDES.includes(fav)&&pg<25)trap+=20;            // biais grande nation sans écart réel
+  if(j3)trap+=15;                                       // 3e journée : calculs, rotations, nuls arrangeants
+  if(absFlou)trap+=12;                                  // absents non confirmés
+  if(Q.div>=15)trap+=10;                                // modèles en désaccord
+  if(bestEdge!==null&&bestEdge>10)trap+=15;             // value « trop belle »
+  if(Math.abs(Q.ens.p1-Q.ens.p2)<0.08)trap+=10;         // match très serré
+  trap=Math.min(100,trap);
+  // 19.9 No Bet Intelligence
+  const nbi=Math.max(0,Math.min(100,Math.round(Q.chaos*0.4+(100-iqs)*0.3+(100-pg)*0.15+(bestEdge===null?12:(bestEdge<3?15:0)))));
+  // 19.8 Real Value Score
+  const rvs=bestEdge===null?null:Math.max(0,Math.min(100,Math.round(Math.max(0,bestEdge)*3.5+(100-Q.chaos)*0.2+iqs*0.2+(100-trap)*0.15+(td-50)*0.3)));
+  // 19.7 Cold Bet Score
+  let cbs=45+(bestEdge===null?-8:bestEdge*3)+(td-50)*0.3+iqs*0.2-Q.chaos*0.3-trap*0.2;
+  cbs=Math.max(0,Math.min(100,Math.round(cbs)));
+  // Décision froide — règles obligatoires §19.7/§19.11
+  let dec;
+  const edgeOk=bestEdge!==null&&bestEdge>=3;
+  if(Q.chaos>80) dec='⚪ NO BET';
+  else if(trap>70&&!(bestEdge!==null&&bestEdge>=10&&iqs>=70)) dec='⚪ NO BET';
+  else if(cbs<40) dec='⚪ NO BET';
+  else if(cbs<55) dec='🔴 AVOID';
+  else if(cbs>=70&&edgeOk&&Q.chaos<=70&&trap<=65&&iqs>=60) dec='🟢 BET';
+  else dec='🟡 WATCH';
+  if(iqs<60){ if(dec==='🟢 BET')dec='🟡 WATCH'; else if(dec==='🟡 WATCH')dec='⚪ NO BET'; } // §19.5 : -1 niveau
+  return {pg,td,me,iqs,trap,nbi,rvs,cbs,bestEdge,dec,fav};
+}
+function htmlMendes(A,Q){
+  const M=mendes(A,Q), m=A.marche||{};
+  const marches=m.marches||[];
+  const pref=marches.find(x=>x.verdict==='🟢')||marches.find(x=>x.verdict==='🟡');
+  const evite=marches.find(x=>x.verdict==='🔴')||marches.find(x=>x.verdict==='⚪');
+  const lect={
+    pg:M.pg<=10?'Équipes très proches — risque de nul/surprise':M.pg<=20?'Léger avantage':M.pg<=35?'Avantage clair':'Domination théorique forte',
+    td:M.td<=40?'Aucun avantage clair':M.td<=60?'Léger avantage tactique':M.td<=75?'Avantage tactique intéressant':'Mismatch tactique fort',
+    me:M.me===null?'Entre tes cotes 1/N/2 ci-dessus pour calculer':M.me<=30?'Marché probablement juste':M.me<=50?'Petite anomalie':M.me<=70?'Anomalie exploitable':'Grosse erreur potentielle — vérifie les données !',
+    chaos:Q.chaos<=30?'Match lisible':Q.chaos<=50?'Chaos normal':Q.chaos<=70?'Match dangereux':'Chaos élevé — no bet ou mise minimale',
+    iqs:M.iqs>=80?'Données solides':M.iqs>=65?'Données correctes':M.iqs>=50?'Données incomplètes':'Analyse fragile',
+    trap:M.trap<=30?'Faible risque de piège':M.trap<=50?'Attention':M.trap<=70?'Pari potentiellement piégeux':'Gros piège possible',
+    rvs:M.rvs===null?'Cotes requises':M.rvs>=80?'Vraie value potentielle':M.rvs>=65?'Value intéressante':M.rvs>=50?'Value légère':'Fausse value probable',
+    nbi:M.nbi<=30?'No bet peu nécessaire':M.nbi<=50?'Prudence':M.nbi<=70?'No bet sérieux à envisager':'No bet fortement conseillé',
+    cbs:M.cbs>=85?'Très intéressant (mais jamais sûr)':M.cbs>=70?'Pari intéressant':M.cbs>=55?'À surveiller':M.cbs>=40?'Trop juste':'No bet'
+  };
+  const row=(nom,v,l)=>`<tr><td>${nom}</td><td>${v===null?'—':'<b>'+v+'</b>/100'}</td><td style="text-align:left">${l}</td></tr>`;
+  const expo=M.dec==='🟢 BET'?(Q.chaos>50?'très faible':'faible à modérée'):'aucune';
+  const conf=M.cbs>=70&&M.iqs>=70?'élevée':M.cbs>=55?'moyenne':'faible';
+  let h=`<div class="atitle">🧠 MENDES MATCH ENGINE 2026™ — tableau de décision</div>
   <table class="classement">
-    <tr><td>Favori du modèle</td><td style="text-align:left"><b>${esc(fav)}</b></td></tr>
-    <tr><td>Probabilités 1 / N / 2</td><td style="text-align:left">${pct(Q.ens.p1)} % / ${pct(Q.ens.pn)} % / ${pct(Q.ens.p2)} %</td></tr>
-    <tr><td>Score probable</td><td style="text-align:left">${Q.po.best.a}-${Q.po.best.b}</td></tr>
-    <tr><td>Over 2.5 / BTTS</td><td style="text-align:left">${pct(Q.po.ov["2.5"])} % / ${pct(Q.po.btts)} %</td></tr>
-    <tr><td>Fiabilité · Chaos · Confiance</td><td style="text-align:left">${Q.fiab} · ${Q.chaos} · ${Q.conf} /100</td></tr>
-    <tr><td>Marché préféré</td><td style="text-align:left">${pref?esc(pref.marche)+' '+pref.verdict:'—'}</td></tr>
-    <tr><td>Marché à éviter</td><td style="text-align:left">${evite?esc(evite.marche)+' '+evite.verdict:'—'}</td></tr>
-    <tr><td>Verdict final</td><td style="text-align:left"><b>${esc(verdictFinal)}</b></td></tr>
-    <tr><td>Exposition conseillée</td><td style="text-align:left">${noBetForce?'aucune':esc(m.verdict?.mise||'—')}</td></tr>
-  </table>
-  <p class="note" style="margin-top:6px"><b>Décision froide : ${noBetForce||iaNoBet?'no bet':'pari possible'}.</b> Raison principale : ${esc(m.synthese||'—')} Risque principal : ${esc(m.verdict?.risque||'—')}. Confiance : ${esc(m.verdict?.confiance||'—')}. Une probabilité — même 70 % — n'est jamais une certitude.</p>`;
+    <tr><th>INDICATEUR</th><th>SCORE</th><th style="text-align:left">LECTURE</th></tr>
+    ${row('Power Gap',M.pg,lect.pg)}
+    ${row('Tactical Dominance',M.td,lect.td)}
+    ${row('Market Error',M.me,lect.me)}
+    ${row('Chaos Index',Q.chaos,lect.chaos)}
+    ${row('Information Quality',M.iqs,lect.iqs)}
+    ${row('Trap Risk',M.trap,lect.trap)}
+    ${row('Real Value Score',M.rvs,lect.rvs)}
+    ${row('No Bet Intelligence',M.nbi,lect.nbi)}
+    ${row('🧊 COLD BET SCORE',M.cbs,'<b>'+lect.cbs+'</b>')}
+  </table>`;
+  if(M.trap>65) h+=`<div class="warn-box">🪤 ⚠️ Pari potentiellement piégeux — ne pas se fier uniquement au nom de l'équipe.</div>`;
+  if(M.me!==null&&M.me>=71) h+=`<div class="warn-box">🔎 Vérification anti-illusion : si le modèle voit une énorme value mais que le marché ne bouge pas, c'est peut-être TOI qui manques une info (blessure, rotation, compo). Re-vérifie avant tout.</div>`;
+  h+=`<div class="atitle">🧊 Décision froide finale</div>
+  <div class="kv"><b>Décision</b><span style="font-size:16px"><b>${M.dec}</b></span></div>
+  <div class="kv"><b>Pari recommandé</b><span>${M.dec==='🟢 BET'?esc(m.verdict?.reco||'—'):'aucun'}</span></div>
+  <div class="kv"><b>Marché préféré</b><span>${pref?esc(pref.marche)+' '+pref.verdict:'—'}</span></div>
+  <div class="kv"><b>Marché interdit</b><span>${evite?esc(evite.marche)+' '+evite.verdict:'—'}</span></div>
+  <div class="kv"><b>Alternative prudente</b><span>${esc(m.verdict?.alternative||'—')}</span></div>
+  <div class="kv"><b>Exposition</b><span>${expo}</span></div>
+  <div class="kv"><b>Ré-analyser</b><span>~75 min avant le coup d'envoi (compos officielles — bouton ⏱️)</span></div>
+  <p class="note" style="margin-top:8px"><b>Décision froide : ${M.dec.replace(/^[^A-Z⚪🟢🟡🔴]+/,'')}.</b> Raison principale : ${esc(m.synthese||lect.cbs)} Risque principal : ${esc(m.verdict?.risque||lect.chaos)}. Confiance : ${conf}. Capital protégé : oui.</p>
+  ${M.nbi>50?`<p class="note">⚪ <b>« Ne pas parier est aussi une décision stratégique. »</b></p>`:''}`;
   return h;
 }
 
@@ -1536,10 +1661,139 @@ async function verifierTousResultats(){
   rendreSaved(); rendreMatchs(); rendreDash();
 }
 
+/* ================= GHOST BET MODE & CALIBRATION ================= */
+function rendreGhostLab(){
+  // remplir le sélecteur de matchs analysés
+  const sel=document.getElementById('gb-match');
+  const arr=Object.entries(DB.analyses).sort((a,b)=>(b[1].ts||0)-(a[1].ts||0));
+  sel.innerHTML='<option value="">— Choisis un match analysé —</option>'+arr.map(([id,A])=>`<option value="${id}">${esc(A.titre)}</option>`).join('');
+  sel.onchange=()=>{
+    const A=DB.analyses[sel.value]; if(!A||!A.marche) return;
+    document.getElementById('gb-marche').value=(A.marche.verdict?.reco||'').slice(0,60);
+    const p=A.marche.probas||{};
+    document.getElementById('gb-proba').value=Math.max(+p.eqA||0,+p.nul||0,+p.eqB||0)||'';
+  };
+  document.getElementById('gb-add').onclick=ajouterGhost;
+  rendreGhostJournal(); rendreCalib();
+}
+async function ajouterGhost(){
+  const st=document.getElementById('gb-st');
+  const mid=document.getElementById('gb-match').value;
+  const marche=document.getElementById('gb-marche').value.trim();
+  const cote=parseFloat(document.getElementById('gb-cote').value);
+  const proba=parseFloat(document.getElementById('gb-proba').value);
+  if(!mid||!marche||!(cote>=1.01)||!(proba>0&&proba<100)){ st.innerHTML='<span class="err">Choisis un match + marché + cote (≥1.01) + proba (1–99).</span>'; return; }
+  const A=DB.analyses[mid];
+  const Q=quantTout(A), M=mendes(A,Q);
+  DB.ghosts=DB.ghosts||[];
+  DB.ghosts.push({id:'gb'+Date.now(), ts:Date.now(), matchId:mid, titre:A.titre, marche, cote, proba,
+    edge:+(proba-100/cote).toFixed(1), ev:+((proba/100)*cote-1).toFixed(3),
+    cbs:M.cbs, chaos:Q.chaos, trap:M.trap, verdict:M.dec, statut:'en cours', gagne:null});
+  await sauver(); st.textContent='👻 Pari fantôme enregistré.'; setTimeout(()=>st.textContent='',2500);
+  document.getElementById('gb-marche').value=''; document.getElementById('gb-cote').value=''; document.getElementById('gb-proba').value='';
+  rendreGhostJournal(); rendreCalib();
+}
+async function reglerGhost(id,gagne){
+  const g=(DB.ghosts||[]).find(x=>x.id===id); if(!g) return;
+  g.statut='réglé'; g.gagne=gagne; await sauver(); rendreGhostJournal(); rendreCalib();
+}
+async function supprGhost(id){
+  DB.ghosts=(DB.ghosts||[]).filter(x=>x.id!==id); await sauver(); rendreGhostJournal(); rendreCalib();
+}
+function rendreGhostJournal(){
+  const zone=document.getElementById('gb-liste'), stats=document.getElementById('gb-stats');
+  const gs=(DB.ghosts||[]).slice().sort((a,b)=>b.ts-a.ts);
+  if(!gs.length){ stats.innerHTML=''; zone.innerHTML=`<div class="saved-empty">AUCUN PARI FANTÔME.<br>ENREGISTRE-EN UN CI-DESSUS POUR TESTER LE MODÈLE.</div>`; return; }
+  const regles=gs.filter(g=>g.statut==='réglé');
+  const wins=regles.filter(g=>g.gagne).length;
+  const net=regles.reduce((s,g)=>s+(g.gagne?g.cote-1:-1),0);
+  const roi=regles.length?Math.round(100*net/regles.length):null;
+  const evMoy=gs.length?Math.round(100*gs.reduce((s,g)=>s+(g.ev||0),0)/gs.length):0;
+  // marchés les + / - performants (réglés uniquement)
+  const parM={};
+  regles.forEach(g=>{ const k=g.marche.toLowerCase().slice(0,30); parM[k]=parM[k]||{n:0,net:0}; parM[k].n++; parM[k].net+=(g.gagne?g.cote-1:-1); });
+  const entries=Object.entries(parM).sort((a,b)=>b[1].net-a[1].net);
+  const best=entries[0], worst=entries[entries.length-1];
+  let biais='';
+  if(regles.length>=5){
+    const probaMoy=regles.reduce((s,g)=>s+g.proba,0)/regles.length;
+    const tauxReel=100*wins/regles.length;
+    biais = probaMoy-tauxReel>=8 ? `⚠️ Biais détecté : le modèle annonce ${Math.round(probaMoy)} % en moyenne mais ne réussit que ${Math.round(tauxReel)} % — trop optimiste.`
+          : tauxReel-probaMoy>=8 ? `Le modèle est plus prudent que la réalité (${Math.round(probaMoy)} % annoncés vs ${Math.round(tauxReel)} % réels).`
+          : `Annoncé ${Math.round(probaMoy)} % vs réel ${Math.round(tauxReel)} % — cohérent pour l'instant.`;
+  }
+  stats.innerHTML=`<div class="statgrid">
+    <div class="stat"><div class="n">${gs.length}</div><div class="l">Paris fantômes</div></div>
+    <div class="stat"><div class="n">${regles.length?Math.round(100*wins/regles.length)+'%':'–'}</div><div class="l">Réussite (${wins}/${regles.length})</div></div>
+    <div class="stat"><div class="n" style="color:${roi===null?'var(--craie)':roi>=0?'var(--vert)':'var(--rouge)'}">${roi===null?'–':(roi>0?'+':'')+roi+'%'}</div><div class="l">ROI théorique (mise 1u)</div></div>
+    <div class="stat"><div class="n" style="color:${evMoy>=0?'var(--vert)':'var(--rouge)'}">${(evMoy>0?'+':'')+evMoy}%</div><div class="l">EV moyen</div></div>
+  </div>
+  ${best?`<p class="note">💪 Marché le + rentable : <b>${esc(best[0])}</b> (${best[1].net>=0?'+':''}${best[1].net.toFixed(2)}u sur ${best[1].n}) · 💀 le - rentable : <b>${esc(worst[0])}</b> (${worst[1].net>=0?'+':''}${worst[1].net.toFixed(2)}u sur ${worst[1].n})</p>`:''}
+  ${biais?`<p class="note">${biais}</p>`:''}
+  ${gs.length<20?`<p class="note">📏 ${gs.length}/20 paris fantômes minimum recommandés avant tout argent réel.</p>`:`<p class="note">✅ Échantillon ≥ 20 — les stats commencent à parler. ROI négatif = le modèle ne mérite pas ton argent réel.</p>`}`;
+  zone.innerHTML=gs.map(g=>`<div class="card" style="padding:11px 13px;margin-bottom:8px">
+    <div class="ktop" style="margin-bottom:6px"><span class="b-or">${esc(g.titre)}</span><span style="margin-left:auto">${dateFR(g.ts)}</span></div>
+    <div style="font-size:13.5px"><b>${esc(g.marche)}</b> · cote ${g.cote.toFixed(2)} · proba IA ${g.proba}% · edge ${g.edge>0?'+':''}${g.edge} pts · EV ${g.ev>=0?'+':''}${Math.round(g.ev*100)}%</div>
+    <div class="note" style="margin-top:3px">Cold Bet ${g.cbs} · Chaos ${g.chaos} · Trap ${g.trap} · décision moteur ${g.verdict}</div>
+    <div class="actions" style="margin-top:8px">
+      ${g.statut==='réglé'
+        ?`<span class="pill ${g.gagne?'vert':'rouge'}">${g.gagne?'✅ GAGNÉ +'+(g.cote-1).toFixed(2)+'u':'❌ PERDU −1u'}</span>`
+        :`<span class="pill jaune">⏳ EN COURS</span><button class="ghost" data-gw="${g.id}">✅ Gagné</button><button class="ghost danger" data-gl="${g.id}">❌ Perdu</button>`}
+      <button class="ghost danger" data-gd="${g.id}" style="margin-left:auto">🗑️</button>
+    </div>
+  </div>`).join('');
+  zone.querySelectorAll('[data-gw]').forEach(b=>b.onclick=()=>reglerGhost(b.dataset.gw,true));
+  zone.querySelectorAll('[data-gl]').forEach(b=>b.onclick=()=>reglerGhost(b.dataset.gl,false));
+  zone.querySelectorAll('[data-gd]').forEach(b=>b.onclick=()=>supprGhost(b.dataset.gd));
+}
+/* ----- Calibration ----- */
+function eventsCalibration(){
+  const ev=[];
+  for(const A of Object.values(DB.analyses)){
+    if(!A.resultat?.joue||!A.marche?.probas) continue;
+    const p=A.marche.probas, arr=[+p.eqA,+p.nul,+p.eqB];
+    const i=arr.indexOf(Math.max(...arr));
+    ev.push({proba:arr[i], ok:['A','nul','B'][i]===A.resultat.vainqueur});
+  }
+  for(const g of (DB.ghosts||[])) if(g.statut==='réglé') ev.push({proba:+g.proba, ok:!!g.gagne});
+  return ev;
+}
+async function rendreCalib(){
+  const zone=document.getElementById('calib-zone'); if(!zone) return;
+  const ev=eventsCalibration();
+  if(ev.length<5){ zone.innerHTML=`<p class="note">📏 ${ev.length}/5 événements minimum (matchs vérifiés 🏁 + ghost bets réglés). Pas encore assez de données pour juger la calibration — c'est honnête de le dire plutôt que d'inventer un score.</p>`; return; }
+  const buckets=[[50,59],[60,69],[70,79],[80,100]];
+  let rows='', errPond=0, nPond=0;
+  for(const [lo,hi] of buckets){
+    const b=ev.filter(e=>e.proba>=lo&&e.proba<=hi);
+    if(!b.length){ rows+=`<tr><td>${lo}–${hi===100?'100':hi} %</td><td>0</td><td>–</td><td style="text-align:left">pas de données</td></tr>`; continue; }
+    const reel=100*b.filter(e=>e.ok).length/b.length;
+    const annonce=b.reduce((s,e)=>s+e.proba,0)/b.length;
+    const ecart=reel-annonce;
+    if(b.length>=3){ errPond+=Math.abs(ecart)*b.length; nPond+=b.length; }
+    rows+=`<tr><td>${lo}–${hi===100?'100':hi} %</td><td>${b.length}</td><td>${Math.round(reel)} %</td><td style="text-align:left">${Math.abs(ecart)<6?'✅ cohérent':ecart<0?`⚠️ trop optimiste (${Math.round(ecart)} pts)`:`prudent (+${Math.round(ecart)} pts)`}</td></tr>`;
+  }
+  const score=nPond?Math.max(0,Math.min(100,Math.round(100-(errPond/nPond)*3))):null;
+  // correction automatique si trop optimiste (≥10 événements)
+  let corr=0;
+  if(ev.length>=10){
+    const bias=(ev.reduce((s,e)=>s+e.proba,0)/ev.length)-(100*ev.filter(e=>e.ok).length/ev.length);
+    if(bias>=3) corr=Math.min(8,Math.round(bias));
+  }
+  const prev=(DB.calib&&DB.calib.corr)||0;
+  DB.calib={corr,n:ev.length,ts:Date.now()};
+  if(corr!==prev) await sauver();
+  zone.innerHTML=`<table class="classement">
+    <tr><th>ZONE ANNONCÉE</th><th>N</th><th>RÉEL</th><th style="text-align:left">VERDICT</th></tr>${rows}</table>
+  ${score!==null?`<div class="kv" style="margin-top:8px"><b>Calibration</b><span><span class="pill ${score>=80?'vert':score>=65?'jaune':'rouge'}">${score}/100 · ${score>=80?'BIEN CALIBRÉ':score>=65?'ACCEPTABLE':score>=50?'À CORRIGER':'NON FIABLE'}</span> sur ${ev.length} événements</span></div>`:'<p class="note">Pas assez d\'événements par zone (≥3 requis) pour un score fiable.</p>'}
+  ${corr>0?`<div class="warn-box">🎯 Correction automatique ACTIVE : le modèle s'est montré trop optimiste — toutes les probabilités du favori sont réduites de <b>${corr} pts</b> dans le moteur quantitatif.</div>`:`<p class="note">Aucune correction automatique nécessaire pour l'instant.</p>`}`;
+}
+
 /* ================= NAVIGATION ================= */
 function switchTab(name){
   document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('on',t.dataset.tab===name));
-  ['dash','news','cal','groupes','equipes','value','saved','bracket','compare','libre','reglages'].forEach(n=>{document.getElementById('tab-'+n).hidden=(n!==name);});
+  ['dash','news','cal','groupes','equipes','value','saved','bracket','ghost','compare','libre','reglages'].forEach(n=>{document.getElementById('tab-'+n).hidden=(n!==name);});
+  if(name==='ghost') rendreGhostLab();
   window.scrollTo({top:0,behavior:'smooth'});
 }
 document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>switchTab(t.dataset.tab));
@@ -1636,7 +1890,7 @@ function phaseInfo(){
   await chargerAuto();
   bannerAuto();
   rendreFiltres(); rendreMatchs(); rendreClassements(); rendreEquipes();
-  rendreValue(); rendreSaved(); rendreDash(); afficheBriefing(); initLibre(); initReglages(); initVeille(); initBracket(); initCompare();
+  rendreValue(); rendreSaved(); rendreDash(); afficheBriefing(); initLibre(); initReglages(); initVeille(); initBracket(); initCompare(); rendreGhostLab();
 })();
 </script>
 </body>

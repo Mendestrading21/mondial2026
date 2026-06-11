@@ -1,0 +1,12 @@
+{
+  "name": "WC 2026 Quant War Room",
+  "short_name": "WC26 Lab",
+  "description": "Analyse froide des matchs de la Coupe du Monde 2026 — probabilités, value, no bet.",
+  "start_url": "./mondial-2026-intelligence-hub.html",
+  "display": "standalone",
+  "background_color": "#030712",
+  "theme_color": "#030712",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

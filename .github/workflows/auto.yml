@@ -2,9 +2,9 @@ name: mondial2026-auto
 
 on:
   schedule:
-    # Toutes les 3 heures (UTC). Modifie ici pour changer la fréquence.
+    # Toutes les 2 heures (UTC) pendant le tournoi. Modifie ici pour changer la fréquence.
     # Ex. toutes les heures : '0 * * * *'  |  toutes les 6h : '0 */6 * * *'
-    - cron: '0 */3 * * *'
+    - cron: '0 */2 * * *'
   workflow_dispatch:        # permet aussi de lancer à la main depuis l'onglet Actions
 
 permissions:

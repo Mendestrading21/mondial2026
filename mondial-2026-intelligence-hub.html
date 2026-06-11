@@ -3,7 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>World Cup 2026 Betting Lab ⚽📊</title>
+<title>WC 2026 Quant War Room ⚽📊</title>
+<meta name="theme-color" content="#030712">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="WC26 Lab">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
@@ -467,6 +474,12 @@ function setCfg(c){CFG_MEM=c;try{localStorage.setItem(CFGKEY,JSON.stringify(c));
    3 · IA — appel + prompts (anti-hallucination strict)
    ============================================================ */
 const ANTI_HALLU=`RÈGLES STRICTES : n'invente JAMAIS un résultat, une blessure, une compo, une cote, une météo, une source ou un classement. Si une donnée n'est pas trouvée/vérifiée via la recherche web, écris exactement "Non confirmé — à vérifier". Sépare faits vérifiés et estimations. Sois neutre, prudent, factuel. Les probabilités sont tes estimations, pas des certitudes.`;
+/* Mémoire des leçons : le modèle relit ses 5 dernières erreurs avant chaque analyse */
+function lecons(){
+ const ls=Object.values(DB.analyses).filter(A=>A.postmatch?.data?.lecon)
+  .sort((a,b)=>(b.postmatch.ts||0)-(a.postmatch.ts||0)).slice(0,5).map(A=>A.postmatch.data.lecon);
+ return ls.length?`\nLEÇONS DE MES ANALYSES PRÉCÉDENTES (corrige activement ces biais) : ${ls.join(' | ')}`:'';
+}
 let IA_OK=true;
 async function appelIA(prompt,maxTokens){
  const cfg=getCfg(); const model=cfg.model||"claude-sonnet-4-20250514";
@@ -489,8 +502,8 @@ async function appelIA(prompt,maxTokens){
  return JSON.parse(clean.slice(s,e+1));
 }
 function pTerrain(a,b,ctx){return `Analyste football professionnel. Coupe du monde 2026 (USA/Canada/Mexique), pendant le tournoi (11 juin–19 juillet 2026). Match : ${a} vs ${b} — ${ctx}.
-${ANTI_HALLU}
-UTILISE la recherche web (3 recherches max) : date/heure/stade exacts, résultats déjà joués DANS ce Mondial + classement du groupe, forme récente, blessés/suspendus, conditions (météo/altitude).
+${ANTI_HALLU}${lecons()}
+UTILISE la recherche web (3 recherches max) : date/heure/stade exacts, résultats déjà joués DANS ce Mondial + classement du groupe, forme récente, blessés/suspendus, confrontations directes, conditions (météo/altitude).
 Réponds UNIQUEMENT en JSON valide, français, dense :
 {"resume":{"date":"date+heure (heure suisse si possible)","stade":"stade, ville","enjeu":"enjeu réel","lecture":"lecture en 1 phrase","interet":3},
 "contexte":{"classement":"situation des 2 équipes (faits)","conditions":"météo/altitude/voyage ou 'Non confirmé — à vérifier'","pression":"contexte mental/public"},
@@ -498,12 +511,13 @@ Réponds UNIQUEMENT en JSON valide, français, dense :
 "qualite":{"A":"gardien/défense/milieu/attaque/banc de ${a} en 1 phrase","B":"idem ${b}"},
 "absences":{"A":"absents de ${a} ou 'Aucune absence majeure trouvée'","B":"idem ${b}","fiable":true},
 "tactique":{"styleA":"système+style ${a}","styleB":"idem ${b}","duel":"duel clé","zone":"zone décisive","risque":"risque tactique"},
+"h2h":"confrontations directes récentes + performance contre des styles similaires (2 phrases factuelles ou 'Non confirmé — à vérifier')",
 "scores":{"A":75,"B":60,"detA":{"forme":15,"effectif":16,"tactique":14,"mental":11,"absences":8,"conditions":8,"momentum":4},"detB":{"forme":12,"effectif":13,"tactique":12,"mental":9,"absences":7,"conditions":7,"momentum":3},"commentaire":"justification + incertitude"},
 "sources":[{"nom":"source","info":"donnée","date":"fraîcheur"}]}
 "interet"=1-5. scores /100, sous-scores forme/20 effectif/20 tactique/20 mental/15 absences/10 conditions/10 momentum/5.`;}
 function pMarche(a,b,t){return `Analyste paris sportifs responsable. Coupe du monde 2026. Match : ${a} vs ${b}.
 Terrain (faits) : ${JSON.stringify({resume:t.resume,contexte:t.contexte,forme:t.forme,absences:t.absences,tactique:t.tactique,scores:t.scores})}
-${ANTI_HALLU} N'invente AUCUNE cote. "cote_min" ≈ 100/proba +10% de marge. Recommande NO BET si incertitude trop forte.
+${ANTI_HALLU}${lecons()} N'invente AUCUNE cote. "cote_min" ≈ 100/proba +10% de marge. Recommande NO BET si incertitude trop forte.
 Réponds UNIQUEMENT en JSON valide, français :
 {"probas":{"eqA":45,"nul":25,"eqB":30,"over25":55,"under25":45,"btts":48,"over15":72,"over35":33,"csA":30,"csB":22,"but1mt":62},
 "xg":{"A":1.6,"B":1.1},
@@ -555,6 +569,12 @@ Réponds UNIQUEMENT en JSON :
 "note":{"tactique":15,"contexte":14,"absences":12,"probas":16,"marche":13,"risque":14,"total":78}}
 critères /20, total = moyenne /100.`;}
 
+function pDevil(a,b,t,m){return `Avocat du diable impitoyable mais factuel. Match : ${a} vs ${b}.
+Voici l'analyse à CASSER : ${JSON.stringify({resume:t.resume,scores:t.scores,absences:t.absences,probas:m?.probas,verdict:m?.verdict,synthese:m?.synthese})}
+${ANTI_HALLU} Ton SEUL travail : trouver ce qui est trop optimiste, fragile ou manquant dans cette analyse. Ne refais pas l'analyse, attaque-la.
+Réponds UNIQUEMENT en JSON, français :
+{"failles":["faille concrète 1 (courte)","faille 2"],"trop_optimiste":false,"verdict_tient":true,"note":"en 1 phrase simple : l'analyse tient-elle la route ?"}
+"trop_optimiste"=true si les probabilités du favori semblent gonflées. "verdict_tient"=false si le verdict devrait être plus prudent.`;}
 function pClassement(g){const noms=GROUPES[g].map(e=>e[0]).join(', ');
 return `Coupe du monde 2026, pendant le tournoi. Groupe ${g} : ${noms}.
 ${ANTI_HALLU} Si aucun match joué, classement à 0 points et indique-le.
@@ -686,7 +706,10 @@ function mendes(A,Q){
  let trap=18;
  if(GR.includes(fav)&&pg<25)trap+=20; if(j3)trap+=15; if(absFlou)trap+=12;
  if(Q.div>=15)trap+=10; if(bestEdge!==null&&bestEdge>10)trap+=15;
- if(Math.abs(Q.ens.p1-Q.ens.p2)<0.08)trap+=10; trap=Math.min(100,trap);
+ if(Math.abs(Q.ens.p1-Q.ens.p2)<0.08)trap+=10;
+ const dv=A.devil&&A.devil.data;
+ if(dv&&dv.trop_optimiste)trap+=10;          // l'avocat du diable juge l'analyse gonflée
+ trap=Math.min(100,trap);
  const nbi=Math.max(0,Math.min(100,Math.round(Q.chaos*0.4+(100-iqs)*0.3+(100-pg)*0.15+(bestEdge===null?12:(bestEdge<3?15:0)))));
  const rvs=bestEdge===null?null:Math.max(0,Math.min(100,Math.round(Math.max(0,bestEdge)*3.5+(100-Q.chaos)*0.2+iqs*0.2+(100-trap)*0.15+(td-50)*0.3)));
  let cbs=45+(bestEdge===null?-8:bestEdge*3)+(td-50)*0.3+iqs*0.2-Q.chaos*0.3-trap*0.2;
@@ -721,6 +744,10 @@ function mendes(A,Q){
  if(!edgeOk&&dec==='BET')dec='WATCH';
  if(iqs<60){if(dec==='BET')dec='WATCH';else if(dec==='WATCH')dec='NO BET';}
  if(Q.chaos>70&&dec==='BET')dec='WATCH';
+ if(dv&&dv.verdict_tient===false){
+  if(dec==='BET')dec='WATCH';else if(dec==='WATCH')dec='AVOID';
+  guards.push('Contre-analyse : le verdict ne tenait pas → rétrogradé d\'un niveau');}
+ if(dv&&dv.trop_optimiste)guards.push('Contre-analyse : probabilités jugées trop optimistes → Trap Risk relevé');
  const guardVeto=(mathDec==='BET'&&dec!=='BET');
  return{pg,td,me,iqs,trap,nbi,rvs,cbs,bestEdge,dec,fav,mathDec,guards,guardVeto,rr,lateGoal,setPiece,favFrag,shock,agree:Q.agree,entropy:Q.entropy};}
 
@@ -970,7 +997,15 @@ function buildOptions(info,Q,m){
  return{o,fav,out,favA,H};}
 function renderSimplePage(info,A,t,m,Q,M){
  const nA=info.eqA[0],nB=info.eqB[0];
- const {o,fav,H}=buildOptions(info,Q,m);
+ const {o,fav,favA,H}=buildOptions(info,Q,m);
+ /* mouvement de cotes (historique des imports Odds API) */
+ const hist=A.oddsHist||[];let move='';
+ if(hist.length>=2){
+  const f=hist[0],l=hist[hist.length-1];
+  const dpc=(x,y)=>x&&y?Math.round((y/x-1)*100):null;
+  const dm=favA?dpc(f.a,l.a):dpc(f.b,l.b);
+  if(dm!==null&&dm<=-7)move=`📉 La cote de ${fav} a baissé de ${Math.abs(dm)} % depuis le premier relevé — le marché charge ce pari (il sait peut-être quelque chose).`;
+  else if(dm!==null&&dm>=7)move=`📈 La cote de ${fav} monte (+${dm} %) — le marché doute du favori.`;}
  const xgT=Q.xg.a+Q.xg.b;
  const typeMatch=xgT>=2.9?'plutôt ouvert (des buts probables)':xgT<=2.15?'plutôt fermé (peu de buts attendus)':'équilibré';
  const risque=Q.chaos<=35?'faible':Q.chaos<=55?'moyen':Q.chaos<=70?'élevé':'très élevé';
@@ -1015,7 +1050,9 @@ function renderSimplePage(info,A,t,m,Q,M){
   ${ligne('Pari à éviter',esc(pire))}
   ${ligne('Exposition conseillée',dec==='BET'?(Q.chaos>50?'très faible':'faible'):'rien')}
   ${ligne('Que faire ?',`<b>${action.toUpperCase()}</b>`)}
-  ${composOK?'':'<p class="note" style="margin-top:6px">⏱️ Compositions pas encore confirmées → re-clique « lineups » ~75 min avant le match, l\'analyse peut changer.</p>'}
+  ${A.devil?.data?`<p class="note" style="margin-top:6px">🔍 <b>Contre-analyse :</b> ${esc(A.devil.data.note||'')} ${A.devil.data.trop_optimiste||A.devil.data.verdict_tient===false?'<span class="pill r">VERDICT DURCI</span>':'<span class="pill g">L\'ANALYSE TIENT</span>'}</p>`:''}
+  ${move?`<p class="note" style="margin-top:6px">${move}</p>`:''}
+  ${composOK?'':'<p class="note" style="margin-top:6px">⏱️ Compositions pas encore confirmées → re-clique « Compos officielles » ~75 min avant le match, l\'analyse peut changer.</p>'}
  </div>`;
  /* --- 5 · Probabilités --- */
  h+=`<details class="tech" open><summary>📊 Probabilités du match</summary><div class="blk" style="border:0">
@@ -1055,6 +1092,7 @@ function renderSimplePage(info,A,t,m,Q,M){
  if(M&&M.favFrag>60)risks.push('Le favori est peut-être surcoté');
  if(/J3/.test(A.titre||''))risks.push('3e journée de groupe : calculs et rotations possibles');
  if(t.tactique?.risque)risks.push(t.tactique.risque);
+ (A.devil?.data?.failles||[]).forEach(f=>risks.push('🔍 Contre-analyse : '+f));
  h+=`<details class="tech"><summary>⚠️ Pourquoi ce pari peut mal tourner</summary><div class="blk" style="border:0">
   <ul>${risks.map(r=>`<li>${esc(r)}</li>`).join('')||'<li>Pas de risque majeur identifié — méfiance quand même.</li>'}</ul>
   ${ligne('Risque global',risque)}
@@ -1065,6 +1103,7 @@ function renderSimplePage(info,A,t,m,Q,M){
   <div class="kv"><b>${flagH(nA,16)} ${esc(nA)}</b><span>Attaque <b>${nv(detA,true)}</b> · Défense <b>${nv(detA,false)}</b><br><span class="note">${esc(t.forme?.A||'')}</span></span></div>
   <div class="kv"><b>${flagH(nB,16)} ${esc(nB)}</b><span>Attaque <b>${nv(detB,true)}</b> · Défense <b>${nv(detB,false)}</b><br><span class="note">${esc(t.forme?.B||'')}</span></span></div>
   ${t.qualite?ligne('Effectifs',esc(t.qualite.A)+'<br>'+esc(t.qualite.B)):''}
+  ${t.h2h?ligne('Face à face',esc(t.h2h)):''}
   ${ligne('Absences',esc(t.absences?.A||'—')+' / '+esc(t.absences?.B||'—'))}
   <p class="note" style="margin-top:6px">${esc(t.scores?.commentaire||'')}</p>
  </div></details>`;
@@ -1281,12 +1320,14 @@ function brancherCenter(info){
  if(b)b.onclick=async()=>{
   b.disabled=true;b.innerHTML='<span class="spin"></span>Analyse…';
   try{
-   st().textContent='1/2 · terrain, forme, absences (recherche web)…';
+   st().textContent='1/3 · terrain, forme, absences (recherche web)…';
    const terrain=await appelIA(pTerrain(info.eqA[0],info.eqB[0],info.ctx));
-   st().textContent='2/2 · probabilités & marchés…';
+   st().textContent='2/3 · probabilités & marchés…';
    let marche=null;try{marche=await appelIA(pMarche(info.eqA[0],info.eqB[0],terrain));}catch(e){}
+   st().textContent='3/3 · contre-analyse (avocat du diable)…';
+   let devil=null;try{devil=await appelIA(pDevil(info.eqA[0],info.eqB[0],terrain,marche),700);}catch(e){}
    const old=DB.analyses[CUR]||{};
-   DB.analyses[CUR]={type:old.type||(CUR.startsWith('KO-')?'ko':'match'),titre:info.titre,ctx:info.ctx,eqA:info.eqA,eqB:info.eqB,terrain,marche,ts:Date.now(),cotes:old.cotes||null,resultat:old.resultat||null,compos:old.compos||null,weather:old.weather||null};
+   DB.analyses[CUR]={type:old.type||(CUR.startsWith('KO-')?'ko':'match'),titre:info.titre,ctx:info.ctx,eqA:info.eqA,eqB:info.eqB,terrain,marche,devil:devil?{data:devil,ts:Date.now()}:null,ts:Date.now(),cotes:old.cotes||null,resultat:old.resultat||null,compos:old.compos||null,weather:old.weather||null,oddsHist:old.oddsHist||null};
    await sauver();rendreCenter();rendreMatches();rendreToday();
   }catch(e){b.disabled=false;b.textContent='⚡ Analyze';st().innerHTML=`<span class="err">${esc(e.message)}</span>`;}};
  const bl=document.getElementById('c-lineups');
@@ -1337,6 +1378,8 @@ function initOdds(){
    if(!ev)throw new Error('Match introuvable chez les bookmakers (pas encore coté ?)');
    const o=moyenneCotes(ev,A.eqA[0],A.eqB[0]);
    A.cotes={a:o.a,n:o.n,b:o.b};A.oddsTs=Date.now();A.oddsNb=o.nb;
+   A.oddsHist=A.oddsHist||[];A.oddsHist.push({ts:Date.now(),a:o.a,n:o.n,b:o.b});
+   if(A.oddsHist.length>20)A.oddsHist=A.oddsHist.slice(-20);
    A.bayes=A.bayes||[];A.bayes.push({ts:Date.now(),info:`Cotes importées (${o.nb} books) : 1@${o.a} N@${o.n} 2@${o.b}`,impact:'edge recalculé'});
    await sauver();
    document.getElementById('ol-c1').value=o.a||'';document.getElementById('ol-cn').value=o.n||'';document.getElementById('ol-c2').value=o.b||'';
@@ -1548,6 +1591,18 @@ async function rendreCalib(){
  const logloss=-ev.reduce((s,e)=>{const p=Math.min(.99,Math.max(.01,e.proba/100));return s+(e.ok?Math.log(p):Math.log(1-p));},0)/ev.length;
  const reg=(DB.ghosts||[]).filter(g=>g.statut==='réglé');
  const roi=reg.length?Math.round(100*reg.reduce((s,g)=>s+(g.gagne?g.cote-1:-1),0)/reg.length):null;
+ // CLV : ta cote prise vs dernière cote relevée avant le match (1X2 uniquement, via l'historique Odds API)
+ const clvs=[];
+ for(const g of reg){
+  const Ax=DB.analyses[g.matchId];const hist=Ax&&Ax.oddsHist;
+  if(!Ax||!hist||!hist.length||!g.cote)continue;
+  const last=hist[hist.length-1];const ml=(g.marche||'').toLowerCase();
+  let close=null;
+  if(ml.includes((Ax.eqA[0]||'').toLowerCase()))close=last.a;
+  else if(ml.includes((Ax.eqB[0]||'').toLowerCase()))close=last.b;
+  else if(/nul/.test(ml))close=last.n;
+  if(close)clvs.push((g.cote/close-1)*100);}
+ const clv=clvs.length?+(clvs.reduce((s,x)=>s+x,0)/clvs.length).toFixed(1):null;
  let corr=0;
  if(ev.length>=10){const bias=(ev.reduce((s,e)=>s+e.proba,0)/ev.length)-(100*ev.filter(e=>e.ok).length/ev.length);
   if(bias>=3)corr=Math.min(8,Math.round(bias));}
@@ -1560,7 +1615,8 @@ async function rendreCalib(){
   <div class="st"><div class="n">${brier.toFixed(3)}</div><div class="l">Brier (≤0.25 = bon)</div></div>
   <div class="st"><div class="n">${logloss.toFixed(3)}</div><div class="l">Log Loss (↓ = mieux)</div></div>
   <div class="st"><div class="n" style="color:${roi===null?'var(--txt)':roi>=0?'var(--green)':'var(--red)'}">${roi===null?'–':(roi>0?'+':'')+roi+'%'}</div><div class="l">ROI théorique</div></div>
-  <div class="st"><div class="n">—</div><div class="l">CLV (closing odds requises)</div></div></div>
+  <div class="st"><div class="n" style="color:${clv===null?'var(--txt)':clv>=0?'var(--green)':'var(--red)'}">${clv===null?'—':(clv>0?'+':'')+clv+'%'}</div><div class="l">CLV moyen (${clvs.length} pari${clvs.length>1?'s':''})</div></div></div>
+ ${clv!==null?`<p class="note" style="margin-top:6px">CLV positif = tu prends tes cotes avant que le marché se referme — le meilleur signe qu'un parieur bat le marché sur la durée.</p>`:''}
  ${corr>0?`<div class="warnbox">🎯 Correction AUTO active : probas du favori réduites de <b>${corr} pts</b> partout.</div>`:`<p class="note" style="margin-top:8px">Aucune correction automatique nécessaire.</p>`}`;}
 
 /* ============================================================
@@ -1713,6 +1769,7 @@ async function testerConnexions(){
  if(DB.autoTs)document.getElementById('robot-ts').textContent='🤖 '+dateFR(new Date(DB.autoTs).getTime());
  rendreToday();rendreFiltres();rendreMatches();initKO();rendreTeams();initOdds();initSettings();rendreGhostSel();initScorers();
  document.getElementById('demo-banner').style.display=getCfg().key?'none':'block';
+ if('serviceWorker' in navigator){try{navigator.serviceWorker.register('sw.js');}catch(e){}}
  document.getElementById('btn-brief').onclick=actualiserJour;
  document.getElementById('gb-add').onclick=ajouterGhost;
  document.getElementById('btn-checkall').onclick=verifierTous;

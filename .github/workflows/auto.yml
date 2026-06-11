@@ -1,0 +1,45 @@
+name: Mondial 2026 — Moteur auto
+
+on:
+  schedule:
+    # Toutes les 3 heures (UTC). Modifie ici pour changer la fréquence.
+    # Ex. toutes les heures : '0 * * * *'  |  toutes les 6h : '0 */6 * * *'
+    - cron: '0 */3 * * *'
+  workflow_dispatch:        # permet aussi de lancer à la main depuis l'onglet Actions
+
+permissions:
+  contents: write           # autorise le robot à committer data/resultats.json
+
+concurrency:
+  group: moteur-auto
+  cancel-in-progress: false
+
+jobs:
+  analyser:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupérer le dépôt
+        uses: actions/checkout@v4
+
+      - name: Installer Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Lancer le moteur d'analyse
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          WC26_MODEL: claude-sonnet-4-20250514
+        run: node auto-engine.mjs
+
+      - name: Committer les résultats
+        run: |
+          git config user.name  "wc26-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add data/resultats.json
+          if git diff --staged --quiet; then
+            echo "Aucun changement à committer."
+          else
+            git commit -m "🤖 MAJ auto analyses Mondial 2026 — $(date -u '+%Y-%m-%d %H:%M UTC')"
+            git push
+          fi

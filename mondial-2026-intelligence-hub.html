@@ -1,0 +1,1634 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Mondial 2026 Intelligence Hub ⚽📊</title>
+<style>
+:root{
+  --nuit:#0A101E; --panneau:rgba(20,31,54,.82); --panneau2:#1C2A47; --ligne:#2A3A5C;
+  --craie:#EAF0F9; --craie2:#92A3C0; --or:#D4AF37; --or2:#B8932A; --elec:#3D8BFF;
+  --vert:#2EA866; --jaune:#E0B43A; --rouge:#E25555; --gris:#7C8BA8;
+  --mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;}
+body{background:var(--nuit);color:var(--craie);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;
+  background-image:radial-gradient(ellipse 90% 45% at 50% -8%,rgba(61,139,255,.10),transparent),radial-gradient(ellipse 60% 40% at 90% 110%,rgba(212,175,55,.06),transparent);}
+.wrap{max-width:1020px;margin:0 auto;padding:0 14px calc(90px + env(safe-area-inset-bottom));}
+
+/* ---------- Header ---------- */
+header{padding:24px 0 14px;border-bottom:2px solid var(--or);}
+.eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;color:var(--or);text-transform:uppercase;}
+h1{font-size:clamp(24px,5.4vw,38px);font-weight:800;letter-spacing:-.02em;line-height:1.06;margin:6px 0 4px;text-transform:uppercase;}
+h1 .fin{color:var(--or);}
+.sub{color:var(--craie2);font-size:12.5px;font-family:var(--mono);}
+.live-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--vert);margin-right:6px;animation:pulse 1.6s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+@media (prefers-reduced-motion:reduce){.live-dot,.spin{animation:none!important}}
+.envwarn{background:rgba(226,85,85,.10);border:1px solid rgba(226,85,85,.4);border-radius:9px;padding:9px 12px;font-size:12px;color:var(--rouge);margin-top:10px;line-height:1.5;display:none;}
+
+/* ---------- Nav ---------- */
+nav{display:flex;gap:6px;margin:14px 0 18px;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch;}
+nav::-webkit-scrollbar{display:none;}
+.tab{flex:0 0 auto;background:var(--panneau);border:1px solid var(--ligne);color:var(--craie2);padding:9px 14px;border-radius:9px;font-size:12.5px;font-weight:700;cursor:pointer;letter-spacing:.02em;white-space:nowrap;}
+.tab.on{background:var(--or);border-color:var(--or);color:#16120A;}
+.tab:focus-visible{outline:2px solid var(--or);outline-offset:2px;}
+
+/* ---------- Cartes & badges ---------- */
+.card{background:var(--panneau);backdrop-filter:blur(8px);border:1px solid var(--ligne);border-radius:14px;padding:15px 16px;margin-bottom:11px;}
+.ktop{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10px;color:var(--craie2);letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px;flex-wrap:wrap;}
+.ktop .b-or{color:var(--or);}
+.pill{display:inline-flex;align-items:center;gap:4px;font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.05em;padding:3px 9px;border-radius:99px;border:1px solid var(--ligne);}
+.pill.vert{color:var(--vert);border-color:rgba(46,168,102,.5);background:rgba(46,168,102,.1);}
+.pill.jaune{color:var(--jaune);border-color:rgba(224,180,58,.5);background:rgba(224,180,58,.08);}
+.pill.rouge{color:var(--rouge);border-color:rgba(226,85,85,.5);background:rgba(226,85,85,.08);}
+.pill.gris{color:var(--gris);}
+.pill.elec{color:var(--elec);border-color:rgba(61,139,255,.5);background:rgba(61,139,255,.08);}
+
+/* ---------- Affiche match ---------- */
+.affiche{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;}
+.eq{display:flex;align-items:center;gap:8px;font-weight:700;font-size:clamp(13.5px,3.5vw,16.5px);}
+.eq .flag{font-size:23px;}
+.eq.d{justify-content:flex-end;text-align:right;}
+.vs{font-family:var(--mono);color:var(--or);font-size:11px;letter-spacing:.15em;}
+.actions{margin-top:12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+button.go{background:var(--or);color:#16120A;border:0;border-radius:9px;padding:9px 15px;font-weight:700;font-size:13px;cursor:pointer;}
+button.go:hover{background:var(--or2);}
+button.go:disabled{opacity:.55;cursor:wait;}
+button.ghost{background:transparent;color:var(--craie2);border:1px solid var(--ligne);border-radius:9px;padding:8px 13px;font-size:12px;cursor:pointer;}
+button.ghost:hover{color:var(--craie);border-color:var(--craie2);}
+button.danger{color:var(--rouge);border-color:rgba(226,85,85,.4);}
+.statut{font-family:var(--mono);font-size:10.5px;color:var(--elec);letter-spacing:.06em;}
+.err{font-family:var(--mono);font-size:11px;color:var(--rouge);line-height:1.5;}
+.spin{display:inline-block;width:12px;height:12px;border:2px solid currentColor;border-top-color:transparent;border-radius:50%;animation:rot .7s linear infinite;vertical-align:-2px;margin-right:6px;}
+@keyframes rot{to{transform:rotate(360deg)}}
+
+/* ---------- Analyse ---------- */
+.analyse{margin-top:14px;border-top:1px dashed var(--ligne);padding-top:13px;animation:fadein .3s;}
+@keyframes fadein{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.atitle{font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--or);text-transform:uppercase;margin:14px 0 6px;}
+.atitle:first-child{margin-top:0;}
+.analyse p,.kv{font-size:13.5px;line-height:1.55;}
+.kv{display:flex;gap:8px;padding:3px 0;}
+.kv b{min-width:96px;color:var(--craie2);font-weight:600;font-size:12.5px;flex:0 0 auto;}
+.analyse ul{list-style:none;}
+.analyse li{font-size:13.5px;line-height:1.5;padding:3px 0 3px 16px;position:relative;}
+.analyse li::before{content:'▸';position:absolute;left:0;color:var(--or);}
+.warn-box{background:rgba(224,180,58,.08);border:1px solid rgba(224,180,58,.4);border-radius:9px;padding:9px 12px;font-size:12.5px;color:var(--jaune);margin-top:8px;line-height:1.5;}
+.nobet-box{background:rgba(226,85,85,.08);border:1px solid rgba(226,85,85,.45);border-radius:9px;padding:10px 13px;font-size:13.5px;font-weight:700;color:var(--rouge);margin-top:8px;}
+
+/* Probabilités */
+.pbar{display:flex;height:25px;border-radius:7px;overflow:hidden;font-family:var(--mono);font-size:10.5px;font-weight:700;}
+.pbar div{display:flex;align-items:center;justify-content:center;min-width:32px;color:#0B1220;}
+.p1{background:var(--or);} .pn{background:#56688A;color:var(--craie)!important;} .p2{background:var(--vert);}
+.plabels{display:flex;justify-content:space-between;font-family:var(--mono);font-size:9.5px;color:var(--craie2);margin-top:4px;letter-spacing:.05em;}
+.minibar{display:flex;align-items:center;gap:8px;margin:5px 0;font-size:12px;}
+.minibar .lab{flex:0 0 92px;color:var(--craie2);font-family:var(--mono);font-size:10px;letter-spacing:.04em;}
+.minibar .tr{flex:1;height:9px;background:var(--panneau2);border-radius:5px;overflow:hidden;}
+.minibar .fl{height:100%;background:var(--elec);border-radius:5px;}
+.minibar .v{flex:0 0 38px;text-align:right;font-family:var(--mono);font-size:11px;}
+.score-pred{display:inline-block;font-family:var(--mono);background:var(--panneau2);border:1px solid var(--or);color:var(--or);border-radius:7px;padding:5px 12px;font-size:13.5px;font-weight:700;margin-top:8px;letter-spacing:.1em;}
+
+/* Score équipe /100 */
+.gauge{margin:6px 0;}
+.gauge .gtop{display:flex;justify-content:space-between;font-size:12.5px;font-weight:700;margin-bottom:3px;}
+.gauge .gtop span:last-child{font-family:var(--mono);color:var(--or);}
+.gauge .tr{height:11px;background:var(--panneau2);border-radius:6px;overflow:hidden;}
+.gauge .fl{height:100%;background:linear-gradient(90deg,var(--elec),var(--or));border-radius:6px;}
+.subscore{display:grid;grid-template-columns:1fr 1fr;gap:2px 14px;margin-top:6px;}
+.subscore .sr{display:flex;justify-content:space-between;font-size:11.5px;font-family:var(--mono);color:var(--craie2);padding:2px 0;}
+.subscore .sr b{color:var(--craie);}
+
+/* Marchés */
+.marche{border:1px solid var(--ligne);border-radius:10px;padding:10px 12px;margin:7px 0;background:rgba(28,42,71,.45);}
+.marche .mh{display:flex;align-items:center;gap:8px;font-weight:700;font-size:13.5px;flex-wrap:wrap;}
+.marche .mh .vd{margin-left:auto;font-size:16px;}
+.marche .md{font-size:12.5px;color:var(--craie2);line-height:1.5;margin-top:4px;}
+.marche .mstats{font-family:var(--mono);font-size:10.5px;color:var(--elec);margin-top:4px;letter-spacing:.04em;}
+
+/* Comparateur cotes */
+.cotes{display:grid;grid-template-columns:repeat(3,1fr) auto;gap:7px;align-items:end;margin-top:8px;}
+.cotes label{font-family:var(--mono);font-size:9.5px;color:var(--craie2);letter-spacing:.08em;display:block;margin-bottom:3px;}
+.cotes input{width:100%;background:var(--panneau2);border:1px solid var(--ligne);color:var(--craie);border-radius:8px;padding:9px;font-size:14px;font-family:var(--mono);}
+.edge-row{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:12.5px;padding:6px 0;border-bottom:1px solid rgba(42,58,92,.5);flex-wrap:wrap;}
+.edge-row .ed{font-family:var(--mono);font-weight:700;}
+
+/* ---------- Filtres / selects ---------- */
+.filtres{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;}
+.chip{font-family:var(--mono);font-size:10.5px;padding:5px 11px;border-radius:99px;border:1px solid var(--ligne);background:transparent;color:var(--craie2);cursor:pointer;letter-spacing:.05em;}
+.chip.on{border-color:var(--or);color:var(--or);}
+select,input[type=number]{background:var(--panneau2);color:var(--craie);border:1px solid var(--ligne);border-radius:9px;padding:10px;font-size:14px;}
+select{width:100%;}
+.selrow{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;margin:12px 0;}
+.note{font-size:12.5px;color:var(--craie2);line-height:1.55;}
+
+/* ---------- Dashboard ---------- */
+.statgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:12px;}
+.stat{background:var(--panneau);border:1px solid var(--ligne);border-radius:12px;padding:13px;}
+.stat .n{font-size:26px;font-weight:800;font-family:var(--mono);}
+.stat .l{font-family:var(--mono);font-size:9.5px;color:var(--craie2);letter-spacing:.12em;text-transform:uppercase;margin-top:2px;}
+.brief-match{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid rgba(42,58,92,.5);font-size:13.5px;flex-wrap:wrap;}
+.brief-match .h{font-family:var(--mono);font-size:11px;color:var(--elec);flex:0 0 auto;}
+.opp-row{display:flex;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid rgba(42,58,92,.5);font-size:13px;flex-wrap:wrap;cursor:pointer;}
+.opp-row:hover{color:var(--craie);}
+.opp-row .om{margin-left:auto;font-family:var(--mono);font-size:11px;}
+
+/* ---------- Groupes / équipes ---------- */
+.grid-groupes{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:11px;}
+.gcard{background:var(--panneau);border:1px solid var(--ligne);border-radius:12px;padding:13px;}
+.gtitle{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;color:var(--or);margin-bottom:9px;text-transform:uppercase;display:flex;justify-content:space-between;align-items:center;}
+.team{display:flex;align-items:center;gap:8px;padding:6px 7px;border-radius:8px;cursor:pointer;font-size:13.5px;font-weight:600;}
+.team:hover{background:var(--panneau2);}
+.team .conf{margin-left:auto;font-family:var(--mono);font-size:9px;color:var(--craie2);letter-spacing:.06em;}
+.team .flag{font-size:18px;}
+.team.done .nom::after{content:' ✓';color:var(--vert);font-size:11px;}
+.classement{width:100%;border-collapse:collapse;font-size:12px;margin-top:6px;}
+.classement th{font-family:var(--mono);font-size:9px;color:var(--craie2);letter-spacing:.08em;text-align:right;padding:3px 4px;font-weight:600;}
+.classement th:first-child{text-align:left;}
+.classement td{padding:4px;text-align:right;font-family:var(--mono);font-size:11.5px;border-top:1px solid rgba(42,58,92,.4);}
+.classement td:first-child{text-align:left;font-family:inherit;font-size:12.5px;font-weight:600;}
+.classement tr.q td{background:rgba(46,168,102,.06);}
+
+.modal-bg{position:fixed;inset:0;background:rgba(5,8,16,.78);backdrop-filter:blur(3px);z-index:50;display:none;align-items:flex-start;justify-content:center;padding:24px 12px;overflow-y:auto;}
+.modal-bg.on{display:flex;}
+.modal{background:var(--nuit);border:1px solid var(--or);border-radius:16px;padding:16px;max-width:680px;width:100%;}
+.modal-x{float:right;cursor:pointer;color:var(--craie2);font-size:22px;line-height:1;}
+
+.saved-empty{color:var(--craie2);font-size:13px;padding:28px 0;text-align:center;font-family:var(--mono);letter-spacing:.04em;line-height:1.7;}
+/* News feed */
+.news-item{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid rgba(42,58,92,.5);}
+.news-item .ico{font-size:18px;flex:0 0 auto;line-height:1.3;}
+.news-item .body{flex:1;min-width:0;}
+.news-item .nt{font-size:13.5px;font-weight:700;line-height:1.4;}
+.news-item .nd{font-size:12.5px;color:var(--craie2);line-height:1.5;margin-top:2px;}
+.news-item .nm{font-family:var(--mono);font-size:9.5px;color:var(--craie2);letter-spacing:.06em;margin-top:4px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+.news-item.crit{background:rgba(226,85,85,.06);border-radius:9px;padding:10px 11px;border-bottom:0;margin-bottom:2px;}
+.news-item.crit .nt{color:var(--rouge);}
+.news-flash{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.1em;padding:2px 7px;border-radius:99px;}
+.fl-crit{background:rgba(226,85,85,.15);color:var(--rouge);}
+.fl-imp{background:rgba(224,180,58,.15);color:var(--jaune);}
+.fl-info{background:rgba(61,139,255,.12);color:var(--elec);}
+/* Queue progress */
+.qrow{display:flex;align-items:center;gap:8px;font-size:12.5px;padding:6px 0;border-bottom:1px solid rgba(42,58,92,.4);}
+.qrow .qi{font-family:var(--mono);font-size:10px;color:var(--craie2);flex:0 0 26px;}
+.qrow .qs{margin-left:auto;font-family:var(--mono);font-size:10.5px;}
+.qbar{height:6px;background:var(--panneau2);border-radius:4px;overflow:hidden;margin:8px 0;}
+.qbar .qf{height:100%;background:linear-gradient(90deg,var(--elec),var(--vert));border-radius:4px;transition:width .3s;}
+#news-badge:not(:empty){background:var(--rouge);color:#fff;border-radius:99px;padding:0 5px;font-size:9px;font-weight:700;margin-left:2px;}
+/* Bracket */
+.tie{background:var(--panneau);border:1px solid var(--ligne);border-radius:11px;padding:11px 12px;margin-bottom:9px;}
+.tie .th{font-family:var(--mono);font-size:9.5px;color:var(--craie2);letter-spacing:.1em;margin-bottom:7px;display:flex;align-items:center;gap:8px;}
+.tie .trow{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;}
+.tie select{font-size:13px;padding:8px}
+.tie .vs{font-family:var(--mono);color:var(--or);font-size:10px}
+.tie .tact{margin-top:8px;display:flex;gap:7px;align-items:center;flex-wrap:wrap}
+footer{margin-top:36px;padding-top:14px;border-top:1px solid var(--ligne);font-family:var(--mono);font-size:10px;color:var(--craie2);letter-spacing:.05em;line-height:1.8;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">FIFA World Cup 26 · USA – Canada – Mexique · 11 juin → 19 juillet</div>
+  <h1>Mondial 2026 <span class="fin">Betting Intelligence Hub</span></h1>
+  <div class="sub"><span class="live-dot"></span><span id="phase-info"></span></div>
+  <div class="sub" style="margin-top:3px;color:var(--or)">ANALYSE FROIDE · VALUE BETTING · NO BET INTELLIGENT · ZÉRO PARI ÉMOTIONNEL</div>
+  <div class="envwarn" id="envwarn">⚠️ Moteur IA indisponible dans ce contexte (fichier ouvert hors de Claude). L'interface, les données et la sauvegarde fonctionnent ; les boutons « Analyser » nécessitent l'environnement Claude (artifact) pour la recherche web.</div>
+</header>
+
+<nav>
+  <button class="tab on" data-tab="dash">🏆 Dashboard</button>
+  <button class="tab" data-tab="news">📰 Veille <span id="news-badge"></span></button>
+  <button class="tab" data-tab="cal">📅 Calendrier</button>
+  <button class="tab" data-tab="groupes">📊 Groupes</button>
+  <button class="tab" data-tab="equipes">🌍 Équipes</button>
+  <button class="tab" data-tab="value">💰 Value Bets</button>
+  <button class="tab" data-tab="saved">🧠 Mes analyses <span id="count-saved"></span></button>
+  <button class="tab" data-tab="bracket">🏆 Phase finale</button>
+  <button class="tab" data-tab="compare">⚖️ Comparateur</button>
+  <button class="tab" data-tab="libre">⚔️ Analyse libre</button>
+  <button class="tab" data-tab="reglages">⚙️ Réglages</button>
+</nav>
+
+<!-- ========== DASHBOARD ========== -->
+<section id="tab-dash">
+  <div class="statgrid" id="dash-stats"></div>
+  <div class="card">
+    <div class="ktop"><span class="b-or">📡 BRIEFING DU JOUR</span><span id="brief-ts" style="margin-left:auto"></span></div>
+    <p class="note">L'IA recherche en direct : matchs du jour (heure suisse), alertes blessures, météo, enjeux, match le plus intéressant et match à éviter.</p>
+    <div class="actions"><button class="go" id="btn-brief">Actualiser le briefing</button><span class="statut" id="st-brief"></span></div>
+    <div id="zone-brief"></div>
+  </div>
+  <div class="card">
+    <div class="ktop"><span class="b-or">💎 DERNIÈRES OPPORTUNITÉS DÉTECTÉES</span></div>
+    <div id="dash-opps"><div class="saved-empty">ANALYSE DES MATCHS POUR ALIMENTER CETTE SECTION</div></div>
+  </div>
+</section>
+
+<!-- ========== VEILLE / NEWS ========== -->
+<section id="tab-news" hidden>
+  <div class="card">
+    <div class="ktop"><span class="b-or">🛰️ VEILLE ACTIVE EN CONTINU</span><span id="veille-state" style="margin-left:auto"></span></div>
+    <p class="note">Tant que cette page reste ouverte, le moteur scrute automatiquement les news du Mondial 2026 (blessures, compos, météo, mouvements de cotes, résultats) à l'intervalle choisi, met à jour le fil ci-dessous et te notifie sur les alertes <b>🔴 critiques</b>.</p>
+    <div class="filtres" style="margin-top:10px;align-items:center">
+      <span class="note" style="flex:0 0 100%;margin-bottom:2px">Fréquence de veille :</span>
+      <button class="chip" data-iv="off">⏹ Manuel</button>
+      <button class="chip" data-iv="15">15 min</button>
+      <button class="chip" data-iv="30">30 min</button>
+      <button class="chip" data-iv="60">1 h</button>
+      <button class="chip" data-iv="180">3 h</button>
+    </div>
+    <div class="actions">
+      <button class="go" id="btn-news">🔄 Scanner maintenant</button>
+      <button class="ghost" id="btn-notif">🔔 Activer notifications</button>
+      <span class="statut" id="st-news"></span>
+    </div>
+    <div id="next-scan" class="note" style="margin-top:6px"></div>
+  </div>
+
+  <div class="card">
+    <div class="ktop"><span class="b-or">🤖 ANALYSE AUTOMATIQUE EN LOT</span></div>
+    <p class="note">Lance l'analyse complète (terrain + marchés) de plusieurs matchs d'affilée, en file d'attente, sans rien cliquer. Idéal pour préparer toute une journée d'un coup.</p>
+    <div class="selrow" style="grid-template-columns:1fr 1fr">
+      <select id="auto-scope">
+        <option value="today">Matchs d'aujourd'hui (selon briefing)</option>
+        <option value="J1">Toute la J1</option>
+        <option value="J2">Toute la J2</option>
+        <option value="J3">Toute la J3</option>
+        <option value="missing">Tous les matchs non encore analysés</option>
+        <option value="all">Les 72 matchs (long)</option>
+      </select>
+      <select id="auto-mode">
+        <option value="skip">Ignorer ceux déjà analysés</option>
+        <option value="force">Tout (ré)analyser</option>
+      </select>
+    </div>
+    <div class="actions">
+      <button class="go" id="btn-auto">▶️ Lancer le lot</button>
+      <button class="ghost danger" id="btn-auto-stop" hidden>⏹ Stopper</button>
+      <span class="statut" id="st-auto"></span>
+    </div>
+    <div id="auto-prog"></div>
+  </div>
+
+  <div class="card">
+    <div class="ktop"><span class="b-or">📰 FIL D'ACTUALITÉ VÉRIFIÉ</span><span id="news-ts" style="margin-left:auto"></span></div>
+    <div id="news-feed"><div class="saved-empty">AUCUN SCAN POUR L'INSTANT.<br>LANCE « SCANNER MAINTENANT » OU ACTIVE LA VEILLE.</div></div>
+  </div>
+</section>
+
+<!-- ========== CALENDRIER ========== -->
+<section id="tab-cal" hidden>
+  <div class="filtres" id="f-groupes"></div>
+  <div class="filtres" id="f-journees"></div>
+  <select id="f-equipe" style="margin-bottom:12px"><option value="*">Toutes les équipes</option></select>
+  <div id="liste-matchs"></div>
+</section>
+
+<!-- ========== GROUPES ========== -->
+<section id="tab-groupes" hidden>
+  <p class="note" style="margin-bottom:12px">Classements actualisables par IA (recherche web). Le bouton récupère les vrais résultats — rien n'est inventé : avant la J1, le classement est vierge. Les 2 premiers de chaque groupe + les 8 meilleurs 3<sup>es</sup> se qualifient.</p>
+  <div id="liste-classements"></div>
+</section>
+
+<!-- ========== ÉQUIPES ========== -->
+<section id="tab-equipes" hidden>
+  <p class="note" style="margin-bottom:12px">Tape sur une équipe → fiche analyste complète : niveau, système, forces/faiblesses, hommes clés, parcours min/objectif/plafond.</p>
+  <div class="grid-groupes" id="grid-groupes"></div>
+</section>
+
+<!-- ========== VALUE BETS ========== -->
+<section id="tab-value" hidden>
+  <div class="warn-box" style="margin-bottom:12px">⚠️ Une value n'est <b>jamais</b> une garantie. Le football reste imprévisible. Ne parie jamais sous émotion, ni au-delà de ce que tu peux perdre. L'option la plus rentable est souvent le <b>no bet</b>.</div>
+  <div class="card">
+    <div class="ktop"><span class="b-or">🧯 BANKROLL RESPONSABLE — LES RÈGLES FROIDES</span></div>
+    <p class="note">L'app ne suggère jamais de montant — seulement un <b>niveau d'exposition</b> : aucune · très faible · faible · modérée · élevée (uniquement si confiance très forte ET fiabilité &gt; 80).</p>
+    <div class="analyse" style="margin-top:8px;padding-top:8px">
+      <ul>
+        <li>Aucun all-in, jamais.</li>
+        <li>Aucun rattrapage après une perte — c'est la spirale classique.</li>
+        <li>Aucun pari parce que « l'équipe doit gagner » : le football s'en fiche.</li>
+        <li>Ne jamais parier sur une info non confirmée.</li>
+        <li>Toujours ré-analyser après les compositions officielles (bouton ⏱️ Compos).</li>
+        <li>Accepter de ne pas jouer est une compétence, pas un échec.</li>
+      </ul>
+      <div class="nobet-box" style="margin-top:10px">Si tu veux absolument parier malgré un signal NO BET, c'est probablement un pari émotionnel. Ferme l'app, reviens demain.</div>
+    </div>
+  </div>
+  <div id="liste-value"></div>
+</section>
+
+<!-- ========== MES ANALYSES ========== -->
+<section id="tab-saved" hidden>
+  <div class="actions" style="margin-bottom:10px"><button class="ghost" id="btn-check-all">🏁 Vérifier tous les résultats</button><button class="ghost danger" id="btn-clear">🗑️ Tout effacer</button><span class="note" id="saved-info"></span></div>
+  <div id="liste-saved"></div>
+</section>
+
+<!-- ========== PHASE FINALE / BRACKET ========== -->
+<section id="tab-bracket" hidden>
+  <div class="card">
+    <div class="ktop"><span class="b-or">🏆 TABLEAU À ÉLIMINATION DIRECTE</span></div>
+    <p class="note">Le Mondial 2026 passe à <b>32 qualifiés</b> (12 vainqueurs de groupe + 12 deuxièmes + 8 meilleurs 3<sup>es</sup>) → 16<sup>es</sup> → 8<sup>es</sup> → quarts → demies → finale. Compose chaque affiche dans les menus, puis analyse-la (même moteur complet). « Pré-remplir » place les 1<sup>ers</sup>/2<sup>es</sup> connus à partir de tes classements actualisés.</p>
+    <div class="actions">
+      <button class="ghost" id="btn-bracket-fill">📥 Pré-remplir depuis les classements</button>
+      <button class="ghost danger" id="btn-bracket-reset">🧹 Vider le tableau</button>
+      <span class="statut" id="st-bracket"></span>
+    </div>
+  </div>
+  <div class="filtres" id="bracket-rounds"></div>
+  <div id="bracket-zone"></div>
+  <div id="bracket-analyse"></div>
+</section>
+
+<!-- ========== COMPARATEUR ========== -->
+<section id="tab-compare" hidden>
+  <div class="card">
+    <div class="ktop"><span class="b-or">⚖️ DUEL DE PROFILS — RADAR CÔTE À CÔTE</span></div>
+    <p class="note">Choisis deux équipes : l'IA note chacune sur 6 axes (attaque, défense, milieu, forme, expérience, profondeur de banc) à partir de données vérifiées, et trace le radar comparatif + un verdict secteur par secteur.</p>
+    <div class="selrow"><select id="cmp-a"></select><span class="vs">VS</span><select id="cmp-b"></select></div>
+    <button class="go" id="btn-cmp">Comparer</button>
+    <span class="statut" id="st-cmp"></span>
+    <div id="zone-cmp"></div>
+  </div>
+</section>
+
+<!-- ========== ANALYSE LIBRE ========== -->
+<section id="tab-libre" hidden>
+  <div class="card">
+    <div class="ktop"><span class="b-or">⚔️ AFFICHE LIBRE — PHASE FINALE OU SIMULATION</span></div>
+    <p class="note">Pour les 16<sup>es</sup>, 8<sup>es</sup>, quarts, demies, finale — ou n'importe quel duel hypothétique. Même pipeline complet : terrain + marchés.</p>
+    <div class="selrow">
+      <select id="sel-a"></select><span class="vs">VS</span><select id="sel-b"></select>
+    </div>
+    <select id="sel-stage" style="margin-bottom:12px">
+      <option value="seizième de finale">16e de finale</option>
+      <option value="huitième de finale">8e de finale</option>
+      <option value="quart de finale">Quart de finale</option>
+      <option value="demi-finale">Demi-finale</option>
+      <option value="finale">Finale</option>
+      <option value="simulation hypothétique">Simulation hypothétique</option>
+    </select>
+    <button class="go" id="btn-libre">Analyser ce duel</button>
+    <span class="statut" id="st-libre"></span>
+    <div id="zone-libre"></div>
+  </div>
+</section>
+
+<!-- ========== RÉGLAGES ========== -->
+<section id="tab-reglages" hidden>
+  <div class="card">
+    <div class="ktop"><span class="b-or">🔌 MOTEUR IA — MODE AUTONOME (HORS CLAUDE)</span></div>
+    <p class="note">Pour que les boutons « Analyser » fonctionnent quand tu ouvres ce fichier par <b>double-clic</b> (hors de claude.ai), colle ta clé API Anthropic. Elle reste <b>uniquement sur ton appareil</b> (localStorage), n'est jamais envoyée ailleurs qu'à l'API Anthropic. Obtiens-la sur <span style="color:var(--elec)">console.anthropic.com → API Keys</span>.</p>
+    <div style="margin-top:10px">
+      <label class="note" style="display:block;margin-bottom:4px">Clé API (sk-ant-…)</label>
+      <input type="password" id="cfg-key" placeholder="sk-ant-api03-..." style="width:100%;font-family:var(--mono);font-size:13px">
+    </div>
+    <div style="margin-top:10px">
+      <label class="note" style="display:block;margin-bottom:4px">Modèle</label>
+      <select id="cfg-model">
+        <option value="claude-sonnet-4-20250514">Claude Sonnet 4 — rapide & solide (recommandé)</option>
+        <option value="claude-opus-4-20250514">Claude Opus 4 — plus fin, plus lent/cher</option>
+        <option value="claude-3-5-haiku-20241022">Claude Haiku 3.5 — le moins cher</option>
+      </select>
+    </div>
+    <div class="actions">
+      <button class="go" id="cfg-save">💾 Enregistrer</button>
+      <button class="ghost" id="cfg-test">🧪 Tester la clé</button>
+      <button class="ghost danger" id="cfg-clear">Oublier la clé</button>
+      <span class="statut" id="cfg-st"></span>
+    </div>
+    <p class="note" style="margin-top:10px">État : <span id="cfg-etat">vérification…</span></p>
+  </div>
+  <div class="card">
+    <div class="ktop"><span class="b-or">💾 SAUVEGARDE & TRANSFERT</span></div>
+    <p class="note">Exporte toutes tes analyses, fiches équipes et classements dans un fichier <b>.json</b> (sauvegarde ou transfert vers un autre appareil). L'import fusionne sans écraser tes données existantes.</p>
+    <div class="actions">
+      <button class="ghost" id="btn-export">⬇️ Exporter (.json)</button>
+      <button class="ghost" id="btn-import">⬆️ Importer (.json)</button>
+      <input type="file" id="file-import" accept="application/json" hidden>
+      <span class="statut" id="io-st"></span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  GROUPES DÉFINITIFS POST-BARRAGES (AVRIL 2026) · ANALYSES IA AVEC RECHERCHE WEB EN DIRECT · FAITS VÉRIFIÉS SÉPARÉS DES ESTIMATIONS<br>
+  LES PARIS SPORTIFS COMPORTENT UN RISQUE RÉEL DE PERTE. PROBAS = ESTIMATIONS, JAMAIS DES CERTITUDES. 18+ · JOUE RESPONSABLE.<br>
+  AIDE : SOS-JEU.CH · ZÉRO PROMESSE. ZÉRO MAGIE. ZÉRO BULLSHIT.
+</footer>
+</div>
+
+<!-- Modal fiche équipe -->
+<div class="modal-bg" id="modal-eq"><div class="modal"><span class="modal-x" id="modal-x">✕</span><div id="modal-eq-body"></div></div></div>
+
+<script>
+/* ================= DONNÉES (vérifiées — tirage + barrages avril 2026) ================= */
+const GROUPES = {
+  A:[["Mexique","🇲🇽","CONCACAF"],["Afrique du Sud","🇿🇦","CAF"],["Corée du Sud","🇰🇷","AFC"],["Tchéquie","🇨🇿","UEFA"]],
+  B:[["Canada","🇨🇦","CONCACAF"],["Bosnie-Herzégovine","🇧🇦","UEFA"],["Qatar","🇶🇦","AFC"],["Suisse","🇨🇭","UEFA"]],
+  C:[["Brésil","🇧🇷","CONMEBOL"],["Maroc","🇲🇦","CAF"],["Haïti","🇭🇹","CONCACAF"],["Écosse","🏴󠁧󠁢󠁳󠁣󠁴󠁿","UEFA"]],
+  D:[["États-Unis","🇺🇸","CONCACAF"],["Paraguay","🇵🇾","CONMEBOL"],["Australie","🇦🇺","AFC"],["Turquie","🇹🇷","UEFA"]],
+  E:[["Allemagne","🇩🇪","UEFA"],["Curaçao","🇨🇼","CONCACAF"],["Côte d'Ivoire","🇨🇮","CAF"],["Équateur","🇪🇨","CONMEBOL"]],
+  F:[["Pays-Bas","🇳🇱","UEFA"],["Japon","🇯🇵","AFC"],["Suède","🇸🇪","UEFA"],["Tunisie","🇹🇳","CAF"]],
+  G:[["Belgique","🇧🇪","UEFA"],["Égypte","🇪🇬","CAF"],["Iran","🇮🇷","AFC"],["Nouvelle-Zélande","🇳🇿","OFC"]],
+  H:[["Espagne","🇪🇸","UEFA"],["Cap-Vert","🇨🇻","CAF"],["Arabie saoudite","🇸🇦","AFC"],["Uruguay","🇺🇾","CONMEBOL"]],
+  I:[["France","🇫🇷","UEFA"],["Sénégal","🇸🇳","CAF"],["Irak","🇮🇶","AFC"],["Norvège","🇳🇴","UEFA"]],
+  J:[["Argentine","🇦🇷","CONMEBOL"],["Algérie","🇩🇿","CAF"],["Autriche","🇦🇹","UEFA"],["Jordanie","🇯🇴","AFC"]],
+  K:[["Portugal","🇵🇹","UEFA"],["Colombie","🇨🇴","CONMEBOL"],["Ouzbékistan","🇺🇿","AFC"],["RD Congo","🇨🇩","CAF"]],
+  L:[["Angleterre","🏴󠁧󠁢󠁥󠁮󠁧󠁿","UEFA"],["Croatie","🇭🇷","UEFA"],["Panama","🇵🇦","CONCACAF"],["Ghana","🇬🇭","CAF"]]
+};
+const JOURNEES = {1:"J1 · 11–17 juin",2:"J2 · 18–23 juin",3:"J3 · 24–27 juin"};
+const SCHEMA = {1:[[0,1],[2,3]],2:[[0,2],[3,1]],3:[[3,0],[1,2]]};
+const MATCHS = [];
+for (const g of Object.keys(GROUPES)) for (const j of [1,2,3]) for (const [a,b] of SCHEMA[j])
+  MATCHS.push({id:`G${g}-J${j}-${a}${b}`, groupe:g, journee:j, eqA:GROUPES[g][a], eqB:GROUPES[g][b]});
+const TOUTES = Object.entries(GROUPES).flatMap(([g,eqs])=>eqs.map(e=>({nom:e[0],flag:e[1],conf:e[2],groupe:g}))).sort((a,b)=>a.nom.localeCompare(b.nom,'fr'));
+const flagDe = n => (TOUTES.find(e=>e.nom===n)||{}).flag||'';
+
+/* ================= ÉTAT & STOCKAGE (storage artifact OU localStorage) ================= */
+let DB = {analyses:{}, briefing:null, standings:{}, equipes:{}, news:null, bracket:null};
+const SKEY = 'wc26-hub-v3';
+const store = {
+  async get(k){
+    try{ if(window.storage&&window.storage.get){ const r=await window.storage.get(k); return r&&r.value; } }catch(e){}
+    try{ return localStorage.getItem(k); }catch(e){ return null; }
+  },
+  async set(k,v){
+    try{ if(window.storage&&window.storage.set){ await window.storage.set(k,v); return; } }catch(e){}
+    try{ localStorage.setItem(k,v); }catch(e){ console.error('storage',e); }
+  }
+};
+async function charger(){ try{ const raw=await store.get(SKEY); if(raw) DB=Object.assign(DB,JSON.parse(raw)); }catch(e){} majCompteur(); }
+/* Fusionne les données pré-calculées par le moteur auto (GitHub Actions / local). Ne JAMAIS écraser une analyse faite par l'utilisateur. */
+async function chargerAuto(){
+  try{
+    const r=await fetch('./data/resultats.json?t='+Date.now());
+    if(!r.ok) return;
+    const auto=await r.json();
+    DB.autoTs=auto.generatedAt||null;
+    const tn=x=>x&&x.ts?+x.ts:0;
+    if(auto.news && tn(auto.news)>tn(DB.news)) DB.news=auto.news;
+    if(auto.briefing && tn(auto.briefing)>tn(DB.briefing)) DB.briefing=auto.briefing;
+    for(const g in (auto.standings||{})){ if(!DB.standings[g] || tn(auto.standings[g])>tn(DB.standings[g])) DB.standings[g]=auto.standings[g]; }
+    for(const id in (auto.analyses||{})){
+      const ex=DB.analyses[id];
+      // on ajoute/rafraîchit uniquement les analyses AUTO ; jamais celles que tu as faites toi-même
+      if(!ex){ DB.analyses[id]=Object.assign({}, auto.analyses[id], {auto:true}); }
+      else if(ex.auto && (auto.analyses[id].ts||0) > (ex.ts||0)){ DB.analyses[id]=Object.assign({}, auto.analyses[id], {auto:true, cotes:ex.cotes||null}); }
+    }
+    majCompteur();
+  }catch(e){ /* pas de fichier auto = mode manuel, normal */ }
+}
+function bannerAuto(){
+  if(!DB.autoTs) return;
+  const el=document.getElementById('phase-info');
+  if(el) el.textContent += ` · 🤖 données auto MAJ ${dateFR(new Date(DB.autoTs).getTime())}`;
+}
+let _saveT=null;
+async function sauver(){ try{ await store.set(SKEY, JSON.stringify(DB)); }catch(e){console.error(e);} majCompteur(); }
+function majCompteur(){ const n=Object.keys(DB.analyses).length; document.getElementById('count-saved').textContent = n?`(${n})`:''; }
+
+/* ================= APPEL IA ================= */
+const ANTI_HALLU = `RÈGLES STRICTES : n'invente JAMAIS un résultat, une blessure, une compo, une cote, une météo ou un classement. Si une donnée n'est pas trouvée/vérifiée via la recherche web, écris exactement "Non confirmé — à vérifier". Sépare faits vérifiés et estimations. Sois neutre, prudent, factuel. Les probabilités sont tes estimations, pas des certitudes.`;
+let IA_OK = true;
+const CFGKEY='wc26-cfg';
+function getCfg(){ try{ return JSON.parse(localStorage.getItem(CFGKEY)||'{}'); }catch(e){ return {}; } }
+function setCfg(c){ try{ localStorage.setItem(CFGKEY, JSON.stringify(c)); }catch(e){} }
+function modeIA(){ return getCfg().key ? 'direct' : 'artifact'; }
+
+async function appelIA(prompt, maxTokens){
+  const cfg=getCfg();
+  const model = cfg.model || "claude-sonnet-4-20250514";
+  let data;
+  try{
+    const headers={"Content-Type":"application/json"};
+    // Mode autonome : clé fournie → accès navigateur direct. Sinon : proxy de l'artifact Claude.
+    if(cfg.key){
+      headers["x-api-key"]=cfg.key;
+      headers["anthropic-version"]="2023-06-01";
+      headers["anthropic-dangerous-direct-browser-access"]="true";
+    }
+    const resp = await fetch("https://api.anthropic.com/v1/messages",{
+      method:"POST", headers,
+      body:JSON.stringify({model, max_tokens:maxTokens||1400,
+        messages:[{role:"user",content:prompt}],
+        tools:[{type:"web_search_20250305",name:"web_search"}]})
+    });
+    data = await resp.json();
+  }catch(netErr){
+    IA_OK=false; document.getElementById('envwarn').style.display='block';
+    throw new Error(modeIA()==='direct'
+      ? "Connexion à l'API impossible (clé/réseau). Vérifie ta clé dans ⚙️ Réglages."
+      : "Moteur IA inaccessible ici. Va dans ⚙️ Réglages pour coller ta clé API (mode autonome), ou ouvre l'app dans Claude.");
+  }
+  if(data.error){
+    const msg=data.error.message||'Erreur API';
+    if(/authentication|api[_ -]?key|x-api-key|401/i.test(msg)) throw new Error("Clé API invalide ou manquante → ⚙️ Réglages.");
+    if(/credit|billing|quota|429/i.test(msg)) throw new Error("Crédit/quota API insuffisant sur ton compte Anthropic.");
+    throw new Error(msg);
+  }
+  const texte = (data.content||[]).filter(b=>b.type==='text').map(b=>b.text).join('\n');
+  const clean = texte.replace(/```json|```/g,'').trim();
+  const s=clean.indexOf('{'), e=clean.lastIndexOf('}');
+  if(s===-1||e===-1) throw new Error('Réponse non structurée — relance');
+  return JSON.parse(clean.slice(s,e+1));
+}
+
+/* ----- Prompts ----- */
+function pTerrain(a,b,ctx){
+  return `Analyste football professionnel. Coupe du monde 2026 (USA/Canada/Mexique), nous sommes pendant le tournoi (11 juin–19 juillet 2026). Match : ${a} vs ${b} — ${ctx}.
+${ANTI_HALLU}
+UTILISE la recherche web (3 recherches max) : date/heure/stade exacts, résultats déjà joués par ces équipes DANS ce Mondial + classement actuel du groupe, forme récente, blessés/suspendus, conditions (météo/altitude) si disponibles.
+Réponds UNIQUEMENT en JSON valide, français, dense, sans texte autour :
+{"resume":{"date":"date+heure (préciser heure suisse si possible)","stade":"stade, ville","enjeu":"enjeu sportif réel","lecture":"lecture rapide en 1 phrase","interet":3},
+"contexte":{"classement":"situation des 2 équipes dans le groupe/tournoi (faits)","conditions":"météo/altitude/voyage vérifiés ou 'Non confirmé — à vérifier'","pression":"contexte mental/public"},
+"forme":{"A":"derniers résultats factuels + dynamique de ${a} (2 phrases)","B":"idem ${b}"},
+"qualite":{"A":"gardien / défense / milieu / attaque / banc de ${a} en 1 phrase dense","B":"idem ${b}"},
+"absences":{"A":"absents/incertains de ${a} ou 'Aucune absence majeure trouvée' ","B":"idem ${b}","fiable":true},
+"tactique":{"styleA":"système probable + style de ${a}","styleB":"idem ${b}","duel":"duel clé","zone":"zone où le match se gagne","risque":"risque tactique principal"},
+"scores":{"A":75,"B":60,"detA":{"forme":15,"effectif":16,"tactique":14,"mental":11,"absences":8,"conditions":8,"momentum":4},"detB":{"forme":12,"effectif":13,"tactique":12,"mental":9,"absences":7,"conditions":7,"momentum":3},"commentaire":"justification de l'écart + niveau d'incertitude"},
+"sources":[{"nom":"source","info":"donnée récupérée","date":"fraîcheur"}]}
+"interet" = entier 1-5 (intérêt betting). "scores.A"/"scores.B" = notes globales /100. detA/detB = sous-scores (forme/20, effectif/20, tactique/20, mental/15, absences/10, conditions/10, momentum/5).`;
+}
+function pMarche(a,b,terrain){
+  return `Analyste paris sportifs responsable. Coupe du monde 2026. Match : ${a} vs ${b}.
+Analyse terrain déjà réalisée (faits vérifiés) : ${JSON.stringify({resume:terrain.resume,contexte:terrain.contexte,forme:terrain.forme,absences:terrain.absences,tactique:terrain.tactique,scores:terrain.scores})}
+${ANTI_HALLU} N'invente AUCUNE cote. "cote_min" = cote minimale pour que le pari vaille le coup selon TA proba (≈ 100/proba +10% de marge). Recommande NO BET si l'incertitude est trop forte — un bon analyste ne force jamais un pari.
+Réponds UNIQUEMENT en JSON valide, français, dense :
+{"probas":{"eqA":45,"nul":25,"eqB":30,"over25":55,"under25":45,"btts":48,"over15":72,"over35":33,"csA":30,"csB":22,"but1mt":62},
+"xg":{"A":1.6,"B":1.1},
+"score_probable":"2-1",
+"scenarios":{"dominant":"scénario le plus probable (1 phrase)","alternatif":"scénario alternatif","pire":"pire scénario pour le parieur"},
+"marches":[{"marche":"nom du marché","verdict":"🟢|🟡|🔴|⚪","proba":62,"cote_min":1.8,"pour":"argument pour","contre":"argument contre"},{"marche":"...","verdict":"🟡","proba":50,"cote_min":2.2,"pour":"...","contre":"..."},{"marche":"...","verdict":"🔴","proba":35,"cote_min":3.2,"pour":"...","contre":"..."},{"marche":"...","verdict":"⚪","proba":40,"cote_min":2.5,"pour":"...","contre":"..."}],
+"verdict":{"reco":"pari le plus logique OU 'NO BET'","alternative":"alternative prudente (double chance/DNB/under...)","no_bet":false,"risque":"risque principal","confiance":"faible|moyenne|élevée","mise":"faible|modérée|aucune"},
+"synthese":"1 phrase pour décider vite",
+"incertitude":"faible|moyenne|élevée"}
+probas eqA/nul/eqB = entiers somme 100, eqA=${a}, eqB=${b}. "xg" = buts attendus ESTIMÉS prudemment (forme offensive/défensive récente, absences, contexte) — ce sont des estimations, pas des xG officiels. 4 marchés parmi : 1X2, double chance, DNB, over/under 1.5/2.5/3.5, BTTS, handicap, qualification. Verdicts : 🟢 intéressant / 🟡 à surveiller / 🔴 trop risqué / ⚪ no bet.`;
+}
+function pEquipe(e){
+  return `Analyste football professionnel. Coupe du monde 2026, pendant le tournoi. Équipe : ${e.nom} (Groupe ${e.groupe}).
+${ANTI_HALLU}
+UTILISE la recherche web (2-3 recherches) : effectif/liste officielle, résultats déjà joués dans CE Mondial 2026, forme 2026, sélectionneur, système.
+Réponds UNIQUEMENT en JSON valide, français, dense :
+{"niveau":"Élite|Top mondial|Solide|Outsider|Modeste","badges":["⭐ Favori"],"profil":"identité + situation actuelle dans le tournoi (3 phrases, faits)","systeme":"système probable + animation","style":"style en 1 phrase",
+"forces":["...","...","..."],"faiblesses":["...","..."],
+"joueurs":[{"nom":"...","poste":"GAR","raison":"..."},{"nom":"...","poste":"DEF","raison":"..."},{"nom":"...","poste":"MIL","raison":"..."},{"nom":"...","poste":"ATT","raison":"..."}],
+"surveiller":["blessure/forme/rotation à surveiller","..."],
+"tournoi":"résultats déjà joués dans ce Mondial (factuel) ou 'Premier match pas encore joué'",
+"parcours":{"minimum":"...","objectif":"...","plafond":"...","risque":"risque d'élimination surprise"},
+"sources":[{"nom":"...","info":"...","date":"..."}]}
+"badges" = 1 à 3 parmi : "⭐ Favori","🔥 Outsider dangereux","🧊 Équipe défensive","⚡ Équipe de transition","🎯 Forte sur CPA","⚠️ Fragile défensivement","🚑 Effectif diminué","🏟️ Avantage public".`;
+}
+function pBriefing(dStr){
+  return `Analyste football. Coupe du monde 2026 (USA/Canada/Mexique). Nous sommes le ${dStr}.
+${ANTI_HALLU}
+UTILISE la recherche web (2-3 recherches) : matchs du Mondial 2026 prévus AUJOURD'HUI (avec heure suisse/CET si possible), dernières actus importantes (blessures de dernière minute, compos, météo marquante).
+Réponds UNIQUEMENT en JSON valide, français :
+{"matchs":[{"affiche":"Équipe A vs Équipe B","heure":"heure (préciser fuseau)","stade":"stade, ville","groupe":"A","badges":["🔥"],"note":"enjeu en 1 phrase"}],
+"top":"match du jour le plus intéressant à analyser + pourquoi (1 phrase)",
+"eviter":"match le plus piégeux/à éviter + pourquoi (1 phrase)",
+"alertes":["actu vérifiée importante 1","actu 2"],
+"fraicheur":"date/heure des infos"}
+badges parmi : 🔥 chaud, 🧊 fermé probable, ⚠️ risque élevé, 💎 value possible, 🌧️ météo, 🚑 blessure, 🏟️ public. Si aucun match aujourd'hui : "matchs":[] et explique dans "alertes".`;
+}
+function pClassement(g){
+  const noms = GROUPES[g].map(e=>e[0]).join(', ');
+  return `Coupe du monde 2026, pendant le tournoi. Groupe ${g} : ${noms}.
+${ANTI_HALLU} Si aucun match du groupe n'a encore été joué, renvoie le classement à 0 points et indique-le.
+UTILISE la recherche web (1-2 recherches) : classement ACTUEL du groupe ${g} (points, joués, buts) + résultats déjà joués.
+Réponds UNIQUEMENT en JSON valide, français :
+{"classement":[{"nom":"...","pts":0,"j":0,"bp":0,"bc":0},{"nom":"..."},{"nom":"..."},{"nom":"..."}],
+"resultats":"résultats déjà joués (factuel) ou 'Aucun match joué'",
+"scenarios":"scénarios de qualification en 2 phrases max",
+"lecture":{"favori":"équipe favorite du groupe + pourquoi (court)","pression":"équipe la plus sous pression","surprise":"surprise possible","decisif":"match décisif du groupe"},
+"fraicheur":"date des données"}
+Classe par points décroissants. Les noms doivent correspondre exactement à : ${noms}.`;
+}
+function pNews(dStr){
+  return `Veilleur sportif. Coupe du monde 2026 (USA/Canada/Mexique). Nous sommes le ${dStr}.
+${ANTI_HALLU}
+UTILISE la recherche web (3-4 recherches) : actualités des DERNIÈRES 24H du Mondial 2026 — blessures/forfaits, compositions officielles annoncées, résultats venant de tomber, météo impactante sur les matchs à venir, suspensions, conférences de presse marquantes. Ne remonte QUE des infos vérifiables et datées.
+Réponds UNIQUEMENT en JSON valide, français :
+{"items":[{"niveau":"critique|important|info","cat":"blessure|compo|resultat|meteo|suspension|cote|autre","titre":"titre court factuel","detail":"1-2 phrases, source implicite","equipes":["Pays concerné"],"quand":"fraîcheur de l'info (ex: il y a 2h)"}],
+"resume":"synthèse de la journée en 1 phrase",
+"fraicheur":"date/heure du scan"}
+"niveau":"critique" = forfait d'un cadre, compo surprise, résultat majeur. Classe du plus important au moins important. Si rien de neuf : "items":[] et explique dans "resume".`;
+}
+function pCompos(a,b,titre){
+  return `Coupe du monde 2026. Match imminent : ${a} vs ${b} (${titre}).
+${ANTI_HALLU}
+UTILISE la recherche web (2 recherches) : compositions OFFICIELLES si publiées (souvent ~75 min avant le coup d'envoi), absences surprises, changement de système, gardien titulaire.
+Réponds UNIQUEMENT en JSON valide, français :
+{"dispo":true,"compoA":"XI officiel de ${a} ou 'Compositions officielles non confirmées'","compoB":"idem ${b}","surprises":["surprise vérifiée (titulaire inattendu, cadre sur le banc) ou rien"],
+"ajustement":{"sens":"impact concret sur le match (1-2 phrases)","confiance":"hausse|baisse|stable","no_bet":false}}
+Si rien de publié : "dispo":false et compoA/compoB = "Compositions officielles non confirmées — ne pas surpondérer cette donnée".`;
+}
+function pPostMatch(A){
+  const r=A.resultat||{};
+  return `Analyste post-match honnête. Coupe du monde 2026. Match joué : ${A.eqA[0]} vs ${A.eqB[0]} (${A.titre}). Score final réel : ${r.score||'?'}.
+Mon analyse PRÉ-match était : ${JSON.stringify({probas:A.marche?.probas,verdict:A.marche?.verdict,scenarios:A.marche?.scenarios,synthese:A.marche?.synthese})}
+${ANTI_HALLU} Sois critique et factuel : le but est d'apprendre, pas de se rassurer.
+UTILISE la recherche web (1-2 recherches) : déroulé réel du match (buteurs, tournants, stats si disponibles).
+Réponds UNIQUEMENT en JSON valide, français :
+{"deroule":"comment le match s'est réellement passé (2 phrases factuelles)",
+"pari":"gagnant|perdant|no bet|inconnu",
+"scenario_ok":true,
+"sous_estime":"ce que l'analyse pré-match a sous-estimé",
+"sur_estime":"ce qu'elle a surestimé",
+"lecon":"leçon concrète et réutilisable pour les prochaines analyses",
+"note":{"tactique":15,"contexte":14,"absences":12,"probas":16,"marche":13,"risque":14,"total":78}}
+note : chaque critère /20, "total" = moyenne ramenée sur 100. "pari" = résultat du pari recommandé pré-match (ou "no bet" si c'était la reco).`;
+}
+function pResultat(a,b,ctx){
+  return `Coupe du monde 2026. Le match ${a} vs ${b} (${ctx}) a-t-il déjà été joué ?
+${ANTI_HALLU}
+UTILISE la recherche web (1 recherche). Réponds UNIQUEMENT en JSON valide :
+{"joue":true,"score":"2-1","vainqueur":"A|nul|B","resume":"1 phrase factuelle (buteurs si trouvés)"}
+vainqueur "A"=${a}, "B"=${b}. Si pas encore joué : {"joue":false,"score":"","vainqueur":"","resume":"Match pas encore joué"}.`;
+}
+
+/* ================= HELPERS RENDU ================= */
+const esc = s => String(s??'').replace(/[<>&"]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c]));
+const vdClass = v => v==='🟢'?'vert':v==='🟡'?'jaune':v==='🔴'?'rouge':'gris';
+const vdLabel = v => v==='🟢'?'INTÉRESSANT':v==='🟡'?'À SURVEILLER':v==='🔴'?'TROP RISQUÉ':'NO BET';
+const confClass = c => /élevée/i.test(c||'')?'vert':/moyenne/i.test(c||'')?'jaune':'rouge';
+const dateFR = ts => new Date(ts).toLocaleString('fr-CH',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});
+
+function htmlProbas(p,nA,nB){
+  const a=Math.max(0,+p.eqA||0), n=Math.max(0,+p.nul||0), b=Math.max(0,+p.eqB||0), t=(a+n+b)||1;
+  return `<div class="pbar"><div class="p1" style="flex:${a/t}">${a}%</div><div class="pn" style="flex:${n/t}">${n}%</div><div class="p2" style="flex:${b/t}">${b}%</div></div>
+  <div class="plabels"><span>${esc(nA)}</span><span>NUL</span><span>${esc(nB)}</span></div>`;
+}
+function miniBar(label,v){ v=Math.max(0,Math.min(100,+v||0));
+  return `<div class="minibar"><span class="lab">${label}</span><div class="tr"><div class="fl" style="width:${v}%"></div></div><span class="v">${v}%</span></div>`;
+}
+function gauge(nom,flag,v,det){ v=Math.max(0,Math.min(100,+v||0));
+  let sub='';
+  if(det){ const L={forme:'Forme /20',effectif:'Effectif /20',tactique:'Tactique /20',mental:'Mental /15',absences:'Absences /10',conditions:'Météo/voy. /10',momentum:'Momentum /5'};
+    sub=`<div class="subscore">`+Object.keys(L).map(k=>`<div class="sr"><span>${L[k]}</span><b>${det[k]??'–'}</b></div>`).join('')+`</div>`; }
+  return `<div class="gauge"><div class="gtop"><span>${flag} ${esc(nom)}</span><span>${v}/100</span></div><div class="tr"><div class="fl" style="width:${v}%"></div></div>${sub}</div>`;
+}
+
+function htmlAnalyseComplete(A, key){
+  const t=A.terrain, m=A.marche, nA=A.eqA[0], nB=A.eqB[0];
+  let h = `<div class="analyse">`;
+  h += `<div class="atitle">⚡ 1 · Résumé express</div>
+    <div class="kv"><b>Date</b><span>${esc(t.resume?.date)}</span></div>
+    <div class="kv"><b>Stade</b><span>${esc(t.resume?.stade)}</span></div>
+    <div class="kv"><b>Enjeu</b><span>${esc(t.resume?.enjeu)}</span></div>
+    <div class="kv"><b>Lecture</b><span>${esc(t.resume?.lecture)}</span></div>
+    <div class="kv"><b>Intérêt betting</b><span>${'⭐'.repeat(Math.max(1,Math.min(5,+t.resume?.interet||3)))}</span></div>`;
+  h += `<div class="atitle">🌍 2 · Contexte</div>
+    <div class="kv"><b>Classement</b><span>${esc(t.contexte?.classement)}</span></div>
+    <div class="kv"><b>Conditions</b><span>${esc(t.contexte?.conditions)}</span></div>
+    <div class="kv"><b>Pression</b><span>${esc(t.contexte?.pression)}</span></div>`;
+  h += `<div class="atitle">📈 3 · Forme récente</div>
+    <div class="kv"><b>${A.eqA[1]} ${esc(nA)}</b><span>${esc(t.forme?.A)}</span></div>
+    <div class="kv"><b>${A.eqB[1]} ${esc(nB)}</b><span>${esc(t.forme?.B)}</span></div>`;
+  if(t.qualite) h += `<div class="atitle">⭐ 3bis · Qualité des effectifs (GAR · DEF · MIL · ATT · banc)</div>
+    <div class="kv"><b>${A.eqA[1]} ${esc(nA)}</b><span>${esc(t.qualite.A)}</span></div>
+    <div class="kv"><b>${A.eqB[1]} ${esc(nB)}</b><span>${esc(t.qualite.B)}</span></div>`;
+  h += `<div class="atitle">🚑 4 · Absences</div>
+    <div class="kv"><b>${A.eqA[1]} ${esc(nA)}</b><span>${esc(t.absences?.A)}</span></div>
+    <div class="kv"><b>${A.eqB[1]} ${esc(nB)}</b><span>${esc(t.absences?.B)}</span></div>`;
+  if(t.absences && t.absences.fiable===false) h += `<div class="warn-box">⚠️ Information non confirmée — à vérifier avant pari.</div>`;
+  h += `<div class="atitle">🧩 5 · Tactique & match-up</div>
+    <div class="kv"><b>Style ${esc(nA)}</b><span>${esc(t.tactique?.styleA)}</span></div>
+    <div class="kv"><b>Style ${esc(nB)}</b><span>${esc(t.tactique?.styleB)}</span></div>
+    <div class="kv"><b>Duel clé</b><span>${esc(t.tactique?.duel)}</span></div>
+    <div class="kv"><b>Zone décisive</b><span>${esc(t.tactique?.zone)}</span></div>
+    <div class="kv"><b>Risque</b><span>${esc(t.tactique?.risque)}</span></div>`;
+  h += `<div class="atitle">🧮 Score global /100</div>
+    ${gauge(nA,A.eqA[1],t.scores?.A,t.scores?.detA)} ${gauge(nB,A.eqB[1],t.scores?.B,t.scores?.detB)}
+    <p class="note">${esc(t.scores?.commentaire)}</p>`;
+  if(!m){
+    h += `<div class="warn-box">⚠️ Module marchés non généré — relance l'analyse pour la partie paris.</div></div>`;
+    return h;
+  }
+  h += `<div class="atitle">📊 6 · Probabilités estimées (IA — pas des certitudes)</div>
+    ${htmlProbas(m.probas||{},nA,nB)}
+    ${miniBar('OVER 1.5',m.probas?.over15)} ${miniBar('OVER 2.5',m.probas?.over25)} ${miniBar('OVER 3.5',m.probas?.over35)} ${miniBar('BTTS',m.probas?.btts)}
+    ${m.probas?.csA!=null?miniBar('CS '+nA.slice(0,9).toUpperCase(),m.probas.csA)+miniBar('CS '+nB.slice(0,9).toUpperCase(),m.probas.csB)+miniBar('BUT 1re MT',m.probas.but1mt):''}
+    ${m.score_probable?`<span class="score-pred">SCORE LE + PROBABLE · ${esc(m.score_probable)}</span>`:''}
+    <div class="kv" style="margin-top:8px"><b>Scénario №1</b><span>${esc(m.scenarios?.dominant)}</span></div>
+    <div class="kv"><b>Alternatif</b><span>${esc(m.scenarios?.alternatif)}</span></div>
+    <div class="kv"><b>Pire cas</b><span>${esc(m.scenarios?.pire)}</span></div>`;
+  h += htmlQuant(A);
+  h += `<div class="atitle">💰 7 · Marchés analysés</div>` + (m.marches||[]).map(x=>`
+    <div class="marche">
+      <div class="mh">${esc(x.marche)} <span class="pill ${vdClass(x.verdict)}">${x.verdict||'⚪'} ${vdLabel(x.verdict)}</span></div>
+      <div class="mstats">PROBA IA ${x.proba??'–'}% · COTE MIN. INTÉRESSANTE ≈ ${x.cote_min??'–'}</div>
+      <div class="md">✅ ${esc(x.pour)}<br>❌ ${esc(x.contre)}</div>
+    </div>`).join('');
+  h += `<div class="atitle">🧮 Comparateur value (tes cotes réelles)</div>
+    <p class="note">Entre les cotes de ton bookmaker (1/N/2) — calcul d'edge local : proba IA − proba implicite (100/cote).</p>
+    <div class="cotes">
+      <div><label>COTE 1</label><input type="number" step="0.01" min="1.01" id="c1-${key}" value="${A.cotes?.a||''}" inputmode="decimal"></div>
+      <div><label>COTE N</label><input type="number" step="0.01" min="1.01" id="cn-${key}" value="${A.cotes?.n||''}" inputmode="decimal"></div>
+      <div><label>COTE 2</label><input type="number" step="0.01" min="1.01" id="c2-${key}" value="${A.cotes?.b||''}" inputmode="decimal"></div>
+      <button class="ghost" data-edge="${key}">Calculer</button>
+    </div>
+    <div id="edge-${key}">${A.cotes?htmlEdges(A):''}</div>`;
+  h += `<div class="atitle">🎯 8 · Verdict final</div>`;
+  if(m.verdict?.no_bet || /no bet/i.test(m.verdict?.reco||'')){
+    h += `<div class="nobet-box">⚪ NO BET CONSEILLÉ — ${esc(m.verdict?.risque||'incertitude trop élevée')}</div>`;
+  } else {
+    h += `<div class="kv"><b>Reco</b><span><b>${esc(m.verdict?.reco)}</b></span></div>`;
+  }
+  h += `<div class="kv"><b>Alternative</b><span>${esc(m.verdict?.alternative)}</span></div>
+    <div class="kv"><b>Risque №1</b><span>${esc(m.verdict?.risque)}</span></div>
+    <div class="kv"><b>Confiance</b><span class="pill ${confClass(m.verdict?.confiance)}">${esc((m.verdict?.confiance||'').toUpperCase())}</span> <span class="pill gris">INCERTITUDE ${esc((m.incertitude||'').toUpperCase())}</span></div>
+    <div class="kv"><b>Exposition</b><span>${esc(m.verdict?.mise||'—')} (niveau de risque, jamais un montant imposé)</span></div>`;
+  h += `<div class="atitle">🧠 9 · Synthèse ultra courte</div><p><b>${esc(m.synthese)}</b></p>`;
+  h += `<div class="atitle">🔎 10 · Sources utilisées</div><ul>` +
+    (t.sources||[]).map(s=>`<li>${esc(s.nom)} — ${esc(s.info)} <span style="color:var(--craie2)">(${esc(s.date)})</span></li>`).join('') + `</ul>`;
+  if(A.resultat){
+    const r=A.resultat;
+    h += `<div class="atitle">🏁 Résultat réel</div>`;
+    if(r.joue){
+      const arr=[m.probas?.eqA,m.probas?.nul,m.probas?.eqB];
+      const pred = arr.every(x=>x!=null) ? ['A','nul','B'][arr.indexOf(Math.max(...arr))] : null;
+      const ok = pred && pred===r.vainqueur;
+      h += `<div class="kv"><b>Score final</b><span><b>${esc(r.score)}</b> — ${esc(r.resume)}</span></div>
+        <div class="kv"><b>Pronostic 1N2</b><span class="pill ${ok?'vert':'rouge'}">${ok?'✓ CORRECT':'✗ RATÉ'}</span></div>`;
+    } else h += `<p class="note">${esc(r.resume)}</p>`;
+  }
+  if(A.compos){
+    const c=A.compos.data;
+    h += `<div class="atitle">⏱️ Compositions officielles (vérifié ${dateFR(A.compos.ts)})</div>`;
+    if(c.dispo){
+      h += `<div class="kv"><b>${A.eqA[1]} XI</b><span>${esc(c.compoA)}</span></div>
+        <div class="kv"><b>${A.eqB[1]} XI</b><span>${esc(c.compoB)}</span></div>`
+        + ((c.surprises||[]).filter(Boolean).length?`<ul>${c.surprises.map(s=>`<li>⚠️ ${esc(s)}</li>`).join('')}</ul>`:'')
+        + `<div class="kv"><b>Impact</b><span>${esc(c.ajustement?.sens)} — confiance en <b>${esc(c.ajustement?.confiance)}</b></span></div>`
+        + (c.ajustement?.no_bet?`<div class="nobet-box">⚪ Les compositions changent la donne — NO BET conseillé.</div>`:'');
+    } else h += `<div class="warn-box">⚠️ Compositions officielles non confirmées — ne pas surpondérer cette donnée. Re-vérifie ~75 min avant le coup d'envoi.</div>`;
+  }
+  if(A.postmatch){
+    const pm=A.postmatch.data, nt=pm.note||{};
+    h += `<div class="atitle">📚 Learning machine — bilan post-match</div>
+    <div class="kv"><b>Déroulé réel</b><span>${esc(pm.deroule)}</span></div>
+    <div class="kv"><b>Pari</b><span><span class="pill ${pm.pari==='gagnant'?'vert':pm.pari==='perdant'?'rouge':'gris'}">${esc((pm.pari||'').toUpperCase())}</span> <span class="pill ${pm.scenario_ok?'vert':'rouge'}">SCÉNARIO ${pm.scenario_ok?'RÉALISÉ':'NON RÉALISÉ'}</span></span></div>
+    <div class="kv"><b>Sous-estimé</b><span>${esc(pm.sous_estime)}</span></div>
+    <div class="kv"><b>Surestimé</b><span>${esc(pm.sur_estime)}</span></div>
+    <div class="kv"><b>Leçon</b><span><b>${esc(pm.lecon)}</b></span></div>
+    ${miniBar('QUALITÉ ANALYSE',nt.total)}
+    <p class="note">Tactique ${nt.tactique??'–'}/20 · Contexte ${nt.contexte??'–'}/20 · Absences ${nt.absences??'–'}/20 · Probas ${nt.probas??'–'}/20 · Marché ${nt.marche??'–'}/20 · Risque ${nt.risque??'–'}/20</p>`;
+  }
+  h += `</div>`;
+  return h;
+}
+function edgeTag(e){
+  if(e<0)  return `<span class="pill rouge">🔴 PAS DE VALUE ${e.toFixed(1)}</span>`;
+  if(e<3)  return `<span class="pill jaune">🟡 NEUTRE +${e.toFixed(1)}</span>`;
+  if(e<6)  return `<span class="pill vert">🟢 VALUE LÉGÈRE +${e.toFixed(1)}</span>`;
+  if(e<10) return `<span class="pill vert">💎 VALUE FORTE +${e.toFixed(1)}</span>`;
+  return `<span class="pill jaune">⚠️ EDGE +${e.toFixed(1)} — modèle trop optimiste ? à re-vérifier</span>`;
+}
+function htmlEdges(A){
+  const p=A.marche?.probas; if(!p||!A.cotes) return '';
+  const rows=[['1 — '+A.eqA[0],p.eqA,A.cotes.a],['NUL',p.nul,A.cotes.n],['2 — '+A.eqB[0],p.eqB,A.cotes.b]];
+  let h='', bestEdge=-99;
+  for(const [lab,pr,c] of rows){
+    if(!c||c<1.01) continue;
+    const imp=100/c, edge=pr-imp;
+    if(edge>bestEdge) bestEdge=edge;
+    h+=`<div class="edge-row"><span>${esc(lab)} · cote ${(+c).toFixed(2)}</span><span class="ed">IA ${pr}% vs ${imp.toFixed(1)}% ${edgeTag(edge)}</span></div>`;
+  }
+  if(bestEdge>-99){
+    const Q=A.quant||quantTout(A);
+    const rvs=Math.max(0,Math.min(100,Math.round(Math.max(0,bestEdge)*4 + (100-Q.chaos)*0.25 + Q.fiab*0.35)));
+    const tier=rvs>=80?'💎 VALUE FORTE':rvs>=65?'🟢 VALUE INTÉRESSANTE':rvs>=50?'🟡 VALUE LÉGÈRE — PRUDENCE':'🔴 PAS ASSEZ D\'AVANTAGE';
+    h+=`<div class="kv" style="margin-top:8px"><b>Real Value Score</b><span><span class="pill ${rvs>=65?'vert':rvs>=50?'jaune':'rouge'}">${rvs}/100 · ${tier}</span> <span class="note">(edge + fiabilité + chaos combinés)</span></span></div>`;
+  }
+  return h + `<p class="note" style="margin-top:6px">💡 Un edge positif ≠ gain garanti. Une value peut perdre. Avantage statistique théorique, long terme uniquement — jamais de pari émotionnel.</p>`;
+}
+function htmlFicheEquipe(e,d){
+  return `<div class="ktop"><span class="b-or">${e.flag} ${esc(e.nom)} · GROUPE ${e.groupe}</span></div>
+  <div class="analyse" style="border-top:0;padding-top:0;margin-top:0">
+    <div class="kv"><b>Niveau</b><span><span class="pill elec">${esc((d.niveau||'').toUpperCase())}</span> ${(d.badges||[]).map(b=>`<span class="pill jaune">${esc(b)}</span>`).join(' ')}</span></div>
+    <div class="atitle">Profil & situation</div><p>${esc(d.profil)}</p>
+    <div class="kv" style="margin-top:8px"><b>Système</b><span>${esc(d.systeme)}</span></div>
+    <div class="kv"><b>Style</b><span>${esc(d.style)}</span></div>
+    <div class="atitle">✅ Forces</div><ul>${(d.forces||[]).map(c=>`<li>${esc(c)}</li>`).join('')}</ul>
+    <div class="atitle">❌ Faiblesses</div><ul>${(d.faiblesses||[]).map(c=>`<li>${esc(c)}</li>`).join('')}</ul>
+    <div class="atitle">⭐ Hommes clés</div>
+    ${(d.joueurs||[]).map(j=>`<div class="kv"><b>${esc(j.poste)}</b><span><b>${esc(j.nom)}</b> — ${esc(j.raison)}</span></div>`).join('')}
+    <div class="atitle">👁 À surveiller</div><ul>${(d.surveiller||[]).map(c=>`<li>${esc(c)}</li>`).join('')}</ul>
+    <div class="atitle">🏆 Dans ce Mondial</div><p>${esc(d.tournoi)}</p>
+    <div class="atitle">🔮 Pronostic de parcours</div>
+    <div class="kv"><b>Minimum</b><span>${esc(d.parcours?.minimum)}</span></div>
+    <div class="kv"><b>Objectif</b><span>${esc(d.parcours?.objectif)}</span></div>
+    <div class="kv"><b>Plafond</b><span>${esc(d.parcours?.plafond)}</span></div>
+    <div class="kv"><b>Risque</b><span>${esc(d.parcours?.risque)}</span></div>
+    <div class="atitle">🔎 Sources</div><ul>${(d.sources||[]).map(s=>`<li>${esc(s.nom)} — ${esc(s.info)} (${esc(s.date)})</li>`).join('')}</ul>
+  </div>`;
+}
+
+/* ================= PIPELINE ANALYSE MATCH (2 étapes) ================= */
+async function pipelineMatch(eqA, eqB, ctx, setSt){
+  setSt('Étape 1/2 · contexte, forme, absences, tactique (recherche web)…');
+  const terrain = await appelIA(pTerrain(eqA[0], eqB[0], ctx));
+  setSt('Étape 2/2 · probabilités, marchés, verdict…');
+  let marche=null;
+  try{ marche = await appelIA(pMarche(eqA[0], eqB[0], terrain)); }catch(e){ console.error('étape 2',e); }
+  setSt('');
+  return {terrain, marche};
+}
+
+/* ================= ONGLET CALENDRIER ================= */
+let fG='*', fJ='*', fE='*';
+function rendreFiltres(){
+  const fg=document.getElementById('f-groupes');
+  fg.innerHTML = `<button class="chip ${fG==='*'?'on':''}" data-g="*">TOUS</button>`+Object.keys(GROUPES).map(g=>`<button class="chip ${fG===g?'on':''}" data-g="${g}">GR.${g}</button>`).join('');
+  fg.querySelectorAll('.chip').forEach(c=>c.onclick=()=>{fG=c.dataset.g;rendreFiltres();rendreMatchs();});
+  const fj=document.getElementById('f-journees');
+  fj.innerHTML = `<button class="chip ${fJ==='*'?'on':''}" data-j="*">J1+J2+J3</button>`+[1,2,3].map(j=>`<button class="chip ${fJ==j?'on':''}" data-j="${j}">${JOURNEES[j]}</button>`).join('');
+  fj.querySelectorAll('.chip').forEach(c=>c.onclick=()=>{fJ=c.dataset.j;rendreFiltres();rendreMatchs();});
+  const fe=document.getElementById('f-equipe');
+  if(fe.options.length<=1){ TOUTES.forEach(e=>{const o=document.createElement('option');o.value=e.nom;o.textContent=`${e.flag} ${e.nom}`;fe.appendChild(o);}); fe.onchange=()=>{fE=fe.value;rendreMatchs();}; }
+}
+function badgeStatut(A){
+  if(!A) return `<span class="pill gris">⚪ NON ANALYSÉ</span>`;
+  const v = A.marche?.verdict, robot = A.auto?'🤖 ':'';
+  if(v?.no_bet || /no bet/i.test(v?.reco||'')) return `<span class="pill rouge">${robot}⚪ NO BET</span>`;
+  if(v?.reco) return `<span class="pill vert">${robot}✓ ANALYSÉ · ${esc((v.confiance||'').toUpperCase())}</span>`;
+  return `<span class="pill jaune">${robot}✓ PARTIEL</span>`;
+}
+function rendreMatchs(){
+  const zone=document.getElementById('liste-matchs');
+  const liste=MATCHS.filter(m=>(fG==='*'||m.groupe===fG)&&(fJ==='*'||m.journee==fJ)&&(fE==='*'||m.eqA[0]===fE||m.eqB[0]===fE));
+  if(!liste.length){ zone.innerHTML=`<div class="saved-empty">AUCUN MATCH POUR CES FILTRES</div>`; return; }
+  zone.innerHTML = liste.map(m=>{
+    const A=DB.analyses[m.id];
+    return `<div class="card" id="card-${m.id}">
+      <div class="ktop"><span class="b-or">GROUPE ${m.groupe}</span><span>·</span><span>${JOURNEES[m.journee]}</span><span style="margin-left:auto">${badgeStatut(A)}</span></div>
+      <div class="affiche">
+        <div class="eq"><span class="flag">${m.eqA[1]}</span><span>${m.eqA[0]}</span></div><div class="vs">VS</div>
+        <div class="eq d"><span>${m.eqB[0]}</span><span class="flag">${m.eqB[1]}</span></div>
+      </div>
+      <div class="actions">
+        <button class="go" data-id="${m.id}">${A?'🔄 Ré-analyser':'⚡ Analyser'}</button>
+        ${A?`<button class="ghost" data-toggle="${m.id}">Afficher / masquer</button><button class="ghost" data-compo="${m.id}">⏱️ Compos</button><button class="ghost" data-res="${m.id}">🏁 Vérifier résultat</button>`:''}
+        <span class="statut" id="st-${m.id}"></span>
+      </div>
+      <div id="zone-${m.id}" ${A?'':'hidden'}>${A?htmlAnalyseComplete(A,m.id):''}</div>
+    </div>`;
+  }).join('');
+  zone.querySelectorAll('button.go').forEach(b=>b.onclick=()=>lancerMatch(b.dataset.id));
+  zone.querySelectorAll('[data-toggle]').forEach(b=>b.onclick=()=>{const z=document.getElementById('zone-'+b.dataset.toggle);z.hidden=!z.hidden;});
+  zone.querySelectorAll('[data-res]').forEach(b=>b.onclick=()=>verifResultat(b.dataset.res));
+  zone.querySelectorAll('[data-compo]').forEach(b=>b.onclick=()=>verifCompos(b.dataset.compo));
+  brancherEdges(zone);
+}
+function brancherEdges(zone){
+  zone.querySelectorAll('[data-edge]').forEach(b=>b.onclick=async()=>{
+    const k=b.dataset.edge, A=DB.analyses[k]; if(!A) return;
+    const a=parseFloat(document.getElementById('c1-'+k)?.value), n=parseFloat(document.getElementById('cn-'+k)?.value), c=parseFloat(document.getElementById('c2-'+k)?.value);
+    A.cotes={a:a||null,n:n||null,b:c||null};
+    await sauver();
+    document.getElementById('edge-'+k).innerHTML = htmlEdges(A);
+    rendreValue(); rendreDash();
+  });
+}
+async function lancerMatch(id){
+  const m=MATCHS.find(x=>x.id===id);
+  const btn=document.querySelector(`#card-${id} button.go`), st=document.getElementById('st-'+id);
+  btn.disabled=true; btn.innerHTML='<span class="spin"></span>Analyse…';
+  try{
+    const {terrain,marche} = await pipelineMatch(m.eqA, m.eqB, `Groupe ${m.groupe}, ${JOURNEES[m.journee]}`, t=>{st.textContent=t;});
+    DB.analyses[id]={type:'match',titre:`${m.eqA[1]} ${m.eqA[0]} vs ${m.eqB[0]} ${m.eqB[1]} · Gr.${m.groupe} ${JOURNEES[m.journee]}`,eqA:m.eqA,eqB:m.eqB,terrain,marche,ts:Date.now(),cotes:DB.analyses[id]?.cotes||null,resultat:DB.analyses[id]?.resultat||null};
+    await sauver(); rendreMatchs(); rendreSaved(); rendreValue(); rendreDash(); rendreEquipes();
+  }catch(e){ btn.disabled=false; btn.textContent='⚡ Analyser'; st.innerHTML=`<span class="err">Échec : ${esc(e.message)}</span>`; }
+}
+async function verifResultat(id){
+  const A=DB.analyses[id]; if(!A) return;
+  const st=document.getElementById('st-'+id); st.textContent='Recherche du score final…';
+  try{
+    const r = await appelIA(pResultat(A.eqA[0], A.eqB[0], A.titre));
+    A.resultat=r; await sauver(); rendreMatchs(); rendreSaved();
+  }catch(e){ st.innerHTML=`<span class="err">Échec : ${esc(e.message)}</span>`; }
+}
+
+/* ================= ONGLET GROUPES ================= */
+function rendreClassements(){
+  const zone=document.getElementById('liste-classements');
+  zone.innerHTML = Object.keys(GROUPES).map(g=>{
+    const S=DB.standings[g];
+    const rows = S?S.data.classement:GROUPES[g].map(e=>({nom:e[0],pts:'–',j:'–',bp:'–',bc:'–'}));
+    const table = `<table class="classement"><tr><th>ÉQUIPE</th><th>J</th><th>BP</th><th>BC</th><th>DIFF</th><th>PTS</th></tr>`+
+      rows.map((r,i)=>{const diff=(typeof r.bp==='number'&&typeof r.bc==='number')?(r.bp-r.bc):'–';
+      return `<tr class="${S&&i<2?'q':''}"><td>${flagDe(r.nom)} ${esc(r.nom)}</td><td>${r.j??'–'}</td><td>${r.bp??'–'}</td><td>${r.bc??'–'}</td><td>${diff>0?'+'+diff:diff}</td><td><b>${r.pts??'–'}</b></td></tr>`;}).join('')+`</table>`;
+    return `<div class="card">
+      <div class="ktop"><span class="b-or">GROUPE ${g}</span><span style="margin-left:auto">${S?`MAJ ${dateFR(S.ts)}`:'PAS ENCORE ACTUALISÉ'}</span></div>
+      ${table}
+      ${S?`<p class="note" style="margin-top:8px"><b>Résultats :</b> ${esc(S.data.resultats)}<br><b>Scénarios :</b> ${esc(S.data.scenarios)}</p>`:''}
+      ${S&&S.data.lecture?`<p class="note" style="margin-top:6px">⭐ <b>Favori :</b> ${esc(S.data.lecture.favori)}<br>😰 <b>Sous pression :</b> ${esc(S.data.lecture.pression)}<br>🔥 <b>Surprise possible :</b> ${esc(S.data.lecture.surprise)}<br>⚔️ <b>Match décisif :</b> ${esc(S.data.lecture.decisif)}</p>`:''}
+      <div class="actions"><button class="ghost" data-cls="${g}">🔄 Actualiser (IA + web)</button><span class="statut" id="st-cls-${g}"></span></div>
+    </div>`;
+  }).join('');
+  zone.querySelectorAll('[data-cls]').forEach(b=>b.onclick=async()=>{
+    const g=b.dataset.cls, st=document.getElementById('st-cls-'+g);
+    b.disabled=true; st.textContent='Recherche du classement réel…';
+    try{ const data=await appelIA(pClassement(g)); DB.standings[g]={data,ts:Date.now()}; await sauver(); rendreClassements(); }
+    catch(e){ b.disabled=false; st.innerHTML=`<span class="err">Échec : ${esc(e.message)}</span>`; }
+  });
+}
+
+/* ================= ONGLET ÉQUIPES ================= */
+function rendreEquipes(){
+  const zone=document.getElementById('grid-groupes');
+  zone.innerHTML = Object.entries(GROUPES).map(([g,eqs])=>`
+    <div class="gcard"><div class="gtitle"><span>Groupe ${g}</span></div>
+      ${eqs.map(e=>`<div class="team ${DB.equipes[e[0]]?'done':''}" data-eq="${esc(e[0])}" data-g="${g}" role="button" tabindex="0">
+        <span class="flag">${e[1]}</span><span class="nom">${e[0]}</span><span class="conf">${e[2]}</span></div>`).join('')}
+    </div>`).join('');
+  zone.querySelectorAll('.team').forEach(t=>{
+    const go=()=>ficheEquipe(t.dataset.eq, t.dataset.g);
+    t.onclick=go; t.onkeydown=ev=>{if(ev.key==='Enter')go();};
+  });
+}
+async function ficheEquipe(nom,g){
+  const e={nom,g,groupe:g,flag:flagDe(nom)};
+  const bg=document.getElementById('modal-eq'), body=document.getElementById('modal-eq-body');
+  bg.classList.add('on');
+  if(DB.equipes[nom]){
+    body.innerHTML = htmlFicheEquipe(e,DB.equipes[nom]) + `<div class="actions"><button class="ghost" id="re-eq">🔄 Ré-analyser</button></div>`;
+    document.getElementById('re-eq').onclick=()=>{ delete DB.equipes[nom]; ficheEquipe(nom,g); };
+    return;
+  }
+  body.innerHTML = `<div class="ktop"><span class="b-or">${e.flag} ${esc(nom)} · GROUPE ${g}</span></div><p class="note"><span class="spin"></span>Analyse de l'équipe en cours (recherche web)…</p>`;
+  try{
+    const d = await appelIA(pEquipe({nom,groupe:g}));
+    DB.equipes[nom]=d; await sauver(); rendreEquipes();
+    if(bg.classList.contains('on')) body.innerHTML = htmlFicheEquipe(e,d) + `<div class="actions"><button class="ghost" id="re-eq">🔄 Ré-analyser</button></div>`;
+    const rb=document.getElementById('re-eq'); if(rb) rb.onclick=()=>{ delete DB.equipes[nom]; ficheEquipe(nom,g); };
+  }catch(err){
+    body.innerHTML = `<div class="ktop"><span class="b-or">${e.flag} ${esc(nom)}</span></div><p class="err">Échec : ${esc(err.message)}</p><div class="actions"><button class="ghost" id="re-eq">Réessayer</button></div>`;
+    document.getElementById('re-eq').onclick=()=>ficheEquipe(nom,g);
+  }
+}
+
+/* ================= ONGLET VALUE BETS ================= */
+function collecteMarchesAnalysés(){
+  const out=[];
+  for(const [id,A] of Object.entries(DB.analyses)){
+    if(!A.marche) continue;
+    (A.marche.marches||[]).forEach(x=>{ if(x.verdict==='🟢'||x.verdict==='🟡') out.push({id,A,x}); });
+  }
+  return out.sort((a,b)=>(b.x.proba||0)-(a.x.proba||0));
+}
+function rendreValue(){
+  const zone=document.getElementById('liste-value');
+  const items=collecteMarchesAnalysés();
+  if(!items.length){ zone.innerHTML=`<div class="saved-empty">AUCUNE OPPORTUNITÉ POUR L'INSTANT.<br>ANALYSE DES MATCHS DANS L'ONGLET CALENDRIER.</div>`; return; }
+  zone.innerHTML = items.map(({id,A,x})=>`
+    <div class="card">
+      <div class="ktop"><span class="b-or">${esc(A.titre)}</span><span style="margin-left:auto">${dateFR(A.ts)}</span></div>
+      <div class="marche" style="margin:0">
+        <div class="mh">${esc(x.marche)} <span class="pill ${vdClass(x.verdict)}">${x.verdict} ${vdLabel(x.verdict)}</span></div>
+        <div class="mstats">PROBA IA ${x.proba??'–'}% · COTE MIN. INTÉRESSANTE ≈ ${x.cote_min??'–'}</div>
+        <div class="md">✅ ${esc(x.pour)}<br>❌ ${esc(x.contre)}</div>
+      </div>
+      <div class="actions"><button class="ghost" data-goto="${id}">Voir l'analyse complète →</button></div>
+    </div>`).join('');
+  zone.querySelectorAll('[data-goto]').forEach(b=>b.onclick=()=>ouvrirMatch(b.dataset.goto));
+}
+function ouvrirMatch(id){
+  const m=MATCHS.find(x=>x.id===id);
+  switchTab('cal');
+  if(m){ fG=m.groupe; fJ=m.journee; fE='*'; document.getElementById('f-equipe').value='*'; rendreFiltres(); rendreMatchs();
+    setTimeout(()=>{const c=document.getElementById('card-'+id); if(c){c.scrollIntoView({behavior:'smooth',block:'center'}); const z=document.getElementById('zone-'+id); if(z)z.hidden=false;}},60);
+  }
+}
+
+/* ================= ONGLET MES ANALYSES ================= */
+function rendreSaved(){
+  const zone=document.getElementById('liste-saved');
+  const arr=Object.entries(DB.analyses).sort((a,b)=>(b[1].ts||0)-(a[1].ts||0));
+  document.getElementById('saved-info').textContent = arr.length?`${arr.length} analyse(s) · persistées localement`:'';
+  if(!arr.length){ zone.innerHTML=`<div class="saved-empty">AUCUNE ANALYSE SAUVEGARDÉE.<br>LANCE UNE ANALYSE DEPUIS LE CALENDRIER OU L'ANALYSE LIBRE.</div>`; return; }
+  zone.innerHTML = arr.map(([id,A])=>{
+    const v=A.marche?.verdict;
+    let res='';
+    if(A.resultat?.joue){
+      const arr2=[A.marche?.probas?.eqA,A.marche?.probas?.nul,A.marche?.probas?.eqB];
+      const pred=arr2.every(x=>x!=null)?['A','nul','B'][arr2.indexOf(Math.max(...arr2))]:null;
+      const ok=pred&&pred===A.resultat.vainqueur;
+      res=`<span class="pill ${ok?'vert':'rouge'}">🏁 ${esc(A.resultat.score)} · ${ok?'PRONO OK':'PRONO RATÉ'}</span>`;
+    }
+    return `<div class="card" id="saved-${id}">
+      <div class="ktop"><span class="b-or">${esc(A.titre)}</span><span style="margin-left:auto">${dateFR(A.ts)}</span></div>
+      <div class="actions" style="margin-top:0">
+        ${badgeStatut(A)} ${res}
+        ${A.resultat?.joue?`<button class="ghost" data-pm="${id}">🧠 ${A.postmatch?'Re-bilan':'Bilan post-match'}</button>`:''}
+        <button class="ghost" data-sv-toggle="${id}" style="margin-left:auto">Afficher / masquer</button>
+        <button class="ghost danger" data-sv-del="${id}">🗑️</button>
+      </div>
+      <div id="sv-zone-${id}" hidden>${htmlAnalyseComplete(A,'sv-'+id)}</div>
+    </div>`;
+  }).join('');
+  zone.querySelectorAll('[data-sv-toggle]').forEach(b=>b.onclick=()=>{const z=document.getElementById('sv-zone-'+b.dataset.svToggle);z.hidden=!z.hidden;});
+  zone.querySelectorAll('[data-sv-del]').forEach(b=>b.onclick=async()=>{ delete DB.analyses[b.dataset.svDel]; await sauver(); rendreSaved(); rendreMatchs(); rendreValue(); rendreDash(); });
+  zone.querySelectorAll('[data-pm]').forEach(b=>b.onclick=()=>lancerPostMatch(b.dataset.pm));
+  // brancher edges pour les analyses sauvegardées (clés préfixées sv-)
+  zone.querySelectorAll('[data-edge]').forEach(b=>b.onclick=async()=>{
+    const k=b.dataset.edge, realId=k.replace(/^sv-/,''), A=DB.analyses[realId]; if(!A) return;
+    const a=parseFloat(document.getElementById('c1-'+k)?.value), n=parseFloat(document.getElementById('cn-'+k)?.value), c=parseFloat(document.getElementById('c2-'+k)?.value);
+    A.cotes={a:a||null,n:n||null,b:c||null}; await sauver();
+    document.getElementById('edge-'+k).innerHTML=htmlEdges(A); rendreValue();
+  });
+}
+
+/* ================= DASHBOARD ================= */
+function rendreDash(){
+  const analyses=Object.values(DB.analyses);
+  const nbAnalyses=analyses.length;
+  const nbValue=collecteMarchesAnalysés().filter(o=>o.x.verdict==='🟢').length;
+  const nbNoBet=analyses.filter(A=>A.marche?.verdict&&(A.marche.verdict.no_bet||/no bet/i.test(A.marche.verdict.reco||''))).length;
+  const joues=analyses.filter(A=>A.resultat?.joue);
+  let ok=0; joues.forEach(A=>{const arr=[A.marche?.probas?.eqA,A.marche?.probas?.nul,A.marche?.probas?.eqB];if(arr.every(x=>x!=null)){const p=['A','nul','B'][arr.indexOf(Math.max(...arr))];if(p===A.resultat.vainqueur)ok++;}});
+  const taux=joues.length?Math.round(100*ok/joues.length):null;
+  document.getElementById('dash-stats').innerHTML=`
+    <div class="stat"><div class="n">${MATCHS.length}</div><div class="l">Matchs de poule</div></div>
+    <div class="stat"><div class="n">${nbAnalyses}</div><div class="l">Analyses faites</div></div>
+    <div class="stat"><div class="n" style="color:var(--vert)">${nbValue}</div><div class="l">💎 Pistes 🟢</div></div>
+    <div class="stat"><div class="n" style="color:var(--rouge)">${nbNoBet}</div><div class="l">⚪ No bet</div></div>
+    <div class="stat"><div class="n" style="color:var(--or)">${taux===null?'–':taux+'%'}</div><div class="l">Prono 1N2 (${joues.length} joués)</div></div>`;
+  // opportunités
+  const opps=collecteMarchesAnalysés().slice(0,6);
+  const zo=document.getElementById('dash-opps');
+  if(opps.length){
+    zo.innerHTML=opps.map(({id,A,x})=>`<div class="opp-row" data-goto="${id}">
+      <span class="pill ${vdClass(x.verdict)}">${x.verdict}</span>
+      <span><b>${esc(x.marche)}</b> · ${esc(A.titre)}</span>
+      <span class="om">IA ${x.proba??'–'}% · min ${x.cote_min??'–'}</span></div>`).join('');
+    zo.querySelectorAll('[data-goto]').forEach(b=>b.onclick=()=>ouvrirMatch(b.dataset.goto));
+  } else zo.innerHTML=`<div class="saved-empty">ANALYSE DES MATCHS POUR ALIMENTER CETTE SECTION</div>`;
+}
+async function lancerBriefing(){
+  const btn=document.getElementById('btn-brief'), st=document.getElementById('st-brief');
+  btn.disabled=true; btn.innerHTML='<span class="spin"></span>Recherche…'; st.textContent='Matchs du jour, actus, alertes…';
+  try{
+    const d = await appelIA(pBriefing(new Date().toLocaleDateString('fr-CH',{weekday:'long',day:'numeric',month:'long',year:'numeric'})));
+    DB.briefing={data:d,ts:Date.now()}; await sauver(); afficheBriefing();
+  }catch(e){ st.innerHTML=`<span class="err">Échec : ${esc(e.message)}</span>`; }
+  finally{ btn.disabled=false; btn.textContent='Actualiser le briefing'; if(IA_OK)st.textContent=''; }
+}
+function afficheBriefing(){
+  const z=document.getElementById('zone-brief'), B=DB.briefing;
+  document.getElementById('brief-ts').textContent = B?`MAJ ${dateFR(B.ts)}`:'';
+  if(!B){ z.innerHTML=''; return; }
+  const d=B.data;
+  let h=`<div class="analyse">`;
+  if(d.matchs&&d.matchs.length){
+    h+=`<div class="atitle">📅 Matchs du jour</div>`+d.matchs.map(m=>`<div class="brief-match"><span class="h">${esc(m.heure)}</span><span><b>${esc(m.affiche)}</b> ${(m.badges||[]).join(' ')}</span><span class="note" style="flex:1 0 100%;margin-left:0">${esc(m.stade)} — ${esc(m.note)}</span></div>`).join('');
+  } else h+=`<div class="atitle">📅 Matchs du jour</div><p class="note">Aucun match listé aujourd'hui (ou non confirmé).</p>`;
+  h+=`<div class="atitle">🔥 Match du jour</div><p>${esc(d.top)}</p>
+      <div class="atitle">🚫 À éviter</div><p>${esc(d.eviter)}</p>
+      <div class="atitle">📰 Alertes vérifiées</div><ul>${(d.alertes||[]).map(a=>`<li>${esc(a)}</li>`).join('')}</ul>
+      <p class="note" style="margin-top:8px">Fraîcheur : ${esc(d.fraicheur)}</p></div>`;
+  z.innerHTML=h;
+}
+
+/* ================= ANALYSE LIBRE ================= */
+function initLibre(){
+  const sa=document.getElementById('sel-a'), sb=document.getElementById('sel-b');
+  TOUTES.forEach(e=>{ const oa=document.createElement('option'),ob=document.createElement('option');
+    oa.value=ob.value=e.nom; oa.textContent=ob.textContent=`${e.flag} ${e.nom}`; sa.appendChild(oa); sb.appendChild(ob); });
+  sb.selectedIndex=1;
+  document.getElementById('btn-libre').onclick=lancerLibre;
+}
+async function lancerLibre(){
+  const sa=document.getElementById('sel-a').value, sb=document.getElementById('sel-b').value;
+  const stage=document.getElementById('sel-stage').value;
+  const st=document.getElementById('st-libre'), z=document.getElementById('zone-libre'), btn=document.getElementById('btn-libre');
+  if(sa===sb){ st.innerHTML='<span class="err">Choisis deux équipes différentes.</span>'; return; }
+  btn.disabled=true; btn.innerHTML='<span class="spin"></span>Analyse…'; z.innerHTML='';
+  const eqA=[sa,flagDe(sa)], eqB=[sb,flagDe(sb)];
+  try{
+    const {terrain,marche}=await pipelineMatch(eqA,eqB,`Phase finale — ${stage}`,t=>{st.textContent=t;});
+    const id='LIBRE-'+sa+'-'+sb+'-'+stage;
+    const A={type:'libre',titre:`${eqA[1]} ${sa} vs ${sb} ${eqB[1]} · ${stage}`,eqA,eqB,terrain,marche,ts:Date.now(),cotes:null};
+    DB.analyses[id]=A; await sauver();
+    z.innerHTML=htmlAnalyseComplete(A,id);
+    brancherEdges(z);
+    rendreSaved(); rendreValue(); rendreDash();
+  }catch(e){ st.innerHTML=`<span class="err">Échec : ${esc(e.message)}</span>`; }
+  finally{ btn.disabled=false; btn.textContent='Analyser ce duel'; if(IA_OK)st.textContent=''; }
+}
+
+/* ================= VEILLE / NEWS ================= */
+const NEWICO={blessure:'🚑',compo:'📋',resultat:'🏁',meteo:'🌧️',suspension:'🟥',cote:'📉',autre:'📰'};
+let veilleTimer=null, veilleIv=0, nextScanAt=0, scanning=false;
+function flashClass(n){ return n==='critique'?'fl-crit':n==='important'?'fl-imp':'fl-info'; }
+function rendreNews(){
+  const z=document.getElementById('news-feed'), N=DB.news;
+  document.getElementById('news-ts').textContent = N?`MAJ ${dateFR(N.ts)}`:'';
+  const nCrit = N?(N.data.items||[]).filter(i=>i.niveau==='critique').length:0;
+  document.getElementById('news-badge').textContent = nCrit?String(nCrit):'';
+  if(!N){ return; }
+  const items=N.data.items||[];
+  if(!items.length){ z.innerHTML=`<p class="note">${esc(N.data.resume||'Rien de neuf au dernier scan.')}</p>`; return; }
+  z.innerHTML = `<p class="note" style="margin-bottom:8px">${esc(N.data.resume)}</p>` + items.map(i=>`
+    <div class="news-item ${i.niveau==='critique'?'crit':''}">
+      <span class="ico">${NEWICO[i.cat]||'📰'}</span>
+      <div class="body">
+        <div class="nt">${esc(i.titre)}</div>
+        <div class="nd">${esc(i.detail)}</div>
+        <div class="nm"><span class="news-flash ${flashClass(i.niveau)}">${esc((i.niveau||'info').toUpperCase())}</span>
+          ${(i.equipes||[]).map(e=>`<span>${flagDe(e)||''} ${esc(e)}</span>`).join('')}
+          <span>· ${esc(i.quand)}</span></div>
+      </div>
+    </div>`).join('');
+}
+async function scanNews(silencieux){
+  if(scanning) return;
+  scanning=true;
+  const btn=document.getElementById('btn-news'), st=document.getElementById('st-news');
+  if(btn){ btn.disabled=true; btn.innerHTML='<span class="spin"></span>Scan…'; }
+  if(st) st.textContent='Recherche des dernières actus vérifiées…';
+  try{
+    const prevCrit = DB.news?(DB.news.data.items||[]).filter(i=>i.niveau==='critique').map(i=>i.titre):[];
+    const data = await appelIA(pNews(new Date().toLocaleString('fr-CH',{weekday:'long',day:'numeric',month:'long',hour:'2-digit',minute:'2-digit'})), 1600);
+    DB.news={data,ts:Date.now()}; await sauver(); rendreNews();
+    // notifier sur nouvelles alertes critiques
+    const nouvelles=(data.items||[]).filter(i=>i.niveau==='critique'&&!prevCrit.includes(i.titre));
+    if(nouvelles.length) notifier(`🔴 ${nouvelles.length} alerte(s) critique(s)`, nouvelles.map(i=>i.titre).join(' · '));
+    if(st) st.textContent = silencieux?`Veille : ${(data.items||[]).length} actu(s) au dernier scan.`:'';
+  }catch(e){ if(st) st.innerHTML=`<span class="err">Échec : ${esc(e.message)}</span>`; }
+  finally{ scanning=false; if(btn){ btn.disabled=false; btn.textContent='🔄 Scanner maintenant'; } }
+}
+function setVeille(iv){
+  veilleIv=+iv||0;
+  if(veilleTimer){ clearInterval(veilleTimer); veilleTimer=null; }
+  document.querySelectorAll('[data-iv]').forEach(c=>c.classList.toggle('on', c.dataset.iv===(iv==='off'?'off':String(iv))));
+  const stEl=document.getElementById('veille-state'), nx=document.getElementById('next-scan');
+  if(!veilleIv){ stEl.innerHTML=`<span class="pill gris">⏹ MANUEL</span>`; nx.textContent=''; nextScanAt=0; setCfg(Object.assign(getCfg(),{veille:'off'})); return; }
+  stEl.innerHTML=`<span class="pill vert">🟢 VEILLE ACTIVE · ${veilleIv} MIN</span>`;
+  setCfg(Object.assign(getCfg(),{veille:String(veilleIv)}));
+  scanNews(true);
+  nextScanAt=Date.now()+veilleIv*60000;
+  veilleTimer=setInterval(()=>{ scanNews(true); nextScanAt=Date.now()+veilleIv*60000; }, veilleIv*60000);
+  tickNext();
+}
+function tickNext(){
+  const nx=document.getElementById('next-scan');
+  if(!veilleIv||!nextScanAt){ if(nx)nx.textContent=''; return; }
+  const s=Math.max(0,Math.round((nextScanAt-Date.now())/1000));
+  if(nx) nx.textContent=`⏱ Prochain scan auto dans ${Math.floor(s/60)}m ${String(s%60).padStart(2,'0')}s`;
+  setTimeout(tickNext,1000);
+}
+function notifier(titre,corps){
+  try{ if('Notification' in window && Notification.permission==='granted') new Notification(titre,{body:corps}); }catch(e){}
+}
+function initVeille(){
+  document.getElementById('btn-news').onclick=()=>scanNews(false);
+  document.querySelectorAll('[data-iv]').forEach(c=>c.onclick=()=>setVeille(c.dataset.iv));
+  document.getElementById('btn-notif').onclick=async()=>{
+    const st=document.getElementById('st-news');
+    try{ const p=await Notification.requestPermission(); st.textContent = p==='granted'?'🔔 Notifications activées.':'Notifications refusées par le navigateur.'; }
+    catch(e){ st.textContent='Notifications non supportées ici.'; }
+  };
+  rendreNews();
+  const saved=getCfg().veille;
+  if(saved&&saved!=='off') setVeille(saved); else setVeille('off');
+  initAutoLot();
+}
+
+/* ================= ANALYSE AUTOMATIQUE EN LOT ================= */
+let lotStop=false, lotEnCours=false;
+function listeLot(scope){
+  if(scope==='J1'||scope==='J2'||scope==='J3') return MATCHS.filter(m=>m.journee==scope[1]);
+  if(scope==='all') return MATCHS.slice();
+  if(scope==='missing') return MATCHS.filter(m=>!DB.analyses[m.id]);
+  if(scope==='today'){
+    const aff=(DB.briefing?.data?.matchs||[]).map(x=>(x.affiche||'').toLowerCase());
+    if(!aff.length) return [];
+    return MATCHS.filter(m=>aff.some(a=>a.includes(m.eqA[0].toLowerCase())&&a.includes(m.eqB[0].toLowerCase())));
+  }
+  return [];
+}
+function initAutoLot(){
+  document.getElementById('btn-auto').onclick=lancerLot;
+  document.getElementById('btn-auto-stop').onclick=()=>{ lotStop=true; document.getElementById('st-auto').textContent='Arrêt demandé…'; };
+}
+async function lancerLot(){
+  if(lotEnCours) return;
+  const scope=document.getElementById('auto-scope').value, mode=document.getElementById('auto-mode').value;
+  let liste=listeLot(scope);
+  if(mode==='skip') liste=liste.filter(m=>!DB.analyses[m.id]);
+  const st=document.getElementById('st-auto'), prog=document.getElementById('auto-prog');
+  const stopBtn=document.getElementById('btn-auto-stop'), goBtn=document.getElementById('btn-auto');
+  if(scope==='today'&&!(DB.briefing?.data?.matchs||[]).length){ st.innerHTML='<span class="err">Lance d\'abord le briefing du jour (Dashboard) pour connaître les matchs d\'aujourd\'hui.</span>'; return; }
+  if(!liste.length){ st.innerHTML='<span class="err">Aucun match à analyser pour cette sélection.</span>'; return; }
+  lotEnCours=true; lotStop=false; goBtn.disabled=true; stopBtn.hidden=false;
+  let done=0, ok=0, fail=0;
+  prog.innerHTML=`<div class="qbar"><div class="qf" id="qf" style="width:0%"></div></div><div id="qlist"></div>`;
+  const qlist=document.getElementById('qlist');
+  qlist.innerHTML=liste.map((m,i)=>`<div class="qrow" id="q-${m.id}"><span class="qi">${i+1}</span><span>${m.eqA[1]} ${m.eqA[0]} – ${m.eqB[0]} ${m.eqB[1]} <span class="note">Gr.${m.groupe} ${JOURNEES[m.journee].split('·')[0]}</span></span><span class="qs" style="color:var(--craie2)">en attente</span></div>`).join('');
+  for(const m of liste){
+    if(lotStop) break;
+    const row=document.querySelector(`#q-${m.id} .qs`); row.innerHTML='<span class="spin"></span>analyse…'; row.style.color='var(--elec)';
+    st.textContent=`Analyse ${done+1}/${liste.length} · ${m.eqA[0]} – ${m.eqB[0]}`;
+    try{
+      const {terrain,marche}=await pipelineMatch(m.eqA,m.eqB,`Groupe ${m.groupe}, ${JOURNEES[m.journee]}`,()=>{});
+      DB.analyses[m.id]={type:'match',titre:`${m.eqA[1]} ${m.eqA[0]} vs ${m.eqB[0]} ${m.eqB[1]} · Gr.${m.groupe} ${JOURNEES[m.journee]}`,eqA:m.eqA,eqB:m.eqB,terrain,marche,ts:Date.now(),cotes:DB.analyses[m.id]?.cotes||null,resultat:DB.analyses[m.id]?.resultat||null};
+      await sauver(); ok++;
+      const v=DB.analyses[m.id].marche?.verdict;
+      const lab=(v?.no_bet||/no bet/i.test(v?.reco||''))?'<span style="color:var(--rouge)">⚪ no bet</span>':`<span style="color:var(--vert)">✓ ${esc(v?.reco||'fait').slice(0,28)}</span>`;
+      row.innerHTML=lab; row.style.color='';
+    }catch(e){ fail++; row.innerHTML='<span style="color:var(--rouge)">✗ échec</span>'; }
+    done++;
+    document.getElementById('qf').style.width=Math.round(100*done/liste.length)+'%';
+  }
+  st.textContent = lotStop?`⏹ Stoppé · ${ok} ok, ${fail} échec(s).`:`✅ Terminé · ${ok} analysé(s), ${fail} échec(s).`;
+  goBtn.disabled=false; stopBtn.hidden=true; lotEnCours=false;
+  rendreMatchs(); rendreSaved(); rendreValue(); rendreDash();
+  if(ok) notifier('🤖 Lot terminé', `${ok} match(s) analysé(s) sur ${liste.length}.`);
+}
+
+/* ================= PHASE FINALE / BRACKET ================= */
+const ROUNDS=[
+  {key:'r32',label:'16es de finale',stage:'seizième de finale',n:16},
+  {key:'r16',label:'8es de finale',stage:'huitième de finale',n:8},
+  {key:'qf', label:'Quarts',stage:'quart de finale',n:4},
+  {key:'sf', label:'Demies',stage:'demi-finale',n:2},
+  {key:'f',  label:'Finale',stage:'finale',n:1}
+];
+let bRound='r32';
+function emptyBracket(){ const b={}; ROUNDS.forEach(r=>b[r.key]=Array.from({length:r.n},()=>({a:'',b:''}))); return b; }
+function ensureBracket(){ if(!DB.bracket){ DB.bracket=emptyBracket(); } ROUNDS.forEach(r=>{ if(!DB.bracket[r.key]) DB.bracket[r.key]=Array.from({length:r.n},()=>({a:'',b:''})); }); }
+function optionsTeams(sel){
+  return `<option value="">— équipe —</option>`+TOUTES.map(e=>`<option value="${esc(e.nom)}" ${sel===e.nom?'selected':''}>${e.flag} ${esc(e.nom)}</option>`).join('');
+}
+function rendreBracketRounds(){
+  const z=document.getElementById('bracket-rounds');
+  z.innerHTML=ROUNDS.map(r=>`<button class="chip ${bRound===r.key?'on':''}" data-r="${r.key}">${r.label}</button>`).join('');
+  z.querySelectorAll('[data-r]').forEach(c=>c.onclick=()=>{bRound=c.dataset.r;rendreBracketRounds();rendreBracket();});
+}
+function rendreBracket(){
+  ensureBracket();
+  const r=ROUNDS.find(x=>x.key===bRound), ties=DB.bracket[r.key];
+  const z=document.getElementById('bracket-zone');
+  z.innerHTML=ties.map((t,i)=>{
+    const id=`KO-${r.key}-${i}`, A=DB.analyses[id];
+    return `<div class="tie">
+      <div class="th"><span>${r.label.toUpperCase()} · MATCH ${i+1}</span>${A?badgeStatut(A):''}</div>
+      <div class="trow">
+        <select data-b="${r.key}" data-i="${i}" data-s="a">${optionsTeams(t.a)}</select>
+        <span class="vs">VS</span>
+        <select data-b="${r.key}" data-i="${i}" data-s="b">${optionsTeams(t.b)}</select>
+      </div>
+      <div class="tact">
+        <button class="go" data-ko="${id}" data-i="${i}" ${(!t.a||!t.b||t.a===t.b)?'disabled':''}>${A?'🔄 Ré-analyser':'⚡ Analyser'}</button>
+        ${A?`<button class="ghost" data-kotg="${id}">Afficher / masquer</button>`:''}
+        <span class="statut" id="st-${id}"></span>
+      </div>
+      <div id="zone-${id}" hidden>${A?htmlAnalyseComplete(A,id):''}</div>
+    </div>`;
+  }).join('');
+  z.querySelectorAll('select[data-b]').forEach(s=>s.onchange=async()=>{
+    DB.bracket[s.dataset.b][+s.dataset.i][s.dataset.s]=s.value; await sauver(); rendreBracket();
+  });
+  z.querySelectorAll('[data-ko]').forEach(b=>b.onclick=()=>analyserTie(b.dataset.ko, r));
+  z.querySelectorAll('[data-kotg]').forEach(b=>b.onclick=()=>{const zz=document.getElementById('zone-'+b.dataset.kotg);zz.hidden=!zz.hidden;});
+  brancherEdges(z);
+}
+async function analyserTie(id, r){
+  const i=+id.split('-')[2], t=DB.bracket[r.key][i];
+  if(!t.a||!t.b||t.a===t.b) return;
+  const eqA=[t.a,flagDe(t.a)], eqB=[t.b,flagDe(t.b)];
+  const btn=document.querySelector(`[data-ko="${id}"]`), st=document.getElementById('st-'+id);
+  btn.disabled=true; btn.innerHTML='<span class="spin"></span>Analyse…';
+  try{
+    const {terrain,marche}=await pipelineMatch(eqA,eqB,`Phase finale — ${r.stage}`,x=>{st.textContent=x;});
+    DB.analyses[id]={type:'ko',titre:`${eqA[1]} ${t.a} vs ${t.b} ${eqB[1]} · ${r.label}`,eqA,eqB,terrain,marche,ts:Date.now(),cotes:DB.analyses[id]?.cotes||null,resultat:DB.analyses[id]?.resultat||null};
+    await sauver(); rendreBracket(); rendreSaved(); rendreValue(); rendreDash();
+    const zz=document.getElementById('zone-'+id); if(zz) zz.hidden=false;
+  }catch(e){ btn.disabled=false; btn.textContent='⚡ Analyser'; st.innerHTML=`<span class="err">${esc(e.message)}</span>`; }
+}
+function initBracket(){
+  rendreBracketRounds(); rendreBracket();
+  document.getElementById('btn-bracket-fill').onclick=async()=>{
+    ensureBracket();
+    const st=document.getElementById('st-bracket');
+    const top2=[]; // [{pos:'1A',nom},...]
+    for(const g of Object.keys(GROUPES)){
+      const S=DB.standings[g];
+      if(S&&S.data.classement){ top2.push({nom:S.data.classement[0]?.nom}); top2.push({nom:S.data.classement[1]?.nom}); }
+    }
+    const noms=top2.map(x=>x&&x.nom).filter(Boolean);
+    if(noms.length<2){ st.innerHTML='<span class="err">Actualise d\'abord des classements (onglet 📊 Groupes) pour pré-remplir.</span>'; return; }
+    // place les équipes connues dans les slots du R32, sans rien inventer
+    const slots=DB.bracket.r32; let k=0;
+    for(let i=0;i<slots.length;i++){
+      slots[i].a = noms[k++]||slots[i].a||'';
+      slots[i].b = noms[k++]||slots[i].b||'';
+    }
+    await sauver(); bRound='r32'; rendreBracketRounds(); rendreBracket();
+    st.textContent=`${noms.length} qualifié(s) placé(s). Les 8 meilleurs 3es et l'ordre exact des affiches FIFA restent à ajuster à la main.`;
+  };
+  document.getElementById('btn-bracket-reset').onclick=async()=>{
+    if(confirm('Vider tout le tableau de la phase finale ? (les analyses KO déjà sauvegardées restent dans Mes analyses)')){
+      DB.bracket=emptyBracket(); await sauver(); rendreBracket();
+    }
+  };
+}
+
+/* ================= MOTEUR QUANTITATIF (calculé localement, transparent) ================= */
+function poissonP(k,l){ let p=Math.exp(-l); for(let i=1;i<=k;i++) p*=l/i; return p; }
+function samplePoisson(l){ const L=Math.exp(-l); let k=0,p=1; do{k++;p*=Math.random();}while(p>L); return k-1; }
+function quantPoisson(xa,xb){
+  const MAX=8; let p1=0,pn=0,p2=0,btts=0,csA=0,csB=0; const ov={"0.5":0,"1.5":0,"2.5":0,"3.5":0}; let best={a:1,b:0,p:0};
+  for(let a=0;a<=MAX;a++)for(let b=0;b<=MAX;b++){
+    const p=poissonP(a,xa)*poissonP(b,xb);
+    if(a>b)p1+=p; else if(a===b)pn+=p; else p2+=p;
+    if(a>0&&b>0)btts+=p; if(b===0)csA+=p; if(a===0)csB+=p;
+    for(const k of ["0.5","1.5","2.5","3.5"]) if(a+b>+k) ov[k]+=p;
+    if(p>best.p)best={a,b,p};
+  }
+  return {p1,pn,p2,btts,csA,csB,ov,best};
+}
+function quantMonteCarlo(xa,xb,n){
+  n=n||10000; let w1=0,wn=0,w2=0,o25=0,bt=0; const sc={};
+  for(let i=0;i<n;i++){
+    // incertitude modélisée : lambdas perturbés ±25 % à chaque scénario
+    const la=xa*(0.75+Math.random()*0.5), lb=xb*(0.75+Math.random()*0.5);
+    const a=samplePoisson(la), b=samplePoisson(lb);
+    if(a>b)w1++; else if(a===b)wn++; else w2++;
+    if(a+b>2.5)o25++; if(a>0&&b>0)bt++;
+    const k=a+'-'+b; sc[k]=(sc[k]||0)+1;
+  }
+  const top=Object.entries(sc).sort((x,y)=>y[1]-x[1]).slice(0,3).map(([s,c])=>({s,pct:Math.round(100*c/n)}));
+  return {p1:w1/n,pn:wn/n,p2:w2/n,o25:o25/n,btts:bt/n,top,n};
+}
+function quantElo(sA,sB){
+  const pa=1/(1+Math.pow(10,(sB-sA)/22));           // force relative dérivée des scores /100
+  const closeness=1-Math.abs(pa-0.5)*2;             // 1 = équipes très proches
+  const pn=0.18+0.14*closeness;                     // part de nul : 18–32 %
+  return {p1:pa*(1-pn),pn,p2:(1-pa)*(1-pn)};
+}
+function quantXg(A){
+  const m=A.marche||{};
+  if(m.xg && m.xg.A!=null && m.xg.B!=null) return {a:+m.xg.A,b:+m.xg.B,estime:false};
+  // fallback prudent dérivé des probas IA — toujours marqué comme estimé
+  const p=m.probas||{}; const o=+p.over25||50;
+  const tot=o>=60?3.0:o>=50?2.6:o>=40?2.2:1.9;
+  const pa=+p.eqA||34, pb=+p.eqB||33; const share=pa/((pa+pb)||1);
+  return {a:+(tot*share).toFixed(2), b:+(tot*(1-share)).toFixed(2), estime:true};
+}
+function quantTout(A){
+  const t=A.terrain||{}, m=A.marche||{};
+  const sA=+(t.scores?.A)||60, sB=+(t.scores?.B)||60;
+  const xg=quantXg(A);
+  const po=quantPoisson(xg.a,xg.b);
+  const mc=quantMonteCarlo(xg.a,xg.b,10000);
+  const el=quantElo(sA,sB);
+  const ia=m.probas?{p1:(+m.probas.eqA||33)/100,pn:(+m.probas.nul||33)/100,p2:(+m.probas.eqB||34)/100}:null;
+  // ensemble pondéré transparent : IA 40 % · Poisson 35 % · Force relative 25 %
+  const W=ia?[[ia,.4],[po,.35],[el,.25]]:[[po,.6],[el,.4]];
+  let e1=0,en=0,e2=0; for(const [x,w] of W){ e1+=x.p1*w; en+=x.pn*w; e2+=x.p2*w; }
+  const s=e1+en+e2; e1/=s; en/=s; e2/=s;
+  const div=ia?Math.round((Math.abs(ia.p1-po.p1)+Math.abs(ia.pn-po.pn)+Math.abs(ia.p2-po.p2))*50):25;
+  const gap=Math.abs(sA-sB);
+  const ko=A.type==='ko'||A.type==='libre';
+  const absFlou=!!(t.absences&&(t.absences.fiable===false||/non confirm/i.test((t.absences.A||'')+(t.absences.B||''))));
+  let chaos=28;
+  if(Math.abs(e1-e2)<0.08)chaos+=16;
+  if(/élevée/i.test(m.incertitude||''))chaos+=15; else if(/moyenne/i.test(m.incertitude||''))chaos+=8;
+  if(absFlou)chaos+=10; if(ko)chaos+=12;
+  chaos+=Math.min(15,Math.round(div*0.5));
+  chaos=Math.max(5,Math.min(100,chaos));
+  let fiab=48;
+  if((t.sources||[]).length>=2)fiab+=12;
+  if(!absFlou)fiab+=12;
+  if(div<10)fiab+=14; else if(div<18)fiab+=7;
+  if(/faible/i.test(m.incertitude||''))fiab+=10; else if(/moyenne/i.test(m.incertitude||''))fiab+=4;
+  fiab=Math.max(10,Math.min(100,fiab));
+  const conf=Math.round(Math.max(5,Math.min(95, 58 + gap*0.7 - chaos*0.35 - div*0.4)));
+  return {xg,po,mc,el,ens:{p1:e1,pn:en,p2:e2},div,gap,chaos,fiab,conf};
+}
+function chaosTag(c){ return c<=30?['vert','LISIBLE']:c<=50?['jaune','NORMAL']:c<=70?['rouge','DANGEREUX']:['rouge','CHAOS ÉLEVÉ']; }
+function htmlQuant(A){
+  const m=A.marche; if(!m) return '';
+  const Q=quantTout(A); A.quant={chaos:Q.chaos,fiab:Q.fiab,conf:Q.conf};
+  const nA=A.eqA[0], nB=A.eqB[0], pct=x=>Math.round(x*100);
+  const marches=m.marches||[];
+  const pref=marches.find(x=>x.verdict==='🟢')||marches.find(x=>x.verdict==='🟡');
+  const evite=marches.find(x=>x.verdict==='🔴')||marches.find(x=>x.verdict==='⚪');
+  const fav=Q.ens.p1>Q.ens.p2&&Q.ens.p1>Q.ens.pn?nA:(Q.ens.p2>Q.ens.p1&&Q.ens.p2>Q.ens.pn?nB:'Nul');
+  const noBetForce=Q.chaos>70||Q.fiab<50;
+  const iaNoBet=m.verdict?.no_bet||/no bet/i.test(m.verdict?.reco||'');
+  const verdictFinal=(iaNoBet||noBetForce)?'⚪ NO BET':(m.verdict?.reco||'—');
+  const [cc,cl]=chaosTag(Q.chaos);
+  let h=`<div class="atitle">⚛️ Moteur quantitatif (Poisson · Monte Carlo · force relative — calculé localement)</div>
+  <p class="note">xG ${Q.xg.estime?'<b>estimés</b> (dérivés des probas IA — données exactes non confirmées)':'estimés par l\'analyse (pas des xG officiels)'} : ${esc(nA)} <b>${Q.xg.a}</b> · ${esc(nB)} <b>${Q.xg.b}</b>. Ensemble pondéré : IA 40 % · Poisson 35 % · Force relative 25 %.</p>
+  <div class="kv"><b>Poisson 1/N/2</b><span>${pct(Q.po.p1)} % / ${pct(Q.po.pn)} % / ${pct(Q.po.p2)} % · score le + probable <b>${Q.po.best.a}-${Q.po.best.b}</b> · CS ${esc(nA)} ${pct(Q.po.csA)} % · CS ${esc(nB)} ${pct(Q.po.csB)} %</span></div>
+  <div class="kv"><b>Monte Carlo</b><span>${Q.mc.n.toLocaleString('fr-CH')} simulations : ${pct(Q.mc.p1)} % / ${pct(Q.mc.pn)} % / ${pct(Q.mc.p2)} % · scores fréquents ${Q.mc.top.map(t=>`${t.s} (${t.pct} %)`).join(' · ')}</span></div>
+  <div class="kv"><b>Ensemble final</b><span><b>${pct(Q.ens.p1)} % / ${pct(Q.ens.pn)} % / ${pct(Q.ens.p2)} %</b> · divergence IA↔Poisson ${Q.div} pts</span></div>
+  ${miniBar('FIABILITÉ',Q.fiab)} ${miniBar('CONFIANCE',Q.conf)}
+  <div class="kv"><b>Chaos Index</b><span><span class="pill ${cc}">${Q.chaos}/100 · ${cl}</span> ${Q.chaos>70?'— no bet ou mise très faible':Q.chaos>50?'— match dangereux à parier':''}</span></div>`;
+  if(noBetForce) h+=`<div class="nobet-box">⚪ RÈGLE DE SÉCURITÉ — ${Q.chaos>70?'Chaos Index > 70':'fiabilité du modèle < 50'} : NO BET conseillé, quelle que soit l'envie.</div>`;
+  h+=`<div class="atitle">🧾 Tableau final de décision</div>
+  <table class="classement">
+    <tr><td>Favori du modèle</td><td style="text-align:left"><b>${esc(fav)}</b></td></tr>
+    <tr><td>Probabilités 1 / N / 2</td><td style="text-align:left">${pct(Q.ens.p1)} % / ${pct(Q.ens.pn)} % / ${pct(Q.ens.p2)} %</td></tr>
+    <tr><td>Score probable</td><td style="text-align:left">${Q.po.best.a}-${Q.po.best.b}</td></tr>
+    <tr><td>Over 2.5 / BTTS</td><td style="text-align:left">${pct(Q.po.ov["2.5"])} % / ${pct(Q.po.btts)} %</td></tr>
+    <tr><td>Fiabilité · Chaos · Confiance</td><td style="text-align:left">${Q.fiab} · ${Q.chaos} · ${Q.conf} /100</td></tr>
+    <tr><td>Marché préféré</td><td style="text-align:left">${pref?esc(pref.marche)+' '+pref.verdict:'—'}</td></tr>
+    <tr><td>Marché à éviter</td><td style="text-align:left">${evite?esc(evite.marche)+' '+evite.verdict:'—'}</td></tr>
+    <tr><td>Verdict final</td><td style="text-align:left"><b>${esc(verdictFinal)}</b></td></tr>
+    <tr><td>Exposition conseillée</td><td style="text-align:left">${noBetForce?'aucune':esc(m.verdict?.mise||'—')}</td></tr>
+  </table>
+  <p class="note" style="margin-top:6px"><b>Décision froide : ${noBetForce||iaNoBet?'no bet':'pari possible'}.</b> Raison principale : ${esc(m.synthese||'—')} Risque principal : ${esc(m.verdict?.risque||'—')}. Confiance : ${esc(m.verdict?.confiance||'—')}. Une probabilité — même 70 % — n'est jamais une certitude.</p>`;
+  return h;
+}
+
+/* ================= COMPOS OFFICIELLES & POST-MATCH ================= */
+async function verifCompos(id){
+  const A=DB.analyses[id]; if(!A) return;
+  const st=document.getElementById('st-'+id); if(st)st.textContent='Recherche des compositions officielles…';
+  try{ const d=await appelIA(pCompos(A.eqA[0],A.eqB[0],A.titre),900); A.compos={data:d,ts:Date.now()}; await sauver(); rendreMatchs(); rendreSaved();
+    const z=document.getElementById('zone-'+id); if(z)z.hidden=false;
+  }catch(e){ if(st)st.innerHTML=`<span class="err">Échec : ${esc(e.message)}</span>`; }
+}
+async function lancerPostMatch(id){
+  const A=DB.analyses[id]; if(!A||!A.resultat?.joue) return;
+  const btn=document.querySelector(`[data-pm="${id}"]`); if(btn){btn.disabled=true;btn.innerHTML='<span class="spin"></span>Bilan…';}
+  try{ const d=await appelIA(pPostMatch(A),1100); A.postmatch={data:d,ts:Date.now()}; await sauver(); rendreSaved(); }
+  catch(e){ if(btn){btn.disabled=false;btn.textContent='🧠 Bilan post-match';} }
+}
+
+/* ================= COMPARATEUR RADAR ================= */
+const CMP_AXES=[["att","Attaque"],["def","Défense"],["mil","Milieu"],["forme","Forme"],["exp","Expérience"],["banc","Banc"]];
+function pCompare(a,b){
+  return `Analyste football. Coupe du monde 2026. Compare ${a} et ${b}.
+${ANTI_HALLU}
+UTILISE la recherche web (2-3 recherches) : niveau d'effectif, forme 2026, résultats récents, profondeur de banc, expérience internationale des deux équipes.
+Réponds UNIQUEMENT en JSON valide, français :
+{"A":{"att":78,"def":70,"mil":75,"forme":68,"exp":80,"banc":72,"niveau":"Top mondial"},
+"B":{"att":65,"def":72,"mil":63,"forme":74,"exp":58,"banc":60,"niveau":"Solide"},
+"secteurs":[{"axe":"Attaque","avantage":"A|B|égal","note":"1 phrase factuelle"},{"axe":"Défense","avantage":"B","note":"..."},{"axe":"Milieu","avantage":"A","note":"..."},{"axe":"Forme","avantage":"B","note":"..."},{"axe":"Expérience","avantage":"A","note":"..."},{"axe":"Banc","avantage":"A","note":"..."}],
+"verdict":"synthèse comparative en 2 phrases, prudente","favori":"A|B|équilibré","ecart":"faible|modéré|net"}
+Toutes les notes = entiers 0-100. A=${a}, B=${b}. Base-toi sur des faits, pas d'invention.`;
+}
+function radarSVG(dA,dB,nA,nB){
+  const cx=140,cy=135,R=100,N=CMP_AXES.length;
+  const pt=(i,r)=>{const ang=-Math.PI/2+i*2*Math.PI/N;return [cx+r*Math.cos(ang),cy+r*Math.sin(ang)];};
+  let grid='';
+  for(let g=1;g<=4;g++){ const pts=CMP_AXES.map((_,i)=>pt(i,R*g/4).join(',')).join(' '); grid+=`<polygon points="${pts}" fill="none" stroke="#2A3A5C" stroke-width="1"/>`; }
+  let axes='',labels='';
+  CMP_AXES.forEach((ax,i)=>{ const [x,y]=pt(i,R); axes+=`<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="#2A3A5C" stroke-width="1"/>`;
+    const [lx,ly]=pt(i,R+18); labels+=`<text x="${lx}" y="${ly}" fill="#92A3C0" font-size="10" font-family="monospace" text-anchor="middle" dominant-baseline="middle">${ax[1]}</text>`; });
+  const poly=d=>CMP_AXES.map((ax,i)=>pt(i,R*Math.max(0,Math.min(100,+d[ax[0]]||0))/100).join(',')).join(' ');
+  return `<svg viewBox="0 0 280 290" width="100%" style="max-width:340px;display:block;margin:6px auto">
+    ${grid}${axes}${labels}
+    <polygon points="${poly(dB)}" fill="rgba(46,168,102,.18)" stroke="#2EA866" stroke-width="2"/>
+    <polygon points="${poly(dA)}" fill="rgba(212,175,55,.18)" stroke="#D4AF37" stroke-width="2"/>
+  </svg>
+  <div style="display:flex;gap:16px;justify-content:center;font-size:12px;font-family:monospace;margin-top:4px">
+    <span><span style="color:#D4AF37">■</span> ${esc(nA)}</span><span><span style="color:#2EA866">■</span> ${esc(nB)}</span></div>`;
+}
+function initCompare(){
+  const sa=document.getElementById('cmp-a'), sb=document.getElementById('cmp-b');
+  TOUTES.forEach(e=>{const oa=document.createElement('option'),ob=document.createElement('option');oa.value=ob.value=e.nom;oa.textContent=ob.textContent=`${e.flag} ${e.nom}`;sa.appendChild(oa);sb.appendChild(ob);});
+  sb.selectedIndex=1;
+  document.getElementById('btn-cmp').onclick=lancerCompare;
+}
+async function lancerCompare(){
+  const a=document.getElementById('cmp-a').value, b=document.getElementById('cmp-b').value;
+  const st=document.getElementById('st-cmp'), z=document.getElementById('zone-cmp'), btn=document.getElementById('btn-cmp');
+  if(a===b){ st.innerHTML='<span class="err">Choisis deux équipes différentes.</span>'; return; }
+  btn.disabled=true; btn.innerHTML='<span class="spin"></span>Comparaison…'; z.innerHTML=''; st.textContent='Notation des deux équipes (recherche web)…';
+  try{
+    const d=await appelIA(pCompare(a,b),1100);
+    const flA=flagDe(a), flB=flagDe(b);
+    let h=`<div class="analyse"><div class="atitle">📡 Radar comparatif</div>${radarSVG(d.A,d.B,a,b)}`;
+    h+=`<div class="kv" style="margin-top:8px"><b>${flA} ${esc(a)}</b><span class="pill elec">${esc((d.A?.niveau||'').toUpperCase())}</span></div>
+        <div class="kv"><b>${flB} ${esc(b)}</b><span class="pill elec">${esc((d.B?.niveau||'').toUpperCase())}</span></div>`;
+    h+=`<div class="atitle">⚔️ Secteur par secteur</div>`+(d.secteurs||[]).map(s=>{
+      const av=s.avantage==='A'?`<span class="pill jaune">${flA} ${esc(a)}</span>`:s.avantage==='B'?`<span class="pill vert">${flB} ${esc(b)}</span>`:`<span class="pill gris">ÉGAL</span>`;
+      return `<div class="kv"><b>${esc(s.axe)}</b><span>${av} ${esc(s.note)}</span></div>`;
+    }).join('');
+    const fav=d.favori==='A'?`${flA} ${esc(a)}`:d.favori==='B'?`${flB} ${esc(b)}`:'Équilibré';
+    h+=`<div class="atitle">🎯 Verdict</div><div class="kv"><b>Favori</b><span><b>${fav}</b> · écart ${esc(d.ecart)}</span></div><p>${esc(d.verdict)}</p></div>`;
+    z.innerHTML=h;
+  }catch(e){ st.innerHTML=`<span class="err">Échec : ${esc(e.message)}</span>`; }
+  finally{ btn.disabled=false; btn.textContent='Comparer'; if(IA_OK)st.textContent=''; }
+}
+
+/* ================= SUIVI RÉSULTATS EN LOT ================= */
+async function verifierTousResultats(){
+  const btn=document.getElementById('btn-check-all'); if(!btn) return;
+  const cibles=Object.entries(DB.analyses).filter(([id,A])=>A.type==='match'&&!A.resultat?.joue);
+  const info=document.getElementById('saved-info');
+  if(!cibles.length){ info.textContent='Aucun match en attente de résultat.'; return; }
+  btn.disabled=true; let done=0, joues=0;
+  for(const [id,A] of cibles){
+    btn.innerHTML=`<span class="spin"></span>${++done}/${cibles.length}`;
+    try{ const r=await appelIA(pResultat(A.eqA[0],A.eqB[0],A.titre)); A.resultat=r; if(r.joue)joues++; await sauver(); }catch(e){}
+  }
+  btn.disabled=false; btn.textContent='🏁 Vérifier tous les résultats';
+  info.textContent=`${joues} match(s) joué(s) trouvé(s) sur ${cibles.length} vérifié(s).`;
+  rendreSaved(); rendreMatchs(); rendreDash();
+}
+
+/* ================= NAVIGATION ================= */
+function switchTab(name){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('on',t.dataset.tab===name));
+  ['dash','news','cal','groupes','equipes','value','saved','bracket','compare','libre','reglages'].forEach(n=>{document.getElementById('tab-'+n).hidden=(n!==name);});
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>switchTab(t.dataset.tab));
+
+/* Modal */
+document.getElementById('modal-x').onclick=()=>document.getElementById('modal-eq').classList.remove('on');
+document.getElementById('modal-eq').onclick=ev=>{if(ev.target.id==='modal-eq')document.getElementById('modal-eq').classList.remove('on');};
+
+/* Effacer */
+document.getElementById('btn-clear').onclick=async()=>{
+  if(!Object.keys(DB.analyses).length) return;
+  if(confirm('Effacer TOUTES les analyses sauvegardées ? (les fiches équipes et classements sont conservés)')){
+    DB.analyses={}; await sauver(); rendreSaved(); rendreMatchs(); rendreValue(); rendreDash();
+  }
+};
+
+document.getElementById('btn-brief').onclick=lancerBriefing;
+document.getElementById('btn-check-all').onclick=verifierTousResultats;
+
+/* ================= RÉGLAGES (clé API, modèle, état) ================= */
+function majEtatIA(){
+  const el=document.getElementById('cfg-etat'); if(!el) return;
+  if(getCfg().key){ el.innerHTML=`<span class="pill vert">🟢 MODE AUTONOME ACTIF</span> — analyses utilisables par double-clic`; document.getElementById('envwarn').style.display='none'; }
+  else if(window.storage&&window.storage.get){ el.innerHTML=`<span class="pill elec">🔵 MODE CLAUDE</span> — moteur fourni par l'artifact`; }
+  else { el.innerHTML=`<span class="pill rouge">⚪ AUCUN MOTEUR</span> — colle ta clé API ci-dessus pour activer les analyses`; document.getElementById('envwarn').style.display='block'; }
+}
+function initReglages(){
+  const cfg=getCfg();
+  if(cfg.key) document.getElementById('cfg-key').value=cfg.key;
+  if(cfg.model) document.getElementById('cfg-model').value=cfg.model;
+  majEtatIA();
+  document.getElementById('cfg-save').onclick=()=>{
+    const c=getCfg(); c.key=document.getElementById('cfg-key').value.trim(); c.model=document.getElementById('cfg-model').value;
+    setCfg(c); IA_OK=true; majEtatIA();
+    const st=document.getElementById('cfg-st'); st.textContent='✅ Enregistré.'; setTimeout(()=>st.textContent='',2500);
+  };
+  document.getElementById('cfg-clear').onclick=()=>{
+    const c=getCfg(); delete c.key; setCfg(c); document.getElementById('cfg-key').value=''; majEtatIA();
+    const st=document.getElementById('cfg-st'); st.textContent='Clé oubliée.'; setTimeout(()=>st.textContent='',2500);
+  };
+  document.getElementById('cfg-test').onclick=async()=>{
+    const c=getCfg(); c.key=document.getElementById('cfg-key').value.trim(); c.model=document.getElementById('cfg-model').value; setCfg(c);
+    const st=document.getElementById('cfg-st'); st.innerHTML='<span class="spin"></span>Test en cours…';
+    try{ await appelIA('Réponds uniquement en JSON : {"ok":true}', 60); st.textContent='✅ Clé valide, moteur opérationnel.'; IA_OK=true; majEtatIA(); }
+    catch(e){ st.innerHTML=`<span class="err">${esc(e.message)}</span>`; }
+  };
+  // Export / import
+  document.getElementById('btn-export').onclick=()=>{
+    const blob=new Blob([JSON.stringify(DB,null,2)],{type:'application/json'});
+    const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
+    a.download='mondial2026-analyses-'+new Date().toISOString().slice(0,10)+'.json';
+    a.click(); URL.revokeObjectURL(a.href);
+    const st=document.getElementById('io-st'); st.textContent='✅ Exporté.'; setTimeout(()=>st.textContent='',2500);
+  };
+  document.getElementById('btn-import').onclick=()=>document.getElementById('file-import').click();
+  document.getElementById('file-import').onchange=ev=>{
+    const f=ev.target.files[0]; if(!f) return;
+    const r=new FileReader();
+    r.onload=async()=>{
+      try{
+        const inc=JSON.parse(r.result);
+        DB.analyses=Object.assign({}, inc.analyses||{}, DB.analyses);
+        DB.equipes=Object.assign({}, inc.equipes||{}, DB.equipes);
+        DB.standings=Object.assign({}, inc.standings||{}, DB.standings);
+        if(inc.briefing&&!DB.briefing) DB.briefing=inc.briefing;
+        await sauver();
+        rendreMatchs(); rendreSaved(); rendreValue(); rendreDash(); rendreEquipes(); rendreClassements(); afficheBriefing();
+        document.getElementById('io-st').textContent='✅ Importé (fusionné).';
+      }catch(e){ document.getElementById('io-st').innerHTML=`<span class="err">Fichier invalide.</span>`; }
+      ev.target.value='';
+    };
+    r.readAsText(f);
+  };
+}
+
+/* ================= INIT ================= */
+function phaseInfo(){
+  const now=new Date(), start=new Date('2026-06-11');
+  const j=Math.floor((now-start)/86400000)+1;
+  document.getElementById('phase-info').textContent = j>=1&&j<=39 ? `EN DIRECT · Jour ${j} du tournoi · données actualisables par IA` : `Données actualisables par recherche web en direct`;
+}
+(async function(){
+  phaseInfo();
+  await charger();
+  await chargerAuto();
+  bannerAuto();
+  rendreFiltres(); rendreMatchs(); rendreClassements(); rendreEquipes();
+  rendreValue(); rendreSaved(); rendreDash(); afficheBriefing(); initLibre(); initReglages(); initVeille(); initBracket(); initCompare();
+})();
+</script>
+</body>
+</html>

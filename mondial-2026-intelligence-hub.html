@@ -229,14 +229,11 @@ footer{margin:30px 0 8px;font-family:var(--mono);font-size:9px;color:var(--txt2)
 <div id="demo-banner" class="warnbox" style="display:none;margin:0 0 10px">🔌 <b>Mode démo</b> — connecte les APIs (⚙️ Settings) pour données réelles. Aucune donnée mock n'est présentée comme un fait.</div>
 
 <nav id="mainnav">
-  <button data-v="today" class="on"><span class="ic">🏟️</span>Today</button>
-  <button data-v="matches"><span class="ic">📅</span>Matches</button>
-  <button data-v="teams"><span class="ic">🌍</span>Teams</button>
-  <button data-v="groups"><span class="ic">📊</span>Groups</button>
-  <button data-v="center"><span class="ic">🧠</span>War Room</button>
-  <button data-v="odds"><span class="ic">📈</span>Markets</button>
-  <button data-v="scorers"><span class="ic">🎯</span>Scorers</button>
-  <button data-v="lab"><span class="ic">🧪</span>My Lab</button>
+  <button data-v="today" class="on"><span class="ic">🏠</span>Accueil</button>
+  <button data-v="matches"><span class="ic">📅</span>Matchs</button>
+  <button data-v="center"><span class="ic">🧠</span>Analyse</button>
+  <button data-v="teams"><span class="ic">🌍</span>Équipes</button>
+  <button data-v="lab"><span class="ic">🧪</span>Mes Paris</button>
 </nav>
 
 <!-- ================= TODAY ================= -->
@@ -256,12 +253,13 @@ footer{margin:30px 0 8px;font-family:var(--mono);font-size:9px;color:var(--txt2)
 
 <!-- ================= MATCHES ================= -->
 <section id="v-matches" hidden>
-  <h2 class="sec">Calendrier — phase de groupes</h2>
+  <h2 class="sec">Tous les matchs</h2>
   <div class="chips" id="f-grp"></div>
   <div class="chips" id="f-j"></div>
-  <div class="chips" id="f-st"></div>
-  <select id="f-team" style="margin-bottom:12px"><option value="*">Toutes les équipes</option></select>
+  <select id="f-team" style="margin-bottom:10px"><option value="*">Toutes les équipes</option></select>
+  <details class="tech" style="margin-bottom:10px"><summary>Plus de filtres (statut, verdict)</summary><div style="padding:0 15px 12px"><div class="chips" id="f-st"></div></div></details>
   <div class="mgrid" id="matches-grid"></div>
+  <details class="tech" style="margin-top:14px"><summary>📊 Groupes & classements</summary><div style="padding:10px 15px 14px"><p class="note" style="margin-bottom:10px">Classements réels (recherche web). Avant la 1re journée d'un groupe, le classement est vierge.</p><div class="mgrid" id="groups-grid"></div></div></details>
   <h2 class="sec">Phase finale / duel libre</h2>
   <div class="card">
     <div class="row">
@@ -276,13 +274,14 @@ footer{margin:30px 0 8px;font-family:var(--mono);font-size:9px;color:var(--txt2)
 
 <!-- ================= MATCH CENTER ================= -->
 <section id="v-center" hidden>
-  <div id="center-empty" class="empty">AUCUN MATCH SÉLECTIONNÉ.<br>OUVRE UN MATCH DEPUIS TODAY OU MATCHES.</div>
+  <div id="center-empty" class="empty">AUCUN MATCH SÉLECTIONNÉ.<br>CHOISIS UN MATCH DEPUIS ACCUEIL OU MATCHS.</div>
   <div id="center-body" hidden></div>
 </section>
 
 <!-- ================= ODDS LAB ================= -->
 <section id="v-odds" hidden>
-  <h2 class="sec">Markets — Market Intelligence 💰</h2>
+  <h2 class="sec">Calculateur de cotes avancé 🧮</h2>
+  <div class="row" style="margin-bottom:10px"><button class="btn mini sec" onclick="showView('lab')">← Retour à Mes Paris</button></div>
   <div class="card">
     <div class="ktop"><span class="au">MATCH (OPTIONNEL — IMPORTE LES PROBAS IA)</span></div>
     <select id="ol-match"><option value="">— Calcul libre (entre tes probas) —</option></select>
@@ -318,13 +317,6 @@ footer{margin:30px 0 8px;font-family:var(--mono);font-size:9px;color:var(--txt2)
   <div class="tgrid" id="teams-grid"></div>
 </section>
 
-<!-- ================= GROUPS ================= -->
-<section id="v-groups" hidden>
-  <h2 class="sec">Groupes & scénarios</h2>
-  <p class="note" style="margin-bottom:10px">Classements réels via IA + recherche web. Avant la J1 d'un groupe, le classement est vierge — rien n'est inventé.</p>
-  <div class="mgrid" id="groups-grid"></div>
-</section>
-
 <!-- ================= GOALSCORERS ================= -->
 <section id="v-scorers" hidden>
   <h2 class="sec">Goalscorer Lab 🎯</h2>
@@ -341,12 +333,12 @@ footer{margin:30px 0 8px;font-family:var(--mono);font-size:9px;color:var(--txt2)
 <section id="v-lab" hidden>
   <h2 class="sec">My Lab</h2>
   <div class="subtabs">
-    <button class="subtab on" data-lt="ana">🧠 My Analyses</button>
-    <button class="subtab" data-lt="ghost">👻 Ghost Bets</button>
-    <button class="subtab" data-lt="calib">🎯 Calibration</button>
+    <button class="subtab on" data-lt="ana">🧠 Mes analyses</button>
+    <button class="subtab" data-lt="ghost">👻 Paris test</button>
+    <button class="subtab" data-lt="calib">🎯 Fiabilité du modèle</button>
   </div>
   <div id="lab-ana">
-    <div class="row" style="margin-bottom:10px"><button class="btn mini sec" id="btn-checkall">🏁 Vérifier tous les résultats</button><button class="btn mini danger" id="btn-clear">🗑️ Tout effacer</button><span class="statut" id="lab-info"></span></div>
+    <div class="row" style="margin-bottom:10px"><button class="btn mini sec" id="btn-checkall">🏁 Vérifier tous les résultats</button><button class="btn mini sec" onclick="showView('odds')">🧮 Calculateur avancé</button><button class="btn mini sec" onclick="document.getElementById('btn-gear').click()">⚙️ Réglages</button><button class="btn mini danger" id="btn-clear">🗑️ Tout effacer</button><span class="statut" id="lab-info"></span></div>
     <div id="ana-list"></div>
   </div>
   <div id="lab-ghost" hidden>
@@ -359,7 +351,7 @@ footer{margin:30px 0 8px;font-family:var(--mono);font-size:9px;color:var(--txt2)
         <div><label class="lb">Proba IA %</label><input type="number" min="1" max="99" id="gb-proba" inputmode="numeric"></div>
       </div>
       <div class="row" style="margin-top:10px"><button class="btn mini" id="gb-add">Enregistrer</button><span class="statut" id="gb-st"></span></div>
-      <p class="note" style="margin-top:8px"><b>Si le modèle ne gagne pas en Ghost Mode, il ne mérite pas ton argent réel.</b> Vise 20–30 ghost bets avant tout réel.</p>
+      <p class="note" style="margin-top:8px"><b>Si le modèle ne gagne pas en mode test, il ne mérite pas ton argent réel.</b> Vise 20–30 paris test avant tout argent réel.</p>
     </div>
     <div id="gb-stats"></div>
     <div id="gb-liste"></div>
@@ -805,13 +797,13 @@ function decClass(d){return d==='NO BET'?'NOBET':d;}
 /* ============================================================
    7 · ROUTER
    ============================================================ */
-const VIEWS=['today','matches','center','odds','teams','groups','scorers','lab'];
+const VIEWS=['today','matches','center','odds','teams','scorers','lab'];
 function showView(v){
  VIEWS.forEach(x=>{document.getElementById('v-'+x).hidden=(x!==v);});
  document.querySelectorAll('#mainnav button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));
  if(v==='lab')rendreLab();
  if(v==='odds')rendreOddsSel();
- if(v==='groups')rendreGroups();
+ if(v==='matches')rendreGroups();
  if(v==='scorers')rendreScorersSel();
  window.scrollTo({top:0,behavior:'smooth'});}
 document.querySelectorAll('#mainnav button').forEach(b=>b.onclick=()=>showView(b.dataset.v));
@@ -823,14 +815,19 @@ function rendreToday(){
  const B=DB.briefing?DB.briefing.data:null;
  const z=document.getElementById('today-cards');
  const c=(t,v,d)=>`<div class="sq"><div class="t">${t}</div><div class="v">${v}</div><div class="d">${d}</div></div>`;
- if(!B){z.innerHTML=c('🔥 MATCH DU JOUR','—','Actualise pour charger')+c('💎 VALUE POTENTIELLE','—','')+c('⚪ MATCH À ÉVITER','—','')+c('🚑 ALERTE DU JOUR','—','');}
+ let nb=null;
+ for(const[,Ax]of Object.entries(DB.analyses)){if(!Ax.marche)continue;
+  const Mx=mendes(Ax,quantTout(Ax));
+  if(Mx.dec==='NO BET'&&(!nb||(Ax.ts||0)>nb.ts))nb={t:Ax.titre,r:(Mx.guards[0]||'aucun avantage clair'),ts:Ax.ts||0};}
+ if(!B){z.innerHTML=c('🔥 MATCH DU JOUR','—','Actualise pour charger')+c('💎 MEILLEURE IDÉE','—','Aucune vraie value claire pour le moment')+c('⚠️ MATCH PIÈGE','—','')+c('⚪ NO BET',nb?esc(nb.t):'—',nb?esc(nb.r):'Ne rien faire est aussi une décision');}
  else{
   const top=B.top||{},val=B.value||{},ev=B.eviter||{},al=B.alerte||{};
   z.innerHTML=
    c('🔥 MATCH DU JOUR',esc(typeof top==='string'?top:top.match||'—'),esc((top.heure?top.heure+' · ':'')+(top.raison||'')))+
-   c('💎 VALUE POTENTIELLE',esc(val.marche||'—'),esc((val.edge?val.edge+' · ':'')+(val.confiance?'confiance '+val.confiance:'')))+
-   c('⚪ MATCH À ÉVITER',esc(typeof ev==='string'?ev:ev.match||'—'),esc(ev.raison||''))+
-   c('🚑 ALERTE DU JOUR',esc(al.type?al.type.toUpperCase():'—'),esc(al.texte||''));
+   c('💎 MEILLEURE IDÉE',esc(val.marche||'Aucune vraie value claire'),esc((val.edge?val.edge+' · ':'')+(val.confiance?'confiance '+val.confiance:'')))+
+   c('⚠️ MATCH PIÈGE',esc(typeof ev==='string'?ev:ev.match||'—'),esc(ev.raison||''))+
+   c('⚪ NO BET',nb?esc(nb.t):'Aucun identifié',nb?esc(nb.r):'Analyse des matchs pour repérer où ne PAS jouer');
+  if(al&&al.texte)z.innerHTML+=`<p class="note" style="grid-column:1/-1;margin:0">🚑 <b>Alerte :</b> ${esc(al.texte)}</p>`;
  }
  const zm=document.getElementById('today-matches');
  const matchsJour=(B?.matchs||[]).map(x=>{
@@ -1020,24 +1017,6 @@ function renderSimplePage(info,A,t,m,Q,M){
   ${ligne('Que faire ?',`<b>${action.toUpperCase()}</b>`)}
   ${composOK?'':'<p class="note" style="margin-top:6px">⏱️ Compositions pas encore confirmées → re-clique « lineups » ~75 min avant le match, l\'analyse peut changer.</p>'}
  </div>`;
- /* --- 3 · Équipes --- */
- h+=`<details class="tech"><summary>📈 Les deux équipes — qui attaque, qui défend, qui est en forme ?</summary><div class="blk" style="border:0">
-  <div class="kv"><b>${flagH(nA,16)} ${esc(nA)}</b><span>Attaque <b>${nv(detA,true)}</b> · Défense <b>${nv(detA,false)}</b><br><span class="note">${esc(t.forme?.A||'')}</span></span></div>
-  <div class="kv"><b>${flagH(nB,16)} ${esc(nB)}</b><span>Attaque <b>${nv(detB,true)}</b> · Défense <b>${nv(detB,false)}</b><br><span class="note">${esc(t.forme?.B||'')}</span></span></div>
-  ${t.qualite?ligne('Effectifs',esc(t.qualite.A)+'<br>'+esc(t.qualite.B)):''}
-  ${ligne('Absences',esc(t.absences?.A||'—')+' / '+esc(t.absences?.B||'—'))}
-  <p class="note" style="margin-top:6px">${esc(t.scores?.commentaire||'')}</p>
- </div></details>`;
- /* --- 4 · Mi-temps --- */
- h+=`<details class="tech"><summary>⏱️ Mi-temps — quand est-ce que ça peut marquer ?</summary><div class="blk" style="border:0">
-  ${mini(nA.slice(0,9).toUpperCase()+' MÈNE MT',Math.round(H.aMene*100))}
-  ${mini('NUL À LA MT',Math.round(H.nul*100))}
-  ${mini(nB.slice(0,9).toUpperCase()+' MÈNE MT',Math.round(H.bMene*100))}
-  ${mini('BUT EN 1re MT',Math.round(H.but1*100))}
-  ${mini('BUT EN 2e MT',Math.round(H.but2*100))}
-  ${mini('BUT APRÈS 75e',M?M.lateGoal:50)}
-  <p class="note" style="margin-top:6px">${H.but2>H.but1+0.04?'Le meilleur angle semble être un but en 2e mi-temps : les matchs de Mondial se débrident souvent après la pause.':H.nul>=0.42?'Le nul à la mi-temps est fréquent sur ce profil de match — la 1re période s\'annonce prudente.':'Les deux mi-temps semblent pouvoir offrir des buts.'} ${esc(m?.mt_note||'')}</p>
- </div></details>`;
  /* --- 5 · Probabilités --- */
  h+=`<details class="tech" open><summary>📊 Probabilités du match</summary><div class="blk" style="border:0">
   ${pbar(m?.probas||{eqA:pct(Q.ens.p1),nul:pct(Q.ens.pn),eqB:pct(Q.ens.p2)},nA,nB)}
@@ -1050,6 +1029,16 @@ function renderSimplePage(info,A,t,m,Q,M){
   ${mini(nB.slice(0,9).toUpperCase()+' À 0 ENCAISSÉ',Math.round(Q.po.csB*100))}
   <p class="note" style="margin-top:7px">Scores les plus crédibles : ${Q.po.tops.map(x=>`<b>${x.s}</b> (${Math.round(x.p*100)} %)`).join(' · ')}</p>
  </div></details>`;
+ /* --- 5b · Mi-temps --- */
+ h+=`<details class="tech"><summary>⏱️ Mi-temps — quand est-ce que ça peut marquer ?</summary><div class="blk" style="border:0">
+  ${mini(nA.slice(0,9).toUpperCase()+' MÈNE MT',Math.round(H.aMene*100))}
+  ${mini('NUL À LA MT',Math.round(H.nul*100))}
+  ${mini(nB.slice(0,9).toUpperCase()+' MÈNE MT',Math.round(H.bMene*100))}
+  ${mini('BUT EN 1re MT',Math.round(H.but1*100))}
+  ${mini('BUT EN 2e MT',Math.round(H.but2*100))}
+  ${mini('BUT APRÈS 75e',M?M.lateGoal:50)}
+  <p class="note" style="margin-top:6px">${H.but2>H.but1+0.04?'Le meilleur angle semble être un but en 2e mi-temps : les matchs de Mondial se débrident souvent après la pause.':H.nul>=0.42?'Le nul à la mi-temps est fréquent sur ce profil de match — la 1re période s\'annonce prudente.':'Les deux mi-temps semblent pouvoir offrir des buts.'} ${esc(m?.mt_note||'')}</p>
+ </div></details>`;
  /* --- 6 · Idées de paris --- */
  h+=`<div class="blk" style="margin-top:11px"><h3>💰 Idées de paris — triées pour toi</h3>`;
  if(good.length)h+=`<p class="note" style="margin:4px 0"><b style="color:var(--green)">🟢 Bons paris possibles</b> (si la cote est au-dessus du minimum)</p>`+good.map(optRow).join('');
@@ -1057,15 +1046,6 @@ function renderSimplePage(info,A,t,m,Q,M){
  h+=`<p class="note" style="margin:10px 0 4px"><b style="color:var(--red)">🔴 Mauvais paris / à éviter aujourd'hui</b></p>`+avoid.map(optRow).join('');
  if(dec==='NO BET')h+=`<div class="nobetbox">⚪ NO BET — le match est trop incertain ou les cotes ne donnent pas assez d'avantage. Ne rien faire est la meilleure décision ici.</div>`;
  h+=`<p class="note" style="margin-top:8px">⚠️ Un % élevé n'est jamais une garantie. Une seule option par match, jamais de combiné.</p></div>`;
- /* --- 7 · Buteurs --- */
- const SC=DB.scorers&&DB.scorers[CUR];
- h+=`<details class="tech"><summary>🎯 Buteurs possibles</summary><div class="blk" style="border:0">`;
- if(SC){const d=SC.data;
-  h+=(d.compos_confirmees?'<span class="pill g">COMPOS CONFIRMÉES</span>':'<p class="note">⚠️ Compos pas confirmées → tout est « à surveiller », rien de fort.</p>')
-  +(d.buteurs||[]).map(j=>{const v=gvs(j,!!d.compos_confirmees);let lab=v>=70&&d.compos_confirmees?'INTÉRESSANT':v>=50?'À SURVEILLER':'À ÉVITER';const c=lab==='INTÉRESSANT'?'g':lab==='À SURVEILLER'?'y':'r';
-   return `<div class="orow"><span>${flagH(j.equipe,14)} <b>${esc(j.nom)}</b> <span class="note">${esc(j.statut)}${j.penalty?' · tire les penaltys':''}</span></span><span><span class="em">${j.proba??'–'}%</span> <span class="pill ${c}">${lab}</span></span></div>`;}).join('');
- } else h+=`<p class="note">Pas encore analysé.</p><button class="btn mini sec" id="sp-scorers">🎯 Analyser les buteurs</button><span class="statut" id="sp-sc-st"></span>`;
- h+=`</div></details>`;
  /* --- 8 · Risques --- */
  const risks=[];
  if(!composOK)risks.push('Les compositions ne sont pas encore confirmées');
@@ -1080,6 +1060,23 @@ function renderSimplePage(info,A,t,m,Q,M){
   ${ligne('Risque global',risque)}
   ${ligne('Conseil',`<b>${action}</b>`)}
  </div></details>`;
+ /* --- 6b · Équipes --- */
+ h+=`<details class="tech"><summary>📈 Les deux équipes — qui attaque, qui défend, qui est en forme ?</summary><div class="blk" style="border:0">
+  <div class="kv"><b>${flagH(nA,16)} ${esc(nA)}</b><span>Attaque <b>${nv(detA,true)}</b> · Défense <b>${nv(detA,false)}</b><br><span class="note">${esc(t.forme?.A||'')}</span></span></div>
+  <div class="kv"><b>${flagH(nB,16)} ${esc(nB)}</b><span>Attaque <b>${nv(detB,true)}</b> · Défense <b>${nv(detB,false)}</b><br><span class="note">${esc(t.forme?.B||'')}</span></span></div>
+  ${t.qualite?ligne('Effectifs',esc(t.qualite.A)+'<br>'+esc(t.qualite.B)):''}
+  ${ligne('Absences',esc(t.absences?.A||'—')+' / '+esc(t.absences?.B||'—'))}
+  <p class="note" style="margin-top:6px">${esc(t.scores?.commentaire||'')}</p>
+ </div></details>`;
+ /* --- 7b · Buteurs --- */
+ const SC=DB.scorers&&DB.scorers[CUR];
+ h+=`<details class="tech"><summary>🎯 Buteurs possibles</summary><div class="blk" style="border:0">`;
+ if(SC){const d=SC.data;
+  h+=(d.compos_confirmees?'<span class="pill g">COMPOS CONFIRMÉES</span>':'<p class="note">⚠️ Compos pas confirmées → tout est « à surveiller », rien de fort.</p>')
+  +(d.buteurs||[]).map(j=>{const v=gvs(j,!!d.compos_confirmees);let lab=v>=70&&d.compos_confirmees?'INTÉRESSANT':v>=50?'À SURVEILLER':'À ÉVITER';const c=lab==='INTÉRESSANT'?'g':lab==='À SURVEILLER'?'y':'r';
+   return `<div class="orow"><span>${flagH(j.equipe,14)} <b>${esc(j.nom)}</b> <span class="note">${esc(j.statut)}${j.penalty?' · tire les penaltys':''}</span></span><span><span class="em">${j.proba??'–'}%</span> <span class="pill ${c}">${lab}</span></span></div>`;}).join('');
+ } else h+=`<p class="note">Pas encore analysé.</p><button class="btn mini sec" id="sp-scorers">🎯 Analyser les buteurs</button><span class="statut" id="sp-sc-st"></span>`;
+ h+=`</div></details>`;
  /* --- 9 · Cotes & value simple --- */
  h+=`<details class="tech"><summary>📈 Tes cotes — bon prix ou pas ?</summary><div class="blk" style="border:0">
   <p class="note">Entre les cotes de ton bookmaker : si notre probabilité est plus haute que celle de la cote, le prix peut être bon. Ça ne garantit rien.</p>
@@ -1146,15 +1143,15 @@ function rendreCenter(){
   <div class="meta">${esc(info.ctx)}${t?` · ${esc(t.resume?.date||'')} · ${esc(t.resume?.stade||'')}`:''}${A?.resultat?.joue?` · <span style="color:var(--gold);font-weight:700">SCORE FINAL ${esc(A.resultat.score)}</span>`:''}</div>
  </div>
  <div class="row" style="margin-bottom:12px">
-  <button class="btn" id="c-analyze">${A?.terrain?'🔄 Re-analyze':'⚡ Analyze'}</button>
-  ${A?.terrain?`<button class="btn mini sec" id="c-lineups">⏱️ Refresh after lineups</button>
+  <button class="btn" id="c-analyze">${A?.terrain?'🔄 Ré-analyser':'⚡ Analyser'}</button>
+  ${A?.terrain?`<button class="btn mini sec" id="c-lineups">⏱️ Compos officielles</button>
   <button class="btn mini sec" id="c-result">🏁 Résultat</button>
   <button class="btn mini sec" id="c-weather">🌦️ Météo</button>
-  <button class="btn mini sec" id="c-ghost">👻 Ghost Bet</button>`:''}
+  <button class="btn mini sec" id="c-ghost">👻 Pari test</button>`:''}
   <span class="statut" id="c-st"></span>
  </div>`;
  if(!A||!A.terrain){
-  h+=`<div class="empty">PAS ENCORE ANALYSÉ.<br>CLIQUE ⚡ ANALYZE — L'IA FAIT UNE RECHERCHE WEB EN DIRECT (~20–30 S).</div>`;
+  h+=`<div class="empty">PAS ENCORE ANALYSÉ.<br>CLIQUE ⚡ ANALYSER — L'ANALYSE PREND ~20–30 SECONDES (RECHERCHE WEB EN DIRECT).</div>`;
   body.innerHTML=h;brancherCenter(info);return;}
  const Q=quantTout(A),M=m?mendes(A,Q):null;
  /* --- PAGE SIMPLE (lecture humaine) --- */
@@ -1362,30 +1359,30 @@ function calculerOdds(){
   const raw=valid.map(([l,c])=>({l,c,praw:100/c}));
   const sum=raw.reduce((s,x)=>s+x.praw,0);
   const over=sum-100;
-  let hh=`<h3 style="margin-top:14px">${titre} — overround <span class="em" style="color:${over>8?'var(--red)':'var(--txt)'}">${over.toFixed(1)} %</span></h3>`;
+  let hh=`<h3 style="margin-top:14px">${titre} — marge du bookmaker : <span class="em" style="color:${over>8?'var(--red)':'var(--txt)'}">${over.toFixed(1)} %</span>${over>8?' (élevée — cotes peu généreuses)':''}</h3>`;
   raw.forEach((x,i)=>{
    const pnv=100*x.praw/sum; // sans marge
    const pia=probs[i];
    let edge=null,ev=null,kelly=null;
    if(pia){edge=pia-pnv;ev=(pia/100)*(x.c-1)-(1-pia/100);
     const kRaw=((x.c-1)*(pia/100)-(1-pia/100))/(x.c-1);kelly=Math.max(0,kRaw*0.25);}
-   const tag=edge===null?'<span class="pill n">PROBA IA MANQUANTE</span>'
-    :edge<0?`<span class="pill r">🔴 ${edge.toFixed(1)}</span>`
-    :edge<3?`<span class="pill y">🟡 +${edge.toFixed(1)}</span>`
-    :edge<6?`<span class="pill g">🟢 +${edge.toFixed(1)}</span>`
-    :edge<10?`<span class="pill g">💎 +${edge.toFixed(1)}</span>`
-    :`<span class="pill y">⚠️ +${edge.toFixed(1)} trop beau ?</span>`;
-   const expo=kelly===null?'—':kelly<=0?'aucune exposition':kelly<0.01?'très faible':kelly<0.025?'faible':kelly<0.05?'modérée':'élevée (seulement si confiance très forte)';
+   const tag=edge===null?'<span class="pill n">PROBA ANALYSE MANQUANTE</span>'
+    :edge<0?`<span class="pill r">🔴 PAS INTÉRESSANT</span>`
+    :edge<3?`<span class="pill y">🟡 CORRECT</span>`
+    :edge<6?`<span class="pill g">🟢 BON PRIX</span>`
+    :edge<10?`<span class="pill g">💎 TRÈS BON PRIX</span>`
+    :`<span class="pill y">⚠️ TROP BEAU ? À VÉRIFIER</span>`;
+   const expo=kelly===null?'—':kelly<=0?'rien':kelly<0.01?'très faible':kelly<0.025?'faible':kelly<0.05?'modérée':'modérée (max, même si confiance forte)';
    hh+=`<div class="orow"><span><b>${x.l}</b> · cote ${x.c.toFixed(2)}</span>
-    <span class="em">brute ${x.praw.toFixed(1)}% → sans marge ${pnv.toFixed(1)}%${pia?` · IA ${pia}%`:''}</span>
-    <span>${tag}${ev!==null?` <span class="pill ${ev>0?'g':'r'}">EV ${(ev*100).toFixed(1)}%</span>`:''}${kelly!==null?` <span class="pill b">KELLY/4 → ${expo}</span>`:''}</span></div>`;});
+    <span class="em">la cote suppose ${pnv.toFixed(1)}%${pia?` · notre analyse dit ${pia}%`:''}${edge!==null?` · avantage estimé ${edge>0?'+':''}${edge.toFixed(1)}`:''}</span>
+    <span>${tag}${ev!==null?` <span class="pill ${ev>0?'g':'r'}">RENTABILITÉ THÉORIQUE ${(ev*100).toFixed(1)}%</span>`:''}${kelly!==null?` <span class="pill b">MISE → ${expo}</span>`:''}</span></div>`;});
   return hh;}
  h+=bloc('1X2',[ ['1 — victoire A',c1],['N — nul',cn],['2 — victoire B',c2] ],[p1,pn,p2]);
  h+=bloc('OVER/UNDER 2.5',[['Over 2.5',o25],['Under 2.5',u25]],[po25,po25?100-po25:null]);
  h+=bloc('BTTS',[['BTTS Oui',by],['BTTS Non',bn]],[pb,pb?100-pb:null]);
  if(!h)h='<p class="note" style="margin-top:10px">Entre au moins 2 cotes d\'un même marché.</p>';
  if(M){h+=`<div class="orow" style="margin-top:8px"><span><b>Contexte Mendes</b></span><span>${dcsPill(M.iqs).replace('DCS','IQS')} <span class="pill ${M.trap>65?'r':'y'}">TRAP ${M.trap}</span> ${M.rvs!==null?`<span class="pill ${M.rvs>=65?'g':'y'}">RVS ${M.rvs}</span>`:''} <span class="pill ${M.dec==='BET'?'g':M.dec==='WATCH'?'y':M.dec==='AVOID'?'r':'n'}">${M.dec}</span></span></div>`;}
- h+=`<p class="note" style="margin-top:10px">💡 Probabilité implicite = 1/cote. L'overround est la marge du book. Un edge positif ≠ gain garanti — long terme uniquement, jamais de pari émotionnel. Aucun montant n'est imposé : seulement des niveaux d'exposition.</p>`;
+ h+=`<p class="note" style="margin-top:10px">💡 « Ce que la cote suppose » = 1 ÷ cote, sans la marge du bookmaker. <b>Une bonne cote ne garantit jamais un gain. Elle indique seulement que le prix peut être intéressant.</b> Aucun montant n'est imposé : seulement des niveaux de mise.</p>`;
  out.innerHTML=h;
  if(A){const a=c1,n=cn,b=c2;if(a||n||b){A.cotes={a:a||null,n:n||null,b:b||null};sauver();}}}
 
@@ -1400,6 +1397,7 @@ function rendreTeams(){
    <div class="fl">${flagH(e.nom,30)}</div><div class="nm">${e.nom}</div>
    <div class="gp">GR.${e.groupe} · ${e.conf}</div>
    <div class="bd">${d?`<span class="pill vi">${esc((d.niveau||'').toUpperCase())}</span> ${(d.badges||[]).slice(0,1).map(b=>`<span class="pill y">${esc(b)}</span>`).join('')}`:`<span class="pill n">TAP POUR ANALYSER</span>`}</div>
+   ${d?`<div class="note" style="margin-top:5px;font-size:10px;line-height:1.4">💪 ${esc((d.forces||[])[0]||'—')}<br>⚠️ ${esc((d.faiblesses||[])[0]||'—')}</div>`:''}
   </div>`;}).join('');
  z.querySelectorAll('[data-team]').forEach(el=>el.onclick=()=>ficheTeam(el.dataset.team));}
 async function ficheTeam(nom){

@@ -1,91 +1,93 @@
 {
-  "generatedAt": "2026-06-11T20:25:10.352Z",
+  "generatedAt": "2026-06-11T23:30:32.957Z",
   "news": {
     "data": {
       "items": [
         {
-          "niveau": "important",
+          "niveau": "critique",
           "cat": "resultat",
-          "titre": "Mexique bat Afrique du Sud 1-0",
-          "detail": "Match d'ouverture de la Coupe du monde 2026 remporté 1-0 par le Mexique. Julian Quiñones marque le premier but de la compétition.",
+          "titre": "Mexique bat Afrique du Sud 2-0 en match d'ouverture",
+          "detail": "Les Mexicains ont remporté le match liminaire de la Coupe du monde 2026 face à l'Afrique du Sud (2-0), avec trois cartons rouges distribués dans une rencontre très mouvementée.",
           "equipes": [
             "Mexique",
             "Afrique du Sud"
           ],
-          "quand": "22h18 le 11 juin 2026"
+          "quand": "11 juin 2026 - 2h"
+        },
+        {
+          "niveau": "critique",
+          "cat": "blessure",
+          "titre": "Forfaits majeurs confirmés : Rodrygo, Saliba incertain",
+          "detail": "Non confirmé — à vérifier pour les dernières 24h sur l'état de Saliba. Rodrygo (rupture LCA) et plusieurs stars (Timber, Aguerd) sont forfait.",
+          "equipes": [
+            "Brésil",
+            "France",
+            "Pays-Bas",
+            "Maroc"
+          ],
+          "quand": "11 juin 2026 - 8h"
         },
         {
           "niveau": "important",
-          "cat": "compo",
-          "titre": "Compositions officielles confirmées",
-          "detail": "Mexique en 4-1-4-1 avec Jiménez en pointe et Rangel dans les buts. Afrique du Sud en 3-5-2 avec Foster et Rayners en attaque.",
-          "equipes": [
-            "Mexique",
-            "Afrique du Sud"
-          ],
-          "quand": "2h avant le match"
-        },
-        {
-          "niveau": "info",
           "cat": "autre",
-          "titre": "Première journée officielle du Mondial 2026",
-          "detail": "Le tournoi débute avec 48 équipes au Mexique, États-Unis et Canada jusqu'au 19 juillet 2026.",
+          "titre": "Début historique de la Coupe du monde à 48 équipes",
+          "detail": "La première Coupe du monde avec 48 nations débute, organisée sur trois pays (États-Unis, Canada, Mexique) avec un format inédit de 12 groupes de 4.",
           "equipes": [],
           "quand": "11 juin 2026"
         },
         {
           "niveau": "info",
-          "cat": "cote",
-          "titre": "Mexique grand favori avant le match",
-          "detail": "Mexique coté à 1,4 (68% de chance de victoire), Afrique du Sud à 9,0. Match joué au stade Azteca de Mexico.",
+          "cat": "autre",
+          "titre": "Prochains matchs France groupe I prévus",
+          "detail": "La France doit affronter le Sénégal le 16 juin, l'Irak le 22 juin et la Norvège le 26 juin selon le calendrier.",
           "equipes": [
-            "Mexique",
-            "Afrique du Sud"
+            "France"
           ],
-          "quand": "9 juin 2026"
+          "quand": "Programmé"
         }
       ],
-      "resume": "La Coupe du monde 2026 a débuté avec la victoire 1-0 du Mexique face à l'Afrique du Sud dans le match d'ouverture.",
-      "fraicheur": "11 juin 2026 à 22h19"
+      "resume": "Le Mexique a parfaitement lancé le Mondial 2026 en battant l'Afrique du Sud 2-0, marquant le début de cette première Coupe du monde à 48 équipes.",
+      "fraicheur": "12 juin 2026 - 01:20"
     },
-    "ts": 1781209206270
+    "ts": 1781220078934
   },
   "briefing": {
     "data": {
       "matchs": [
         {
-          "affiche": "Mexique vs Afrique du Sud",
-          "heure": "21h00 CET",
-          "stade": "Estadio Azteca, Mexico",
-          "groupe": "A",
+          "affiche": "Canada vs Bosnie-Herzégovine",
+          "heure": "21h00 (CET)",
+          "stade": "BMO Field, Toronto",
+          "groupe": "B",
           "badges": [
-            "🔥",
-            "🏟️"
+            "🏠",
+            "🤕"
           ],
-          "note": "Match d'ouverture historique dans le mythique Azteca qui accueille sa 3e Coupe du monde"
+          "note": "Le Canada lance son Mondial à domicile, mais Alphonso Davies incertain."
         },
         {
-          "affiche": "Corée du Sud vs République tchèque",
-          "heure": "02h00 CET (vendredi 12 juin - heure locale mexicaine jeudi 11 juin)",
-          "stade": "Estadio Akron, Guadalajara",
-          "groupe": "A",
+          "affiche": "États-Unis vs Paraguay",
+          "heure": "03h00 (CET)",
+          "stade": "SoFi Stadium, Inglewood",
+          "groupe": "D",
           "badges": [
-            "⚡"
+            "🔥",
+            "🏠"
           ],
-          "note": "Premier duel officiel entre ces deux nations, enjeu crucial pour la qualification"
+          "note": "Match vedette avec les États-Unis co-organisateurs face au Paraguay."
         }
       ],
-      "top": "Mexique vs Afrique du Sud - Match d'ouverture dans l'enceinte légendaire de l'Azteca, atmosphère électrique garantie avec 87 000 supporters mexicains",
-      "eviter": "Corée du Sud vs République tchèque - Match programmé à 2h du matin heure française, première confrontation imprévisible entre deux équipes sans historique",
+      "top": "États-Unis vs Paraguay - L'affiche du jour avec les co-hôtes américains sous pression dans leur stade iconique de Los Angeles, un match qui pourrait définir leurs ambitions mondiales.",
+      "eviter": "Canada vs Bosnie-Herzégovine - Match piégeux avec l'incertitude autour d'Alphonso Davies (blessure), capitaine et star absolue du Canada, qui pourrait déstabiliser l'équipe locale.",
       "alertes": [
-        "🚨 Incidents à l'extérieur de l'Azteca : manifestants et forces de l'ordre selon l'AFP",
-        "⏰ Attention aux horaires : le 2e match débute techniquement vendredi en heure européenne",
-        "🏆 Premier Mondial à 48 équipes de l'histoire - format inédit avec 12 groupes de 4",
-        "🎭 Cérémonie d'ouverture avec Shakira et Burna Boy avant Mexique-Afrique du Sud"
+        "🚨 Alphonso Davies (Canada) : Statut incertain pour le match d'ouverture du Canada, blessure en cours d'évaluation",
+        "🌧️ Météo Toronto : Risque d'averses avec températures autour de 23°C pour le match du Canada",
+        "📺 Horaires tardifs : Le match USA-Paraguay débute à 3h du matin heure suisse",
+        "🏥 Chris Richards (USA) : S'est déclaré apte à jouer mercredi après une blessure"
       ],
-      "fraicheur": "11 juin 2026 - 22h19 CET"
+      "fraicheur": "12 juin 2026, 01:20 CET"
     },
-    "ts": 1781209186787
+    "ts": 1781220056751
   },
   "analyses": {
     "GA-J1-01": {
@@ -485,69 +487,69 @@
         "resume": {
           "date": "12 juin 2026, 21h00 (heure suisse)",
           "stade": "BMO Field, Toronto",
-          "enjeu": "Premier match du Canada à domicile en Coupe du monde, première confrontation entre les deux équipes",
-          "lecture": "Le Canada, pays hôte, débute son Mondial par un match crucial face à une Bosnie-Herzégovine surprise qualifiée après avoir battu l'Italie aux tirs au but",
+          "enjeu": "Premier match de la Coupe du monde à domicile pour le Canada, duel direct pour la qualification",
+          "lecture": "Le Canada entame sa Coupe du monde à domicile contre une Bosnie-Herzégovine solide qui a éliminé l'Italie en qualifications.",
           "interet": 4
         },
         "contexte": {
-          "classement": "Groupe B : Canada, Bosnie-Herzégovine, Qatar et Suisse — première journée, aucune équipe n'a encore joué",
-          "conditions": "Non confirmé — à vérifier",
-          "pression": "Énorme pression sur le Canada jouant à domicile pour son premier point en Coupe du monde, Bosnie-Herzégovine en outsider sans pression"
+          "classement": "Groupe B : 1. Canada 2. Bosnie-Herzégovine 3. Qatar 4. Suisse (avant J1)",
+          "conditions": "Non confirmé — à vérifier (prévisions : 25°C/77°F avec pluie légère au coup d'envoi)",
+          "pression": "Pression énorme sur le Canada jouant à domicile devant 36 045 spectateurs, première victoire en Coupe du monde recherchée"
         },
         "forme": {
-          "A": "Canada : 8 matchs sans défaite, 6 clean sheets sur cette série, 2 victoires et 3 nuls sur les 5 derniers matchs, derniers résultats : 1-1 vs Irlande et 2-0 vs Ouzbékistan",
-          "B": "Bosnie-Herzégovine : aussi 8 matchs sans défaite, qualifiée via les barrages UEFA en battant l'Italie et le Pays de Galles aux penalties, 1-1 vs Panama et 0-0 vs Macédoine du Nord récemment"
+          "A": "8 matchs sans défaite (5 victoires, 5 nuls), derniers résultats : 1-1 vs Irlande, 2-0 vs Ouzbékistan",
+          "B": "8 matchs sans défaite, a éliminé l'Italie 4-1 aux tirs au but, derniers nuls contre Panama (1-1) et Macédoine du Nord"
         },
         "absences": {
-          "A": "Alphonso Davies (blessure ischio-jambiers, incertain pour le premier match), Marcelo Flores (rupture des ligaments croisés), Moise Bombito (blessure au tibia, incertain)",
-          "B": "Edin Dzeko (blessure à l'épaule, incertain), Haris Tabakovic (fracture du métatarse), Ivan Sunjic (problèmes musculaires)",
+          "A": "Alphonso Davies (ischio-jambiers, incertain), Moïse Bombito (tibia), Marcelo Flores (LCA)",
+          "B": "Haris Tabakovic (blessure, incertain), Osman Hadžikić (gardien, blessé)",
           "fiable": true
         },
         "tactique": {
-          "styleA": "4-2-3-1 canadien, jeu offensif avec Buchanan et Millar sur les côtés, David en pointe",
-          "styleB": "Formation défensive bosniaque comptant sur l'expérience de Dzeko et le contre-attaque",
-          "duel": "Système défensif canadien vs expérience offensive bosniaque avec Dzeko",
-          "zone": "Couloirs latéraux canadiens face à la défense compacte bosniaque",
-          "risque": "Dépendance du Canada à Davies absent, reliance bosniaque sur un Dzeko de 40 ans"
+          "styleA": "4-4-2 agressif sous Marsch, jeu vers l'avant, pressing haut, utilisation des couloirs",
+          "styleB": "Style compact défensif puis contre-attaque, pressing haut, jeu aérien avec Džeko",
+          "duel": "Bataille au milieu de terrain entre Eustaquio-Koné vs Basic-Celik",
+          "zone": "Couloirs où le Canada peut exploiter sa vitesse face au pressing bosniaque",
+          "risque": "Espaces laissés par le pressing haut des deux équipes"
         },
         "scores": {
-          "A": 73,
-          "B": 62,
+          "A": 67,
+          "B": 58,
           "detA": {
-            "forme": 16,
-            "effectif": 15,
-            "tactique": 15,
-            "mental": 12,
-            "absences": 6,
-            "conditions": 8,
-            "momentum": 4
-          },
-          "detB": {
             "forme": 14,
-            "effectif": 12,
+            "effectif": 15,
             "tactique": 13,
-            "mental": 10,
-            "absences": 6,
-            "conditions": 7,
+            "mental": 12,
+            "absences": 5,
+            "conditions": 5,
             "momentum": 3
           },
-          "commentaire": "Léger avantage au Canada grâce au facteur domicile et à la profondeur d'effectif, mais match serré avec deux équipes invaincues depuis 8 matchs. Incertitudes sur Davies et Dzeko."
+          "detB": {
+            "forme": 12,
+            "effectif": 12,
+            "tactique": 12,
+            "mental": 8,
+            "absences": 7,
+            "conditions": 4,
+            "momentum": 3
+          },
+          "commentaire": "Avantage léger au Canada grâce au facteur domicile et effectif plus étoffé, mais les absences de Davies et Bombito réduisent l'écart. Bosnie dangereuse après avoir sorti l'Italie."
         },
         "sources": [
           {
+            "nom": "ESPN",
+            "info": "Horaires, blessures Davies",
+            "date": "1 jour"
+          },
+          {
             "nom": "Yahoo Sports",
-            "info": "Date, stade et composition du groupe B",
-            "date": "9 minutes"
+            "info": "Programme officiel",
+            "date": "2 heures"
           },
           {
-            "nom": "Sports Mole",
-            "info": "Blessures et compositions probables",
-            "date": "2 jours"
-          },
-          {
-            "nom": "Khel Now",
-            "info": "Confrontations directes historiques",
-            "date": "12 heures"
+            "nom": "Concacaf",
+            "info": "Statistiques équipes",
+            "date": "11 heures"
           }
         ]
       },
@@ -556,80 +558,83 @@
           "eqA": 45,
           "nul": 28,
           "eqB": 27,
-          "over25": 52,
-          "under25": 48,
+          "over25": 48,
+          "under25": 52,
           "btts": 45,
-          "over15": 70,
-          "over35": 30
+          "over15": 68,
+          "over35": 25
         },
-        "score_probable": "1-0",
+        "score_probable": "1-1",
         "scenarios": {
-          "dominant": "Le Canada exploite l'avantage du domicile et la pression sur la Bosnie avec Davies absent mais compense par l'intensité collective, David marque sur service de Buchanan",
-          "alternatif": "Match serré avec peu d'occasions, défenses bien organisées, un but décisif en fin de match ou match nul logique entre deux équipes prudentes",
-          "pire": "La Bosnie profite de l'inexpérience du Canada en Coupe du monde, Demirović surprend la défense canadienne réorganisée sans Bombito"
+          "dominant": "Canada exploite l'avantage du domicile et ses transitions rapides pour prendre l'ascendant malgré l'absence de Davies. David trouve l'ouverture (1-0 ou 2-1).",
+          "alternatif": "Match serré et tactique entre deux équipes prudentes. La Bosnie compense ses absences offensives par une défense solide. Nul logique (1-1).",
+          "pire": "La pression du domicile et les absences clés (Davies, Bombito) déstabilisent le Canada. La Bosnie profite de ses contres avec Demirović pour s'imposer (0-1)."
         },
         "marches": [
           {
-            "marche": "Canada Victoire",
+            "marche": "Victoire Canada",
             "verdict": "🟡",
             "proba": 45,
             "cote_min": 2.4,
-            "pour": "Facteur domicile décisif, effectif plus profond, dynamique positive sur 8 matchs sans défaite",
-            "contre": "Pression énorme pour premier match à domicile, absence de Davies perturbante, inexpérience en Coupe du monde"
-          },
-          {
-            "marche": "Moins de 2,5 buts",
-            "verdict": "🟡",
-            "proba": 48,
-            "cote_min": 2.3,
-            "pour": "Deux équipes solides défensivement, Bosnie peu productive offensivement (0,8 but/match récemment), première confrontation",
-            "contre": "Canada doit marquer à domicile, potentiel offensif de David et Buchanan, pression pour spectacle d'ouverture"
-          },
-          {
-            "marche": "Les deux équipes marquent - Non",
-            "verdict": "🟢",
-            "proba": 55,
-            "cote_min": 1.9,
-            "pour": "Canada 6 clean sheets sur 8 matchs, Bosnie en difficulté offensive sans Dzeko et Tabaković, défenses organisées",
-            "contre": "Canada doit attaquer à domicile, Demirović en forme avec Stuttgart, match d'ouverture souvent spectaculaire"
+            "pour": "Avantage domicile, meilleur effectif, forme solide (8 matchs sans défaite), pressing haut efficace",
+            "contre": "Absences cruciales (Davies, Bombito), pression énorme, première victoire historique recherchée"
           },
           {
             "marche": "Match nul",
-            "verdict": "⚪",
+            "verdict": "🟢",
             "proba": 28,
-            "cote_min": 3.9,
-            "pour": "Première confrontation, prudence mutuelle, forces équilibrées sur le papier, incertitudes sur Davies et Dzeko",
-            "contre": "Canada doit gagner à domicile, Bosnie affaiblie offensivement, pression du public canadien"
+            "cote_min": 3.8,
+            "pour": "Deux équipes invaincues depuis 8 matchs, prudence tactique, incertitudes physiques des deux côtés",
+            "contre": "Enjeu important pour la qualification, Canada doit marquer l'histoire à domicile"
+          },
+          {
+            "marche": "Under 2.5 buts",
+            "verdict": "🟡",
+            "proba": 52,
+            "cote_min": 2.1,
+            "pour": "Bosnie moyenne 0,8 but/match récemment, défenses solides, première rencontre entre les équipes",
+            "contre": "Canada doit attaquer à domicile, Demirović en forme, transitions rapides possibles"
+          },
+          {
+            "marche": "Les deux équipes marquent - Non",
+            "verdict": "🟡",
+            "proba": 55,
+            "cote_min": 2,
+            "pour": "Absences offensives bosniennes (Dzeko incertain, Tabaković forfait), défense canadienne restructurée mais solide",
+            "contre": "Jonathan David à 39 buts, Demirović efficace cette saison, match ouvert attendu"
           }
         ],
         "verdict": {
-          "reco": "Les deux équipes marquent - Non",
-          "alternative": "Pari sur moins de 2,5 buts si cotes favorables",
-          "no_bet": false,
-          "risque": "Incertitudes majeures sur Davies et Dzeko, première confrontation difficile à cerner",
-          "confiance": "moyenne",
-          "mise": "modérée"
+          "reco": "NO BET",
+          "alternative": "Attendre confirmation des compositions et de l'état physique des joueurs clés",
+          "no_bet": true,
+          "risque": "Incertitudes majeures sur les joueurs clés (Davies, Dzeko, Tabaković) et impact psychologique imprévisible du domicile",
+          "confiance": "faible",
+          "mise": "aucune"
         },
-        "synthese": "Match serré entre un Canada à domicile mais privé de Davies face à une Bosnie défensivement solide mais limitée offensivement sans ses cadres.",
-        "incertitude": "moyenne"
+        "synthese": "Match d'ouverture crucial entre deux équipes invaincues mais affaiblies par des blessures clés, où l'avantage du domicile canadien pourrait être neutralisé par la pression historique.",
+        "incertitude": "élevée"
       },
       "devil": {
         "data": {
           "failles": [
-            "Blessures non confirmées : Davies n'a qu'une 'blessure ischio-jambiers incertain' selon analyse, mais recherches confirment qu'il s'entraîne à l'écart et Marsch a dit 'Non, je ne pense pas qu'il sera tout à fait prêt le 12 juin'",
-            "Dzeko : analyse dit 'blessure à l'épaule incertain', mais sources confirment qu'il s'est entraîné à l'écart du groupe et n'était que sur le banc contre Panama",
-            "Première confrontation : analyse dit 'première confrontation entre les deux équipes' mais ne précise pas qu'aucun historique direct existe pour évaluer styles",
-            "Série de 8 matchs sans défaite pour les deux : Non confirmé — à vérifier pour données exactes sur les séries récentes",
-            "Scores détaillés (forme 16/14, momentum 4/3) : basés sur quels critères concrets ? Trop précis sans source",
-            "Probabilités trop affirmatives : 45% victoire Canada, 52% over 2.5 buts - présentées comme faits alors que ce sont des estimations personnelles"
+            "Date erronée du match : sources confirment 12 juin 2026 à 21h00, pas 'heure suisse'",
+            "Stade incorrect : confirmé BMO Field Toronto, pas confirmation du lieu exact",
+            "Davies blessure ischio-jambiers confirmée récurrente depuis mai 2026 mais participation très incertaine, pas 'incertain' mais quasi-forfait selon Marsch",
+            "Bombito blessure tibia évoquée mais aucune source récente trouvée",
+            "Bosnie a éliminé l'Italie aux tirs au but 4-1 pas 4-3",
+            "Scores A/B de 67/58 sans justification méthodologique",
+            "Absence Tabaković mentionnée dans sources mais statut à confirmer",
+            "Météo et conditions terrain non vérifiées",
+            "Probabilities données sans source ni méthode"
           ],
           "trop_optimiste": true,
           "verdict_tient": false,
-          "note": "L'analyse sous-estime gravement l'incertitude sur Davies et Dzeko, deux joueurs clés dont l'absence probable change complètement la donne."
+          "note": "L'analyse contient plusieurs erreurs factuelles vérifiables et des estimations non sourcées présentées comme des faits."
         },
-        "ts": 1781199991056
+        "ts": 1781220156697
       },
-      "ts": 1781199991056,
+      "ts": 1781220156697,
       "cotes": null,
       "resultat": {
         "joue": false,
@@ -637,7 +642,24 @@
         "vainqueur": "",
         "resume": "Match pas encore joué"
       },
-      "compos": null,
+      "compos": {
+        "data": {
+          "dispo": true,
+          "compoA": "Compositions officielles non confirmées - Canada probable (4-4-2): Crépeau; Johnston, de Fougerolles, Cornelius, Laryea; Buchanan, Eustáquio, Koné, Millar; David, Larin",
+          "compoB": "Compositions officielles non confirmées - Bosnie probable (formation): Vasilj; Dedic, Katic, Muharemovic, Kolasinac; Bajraktarevic, Tahirovic, Basic, Memic; Demirovic, Dzeko",
+          "surprises": [
+            "Alphonso Davies (capitaine du Canada) forfait confirmé - blessure aux ischio-jambiers",
+            "Ismaël Koné (Canada) incertain - fièvre avant le match",
+            "Moise Bombito (Canada) douteux - blessure au tibia"
+          ],
+          "ajustement": {
+            "sens": "L'absence confirmée d'Alphonso Davies, joueur clé du Canada, affaiblit considérablement l'équipe hôte. La Bosnie-Herzégovine arrive avec un effectif au complet et l'expérience d'avoir éliminé l'Italie.",
+            "confiance": "baisse",
+            "no_bet": false
+          }
+        },
+        "ts": 1781220519584
+      },
       "postmatch": null
     },
     "GD-J1-01": {
@@ -654,41 +676,41 @@
       ],
       "terrain": {
         "resume": {
-          "date": "13 juin 2026, 03:00 (heure suisse)",
-          "stade": "Stade de Los Angeles (SoFi Stadium), Inglewood",
-          "enjeu": "Match d'ouverture du groupe D - avantage à domicile crucial pour les États-Unis",
-          "lecture": "Favoris américains sous pression face à un Paraguay défensif et imprévisible",
+          "date": "13 juin 2026, 03h00 (heure suisse)",
+          "stade": "SoFi Stadium, Inglewood (Californie)",
+          "enjeu": "Match d'ouverture du groupe D - première confrontation depuis 2025",
+          "lecture": "États-Unis favoris à domicile face au Paraguay privé de sa star Enciso",
           "interet": 4
         },
         "contexte": {
-          "classement": "Groupe D: États-Unis (FIFA #16, cote 70), Paraguay (FIFA #40, cote 150), avec Turquie et Australie",
+          "classement": "États-Unis 16e FIFA vs Paraguay 40e FIFA - Groupe D avec Turquie et Australie",
           "conditions": "Non confirmé — à vérifier",
-          "pression": "Énorme pression sur les États-Unis en tant que pays hôte, Paraguay détendu sans expectatives"
+          "pression": "Énorme pression pour les États-Unis à domicile, Paraguay sans pression après 16 ans d'absence"
         },
         "forme": {
-          "A": "États-Unis: 5V-1N-4D sur 10 derniers matchs. Forme récente mitigée avec défaites 2-5 vs Belgique et 0-2 vs Portugal en mars, mais victoire 5-1 vs Uruguay. Dirigés par Pochettino depuis septembre 2024",
-          "B": "Paraguay: 4V-2N-4D sur 10 derniers matchs. Victoire récente 4-0 vs Nicaragua, mais défaite 2-1 vs Maroc. Retour en Coupe du Monde après 16 ans d'absence. Style défensif sous Gustavo Alfaro"
+          "A": "5V-1N-4D sur 10 matchs, série contrastée : victoire 5-1 vs Uruguay mais défaites 5-2 vs Belgique et 2-0 vs Portugal en mars 2026",
+          "B": "4V-2N-4D sur 10 matchs, victoire 2-1 vs Mexique puis défaite 2-1 vs Maroc, écrasé le Nicaragua 4-0 en préparation"
         },
         "absences": {
-          "A": "Cardoso, Luna, Carter-Vickers, Agyemang, Tolkin (blessés/non convoqués), Tessmann, Musah (choix)",
-          "B": "Julio Enciso incertain - blessure cuisse/hanche lors du match vs Nicaragua, examens en cours. Jumeaux Romero et Villasanti non retenus",
+          "A": "Chris Richards incertain (cheville), Cardoso, Luna, Carter-Vickers, Agyemang, Tolkin non convoqués",
+          "B": "Julio Enciso forfait certain (contusion musculaire cuisse droite, 3 semaines d'indisponibilité), jumeaux Romero non retenus",
           "fiable": true
         },
         "tactique": {
-          "styleA": "4-3-3/4-2-3-1 - Pressing haut, possession, culture tactique européenne de Pochettino",
-          "styleB": "4-4-2/4-3-3 - Bloc défensif rigoureux, discipline, jeu de contre-attaque",
-          "duel": "Pulisic vs défense centrale paraguayenne (Gomez/Alderete)",
-          "zone": "Milieu de terrain - bataille physique entre Adams/Berhalter et Cubas/Ojeda",
-          "risque": "Contre-attaques paraguayennes sur les montées américaines"
+          "styleA": "Défense à 3 avec Ream capitaine, jeu offensif à domicile avec Pulisic-Balogun",
+          "styleB": "37,5% possession moyenne, défense compacte avec contre-attaques rapides via Almirón-Sanabria",
+          "duel": "Milieux créateurs Pulisic vs Almirón",
+          "zone": "Couloirs latéraux et transitions défense-attaque",
+          "risque": "Fragilité défensive américaine (12 buts encaissés en 5 matchs) vs efficacité limitée paraguayenne"
         },
         "scores": {
           "A": 75,
           "B": 60,
           "detA": {
-            "forme": 15,
+            "forme": 13,
             "effectif": 16,
             "tactique": 15,
-            "mental": 10,
+            "mental": 12,
             "absences": 8,
             "conditions": 8,
             "momentum": 3
@@ -696,115 +718,111 @@
           "detB": {
             "forme": 12,
             "effectif": 12,
-            "tactique": 14,
-            "mental": 12,
-            "absences": 6,
-            "conditions": 4,
-            "momentum": 0
+            "tactique": 13,
+            "mental": 10,
+            "absences": 5,
+            "conditions": 6,
+            "momentum": 2
           },
-          "commentaire": "Avantage États-Unis basé sur statut FIFA, domicile et effectif. Paraguay dangereux par son organisation défensive et expérience sud-américaine. Incertitude sur Enciso pèse sur le Paraguay. Match serré probable."
+          "commentaire": "États-Unis favoris logiques à domicile malgré forme irrégulière. Paraguay handicapé par l'absence d'Enciso mais équipe expérimentée capable de surprendre. Incertitude sur la gestion de pression américaine."
         },
         "sources": [
           {
             "nom": "Unibet",
-            "info": "Forme récente et confrontations directes",
-            "date": "12 heures"
+            "info": "Confrontations directes, forme récente, cotes",
+            "date": "15 heures"
           },
           {
-            "nom": "DAZN",
-            "info": "Calendrier et horaire match",
-            "date": "Avril 2026"
+            "nom": "Eurosport",
+            "info": "Blessure Enciso confirmée, compositions",
+            "date": "6 heures"
           },
           {
-            "nom": "Footmercato",
-            "info": "Blessure Julio Enciso",
+            "nom": "AfricaFootUnited",
+            "info": "Détails blessure Enciso (3 semaines d'arrêt)",
             "date": "5 jours"
-          },
-          {
-            "nom": "TopMercato",
-            "info": "Compositions probables et tactiques",
-            "date": "2 heures"
           }
         ]
       },
       "marche": {
         "probas": {
-          "eqA": 45,
-          "nul": 25,
-          "eqB": 30,
-          "over25": 55,
-          "under25": 45,
-          "btts": 48,
-          "over15": 72,
-          "over35": 33
+          "eqA": 48,
+          "nul": 26,
+          "eqB": 26,
+          "over25": 58,
+          "under25": 42,
+          "btts": 52,
+          "over15": 76,
+          "over35": 35
         },
         "score_probable": "2-1",
         "scenarios": {
-          "dominant": "États-Unis 2-1 : Avantage domicile et qualité offensive avec Pulisic/Balogun face à une défense paraguayenne solide mais privée d'Enciso",
-          "alternatif": "Match nul 1-1 : Paraguay résiste grâce à son organisation défensive, États-Unis peinent à concrétiser malgré la possession",
-          "pire": "Paraguay 1-0 : Contre-attaque parfaite d'Almirón/Sanabria sur une montée américaine, défense paraguayenne impeccable"
+          "dominant": "États-Unis s'imposent 2-1 grâce à l'avantage domicile et la supériorité technique de Pulisic-Balogun face à une défense paraguayenne privée d'Enciso",
+          "alternatif": "Match nul 1-1 avec Paraguay résistant défensivement et États-Unis pénalisés par leur fragilité défensive récente",
+          "pire": "Paraguay créé la surprise 0-1 sur contre-attaque d'Almirón, États-Unis craquent sous la pression du public"
         },
         "marches": [
           {
             "marche": "Victoire États-Unis",
             "verdict": "🟡",
-            "proba": 45,
-            "cote_min": 2.4,
-            "pour": "Avantage domicile confirmé, qualité offensive supérieure, bilan favorable face Paraguay",
-            "contre": "Forme récente mitigée, pression énorme pays hôte, Paraguay organisé défensivement"
+            "proba": 48,
+            "cote_min": 2.3,
+            "pour": "Avantage domicile, effectif supérieur, Pulisic en forme",
+            "contre": "Fragilité défensive (12 buts en 5 matchs), pression énorme"
           },
           {
-            "marche": "Moins 2.5 buts",
+            "marche": "Plus de 2.5 buts",
             "verdict": "🟡",
-            "proba": 45,
-            "cote_min": 2.4,
-            "pour": "Style défensif Paraguay, enjeu énorme première journée, États-Unis peuvent jouer prudent",
-            "contre": "Qualité offensive américaine, Paraguay doit marquer pour espérer"
+            "proba": 58,
+            "cote_min": 1.9,
+            "pour": "Défense américaine fragile, attaque efficace des deux côtés",
+            "contre": "Style défensif paraguayen, enjeu du premier match"
           },
           {
-            "marche": "Les deux équipes ne marquent pas",
+            "marche": "Les deux équipes marquent",
             "verdict": "🟢",
             "proba": 52,
             "cote_min": 2.1,
-            "pour": "Paraguay limité offensivement sans Enciso, États-Unis solides défensivement à domicile",
-            "contre": "Expérience sud-américaine Paraguay, Almirón/Sanabria peuvent surprendre"
+            "pour": "Almirón-Sanabria créatifs, défense US vulnérable",
+            "contre": "Paraguay privé d'Enciso, style défensif habituel"
           },
           {
-            "marche": "Handicap États-Unis -0.5",
-            "verdict": "🟡",
-            "proba": 45,
-            "cote_min": 2.4,
-            "pour": "Statut FIFA supérieur, effectif plus profond, soutien public massif",
-            "contre": "Premier match toujours imprévisible, Paraguay expérimenté en Coupe du Monde"
+            "marche": "Victoire Paraguay",
+            "verdict": "⚪",
+            "proba": 26,
+            "cote_min": 4.2,
+            "pour": "Expérience internationale, organisation défensive",
+            "contre": "Absence Enciso confirmée, niveau FIFA inférieur"
           }
         ],
         "verdict": {
           "reco": "NO BET",
-          "alternative": "Attendre second match pour plus de certitudes",
+          "alternative": "BTTS si cote > 2.1",
           "no_bet": true,
-          "risque": "Premier match Coupe du Monde, incertitude sur forme réelle équipes",
+          "risque": "Incertitude Chris Richards, pression domicile imprévisible",
           "confiance": "faible",
           "mise": "aucune"
         },
-        "synthese": "Match d'ouverture serré entre États-Unis favoris à domicile et Paraguay organisé mais privé d'Enciso, enjeu énorme rend le résultat imprévisible.",
+        "synthese": "Match équilibré avec États-Unis légèrement favoris mais Paraguay dangereux sans Enciso confirmé forfait.",
         "incertitude": "élevée"
       },
       "devil": {
         "data": {
           "failles": [
-            "<cite index=\"7-2,7-12\">Date incohérente : l'analyse dit 13 juin 03h00 suisse, mais les sources confirment le 12 juin 21h00 ET/9pm PT</cite>",
-            "<cite index=\"17-1,17-2\">Statut Enciso erroné : MRI confirme contusion musculaire et absence probable pour le match d'ouverture, pas juste \"incertain\"</cite>",
-            "<cite index=\"2-1,5-3,9-1\">Heure de match variable selon les sources : 18h00 local, 01h00 BST ou 21h00 EST</cite>",
-            "Aucune confirmation des absences spécifiques américaines mentionnées (Cardoso, Luna, etc.) — Non confirmé à vérifier",
-            "Probabilités de 45% USA trop optimistes face à une équipe paraguayenne qui vient de tenir tête aux géants sud-américains en qualifications"
+            "Chris Richards décrit comme 'incertain' alors qu'il participe à l'entraînement complet selon Fox Sports",
+            "Verdict 'NO BET' sur un match avec 48% de probabilité USA semble incohérent avec les données",
+            "Enciso confirmé forfait 2-3 semaines mais analyse dit 'confirmé forfait' sans mentionner durée officielle",
+            "Absence des jumeaux Romero non vérifiée dans les recherches",
+            "Classement FIFA Paraguay #40 vs analyse implicite d'équipe plus compétitive",
+            "Momentum USA noté 3/10 malgré victoire récente 3-2 vs Sénégal en préparation"
           ],
-          "trop_optimiste": true,
+          "trop_optimiste": false,
           "verdict_tient": false,
-          "note": "L'analyse contient des erreurs factuelles majeures sur la date/heure du match et minimise l'impact confirmé de la blessure d'Enciso."
+          "note": "L'analyse sous-estime la forme récente USA et surestime l'incertitude Richards qui s'entraîne normalement."
         },
-        "ts": 1781209393094
+        "ts": 1781220234679
       },
-      "ts": 1781209393094,
+      "ts": 1781220234679,
       "cotes": null,
       "resultat": {
         "joue": false,
@@ -812,6 +830,520 @@
         "vainqueur": "",
         "resume": "Match pas encore joué"
       },
+      "compos": {
+        "data": {
+          "dispo": true,
+          "compoA": "Compositions officielles non confirmées",
+          "compoB": "Compositions officielles non confirmées",
+          "surprises": [
+            "Chris Richards (défenseur central Crystal Palace) incertain - blessure cheville"
+          ],
+          "ajustement": {
+            "sens": "Richards était titulaire prévu mais sa blessure à la cheville pourrait forcer Pochettino à aligner McKenzie ou M. Robinson à sa place en défense centrale.",
+            "confiance": "baisse",
+            "no_bet": false
+          }
+        },
+        "ts": 1781220536661
+      },
+      "postmatch": null
+    },
+    "GB-J1-23": {
+      "type": "match",
+      "auto": true,
+      "titre": "🇶🇦 Qatar vs Suisse 🇨🇭 · Gr.B J1 · 11–17 juin",
+      "eqA": [
+        "Qatar",
+        "🇶🇦"
+      ],
+      "eqB": [
+        "Suisse",
+        "🇨🇭"
+      ],
+      "terrain": {
+        "resume": {
+          "date": "13 juin 2026, 21h00 (heure suisse)",
+          "stade": "Levi's Stadium, Santa Clara (Californie)",
+          "enjeu": "Match d'ouverture du groupe B - Premier pas vers la qualification",
+          "lecture": "La Suisse, favorite nette, débute sa campagne mondiale face au Qatar, outsider du groupe",
+          "interet": 3
+        },
+        "contexte": {
+          "classement": "Groupe B vierge (0 point partout). Suisse 19e FIFA vs Qatar 55e FIFA",
+          "conditions": "Non confirmé — à vérifier",
+          "pression": "Suisse: obligation de victoire face à l'équipe la plus faible du groupe. Qatar: exploit nécessaire pour espérer se qualifier"
+        },
+        "forme": {
+          "A": "Qatar: forme décevante avec 1 victoire, 3 nuls, 6 défaites sur 10 matches - 7 buts marqués, 18 encaissés",
+          "B": "Suisse: excellente dynamique avec 6 victoires, 3 nuls, 1 défaite sur 10 matches - 25 buts marqués, 8 encaissés"
+        },
+        "absences": {
+          "A": "Non confirmé — à vérifier",
+          "B": "Noah Okafor forfait sur blessure",
+          "fiable": false
+        },
+        "tactique": {
+          "styleA": "Qatar: jeu de contre-attaque rapide, bloc compact, familiarité régionale",
+          "styleB": "Suisse: bloc médian discipliné, créativité des vétérans, expérience internationale",
+          "duel": "Créativité suisse vs compacité défensive qatarie",
+          "zone": "Couloirs latéraux et derniers 30 mètres",
+          "risque": "Suisse: excès de confiance. Qatar: isolement offensif"
+        },
+        "scores": {
+          "A": 25,
+          "B": 75,
+          "detA": {
+            "forme": 4,
+            "effectif": 8,
+            "tactique": 7,
+            "mental": 3,
+            "absences": 5,
+            "conditions": 5,
+            "momentum": 1
+          },
+          "detB": {
+            "forme": 17,
+            "effectif": 16,
+            "tactique": 16,
+            "mental": 12,
+            "absences": 7,
+            "conditions": 7,
+            "momentum": 4
+          },
+          "commentaire": "Écart de niveau considérable (19e vs 55e FIFA). Forme récente très favorable à la Suisse. Incertitude liée aux compositions finales non confirmées"
+        },
+        "sources": [
+          {
+            "nom": "UEFA.com",
+            "info": "Calendrier Suisse et effectif",
+            "date": "1 semaine"
+          },
+          {
+            "nom": "Levi's Stadium",
+            "info": "Horaire officiel 12h00 PT",
+            "date": "3 semaines"
+          },
+          {
+            "nom": "Unibet",
+            "info": "Forme récente et blessures",
+            "date": "Récent"
+          }
+        ]
+      },
+      "marche": {
+        "probas": {
+          "eqA": 12,
+          "nul": 18,
+          "eqB": 70,
+          "over25": 58,
+          "under25": 42,
+          "btts": 35,
+          "over15": 78,
+          "over35": 28
+        },
+        "score_probable": "0-2",
+        "scenarios": {
+          "dominant": "La Suisse domine tactiquement dès l'entame, exploite les erreurs défensives qataries et s'impose 2-0 ou 3-1 grâce à Embolo et aux latéraux",
+          "alternatif": "Match serré en première période puis la Suisse fait la différence en seconde grâce à son banc et sa condition physique supérieure",
+          "pire": "Le Qatar surprend sur coup de pied arrêté ou contre-attaque d'Afif, menant à un nul 1-1 qui complique les calculs suisses pour la suite"
+        },
+        "marches": [
+          {
+            "marche": "Victoire Suisse",
+            "verdict": "🟢",
+            "proba": 70,
+            "cote_min": 1.58,
+            "pour": "Forme excellente (6V/3N/1D), effectif supérieur, 19e vs 55e FIFA, maîtrise tactique",
+            "contre": "Excès de confiance possible, premier match de Mondial, pression du favori"
+          },
+          {
+            "marche": "Moins de 2,5 buts",
+            "verdict": "🟡",
+            "proba": 42,
+            "cote_min": 2.62,
+            "pour": "Qatar défensif, peu d'occasions créées (7 buts en 10 matchs), bloc compact attendu",
+            "contre": "Suisse très offensive (25 buts en 10 matchs), Qatar obligé de prendre des risques"
+          },
+          {
+            "marche": "Les deux équipes ne marquent pas",
+            "verdict": "🟢",
+            "proba": 65,
+            "cote_min": 1.69,
+            "pour": "Attaque qatarie faible (7 buts/10 matchs), défense suisse solide, écart de niveau",
+            "contre": "Akram Afif capable d'exploit, Qatar peut marquer sur coup de pied arrêté"
+          },
+          {
+            "marche": "Handicap Suisse -1",
+            "verdict": "🟡",
+            "proba": 48,
+            "cote_min": 2.29,
+            "pour": "Différence de classe importante, Suisse capable de large victoire récemment",
+            "contre": "Premier match prudent, Qatar discipliné défensivement, enjeu du résultat"
+          }
+        ],
+        "verdict": {
+          "reco": "Victoire Suisse + BTTS Non en combiné",
+          "alternative": "Victoire Suisse simple à cote basse mais sûre",
+          "no_bet": false,
+          "risque": "faible",
+          "confiance": "élevée",
+          "mise": "modérée"
+        },
+        "synthese": "<cite index='2-2,2-4,2-5'>La Suisse arrive grande favorite avec une cote à 1,28 face au Qatar à 8,8, reflétant l'écart entre le 19e et le 55e mondial</cite>.",
+        "incertitude": "faible"
+      },
+      "devil": {
+        "data": {
+          "failles": [
+            "Classements FIFA non vérifiés - aucune source ne confirme la Suisse 19e et le Qatar 55e mondial",
+            "Noah Okafor disponible - il a joué 11 minutes contre l'Australie samedi, retour confirmé de blessure",
+            "Stade non confirmé comme Levi's Stadium - plusieurs sources mentionnent Santa Clara mais pas de confirmation explicite du nom exact",
+            "Cotes de 1,28 vs 8,8 non trouvées dans les recherches - aucune source ne confirme ces cotes spécifiques",
+            "Absence d'Isaac Schmidt, Yvon Mvogo, Nico Elvedi et Denis Zakaria - mentionnées sur foot-direct.com mais non confirmées par sources officielles"
+          ],
+          "trop_optimiste": false,
+          "verdict_tient": false,
+          "note": "L'analyse s'effondre sur des données factuelles erronées ou non vérifiées."
+        },
+        "ts": 1781220328565
+      },
+      "ts": 1781220328565,
+      "cotes": null,
+      "resultat": null,
+      "compos": null,
+      "postmatch": null
+    },
+    "GC-J1-01": {
+      "type": "match",
+      "auto": true,
+      "titre": "🇧🇷 Brésil vs Maroc 🇲🇦 · Gr.C J1 · 11–17 juin",
+      "eqA": [
+        "Brésil",
+        "🇧🇷"
+      ],
+      "eqB": [
+        "Maroc",
+        "🇲🇦"
+      ],
+      "terrain": {
+        "resume": {
+          "date": "14 juin 2026, 00h00 (heure suisse)",
+          "stade": "MetLife Stadium, New York/New Jersey",
+          "enjeu": "Match d'ouverture du Groupe C - première journée",
+          "lecture": "Choc d'ouverture entre le Brésil affaibli par les blessures et un Maroc ambitieux mais aussi fragilisé.",
+          "interet": 4
+        },
+        "contexte": {
+          "classement": "Première journée du Groupe C comprenant Brésil, Maroc, Écosse et Haïti - aucun match encore joué",
+          "conditions": "Non confirmé — à vérifier",
+          "pression": "Attentes modérées pour le Brésil malgré son statut, Maroc porté par sa demi-finale 2022 mais nouveau sélectionneur Mohamed Ouahbi"
+        },
+        "forme": {
+          "A": "Préparation perturbée, trois années tumultueuses avec quatre sélectionneurs différents, attentes inhabituellement modérées sous Ancelotti",
+          "B": "Défaite en finale CAN 2025 face au Sénégal puis titre controversé, changement d'entraîneur récent (Ouahbi remplace Regragui), match nul 1-1 contre Norvège en préparation"
+        },
+        "absences": {
+          "A": "Neymar (blessure mollet), Rodrygo (rupture ligaments croisés mars), Estevao, Eder Militao, Wesley - tous titulaires potentiels",
+          "B": "Nayef Aguerd et Abde Ezzalzouli forfaits définitifs, Hamza Igamane (rupture ligaments croisés), incertitudes sur Noussair Mazraoui et Abdessamad Ezzalzouli (blessés contre Norvège)",
+          "fiable": true
+        },
+        "tactique": {
+          "styleA": "Attaque menée par Vinicius Jr, défense centrale solide Marquinhos-Gabriel, problème arrière droit sans Wesley/Militao",
+          "styleB": "Génération formée en Espagne/France, jeu technique, incertitudes tactiques avec nouveau sélectionneur",
+          "duel": "Vinicius Jr vs défense marocaine, milieu de terrain créatif",
+          "zone": "Couloirs latéraux, Brésil fragile à droite",
+          "risque": "Manque d'automatismes nouveaux systèmes pour les deux équipes"
+        },
+        "scores": {
+          "A": 68,
+          "B": 65,
+          "detA": {
+            "forme": 11,
+            "effectif": 14,
+            "tactique": 13,
+            "mental": 10,
+            "absences": 4,
+            "conditions": 8,
+            "momentum": 3
+          },
+          "detB": {
+            "forme": 12,
+            "effectif": 13,
+            "tactique": 11,
+            "mental": 11,
+            "absences": 5,
+            "conditions": 8,
+            "momentum": 2
+          },
+          "commentaire": "Match très ouvert entre deux équipes affaiblies. Léger avantage Brésil malgré les absences grâce à l'expérience et Vinicius Jr. Maroc dangereux mais instabilité récente."
+        },
+        "sources": [
+          {
+            "nom": "Olympics.com/Bladi.net",
+            "info": "Date match 13 juin, changements liste Maroc",
+            "date": "1 semaine"
+          },
+          {
+            "nom": "Boursorama/Footmercato",
+            "info": "Blessures Brésil et Maroc, forfaits",
+            "date": "8-15 heures"
+          },
+          {
+            "nom": "Elbotola/Foot01",
+            "info": "Statut blessés marocains",
+            "date": "1-3 jours"
+          }
+        ]
+      },
+      "marche": {
+        "probas": {
+          "eqA": 45,
+          "nul": 26,
+          "eqB": 29,
+          "over25": 57,
+          "under25": 43,
+          "btts": 51,
+          "over15": 74,
+          "over35": 31
+        },
+        "score_probable": "2-1",
+        "scenarios": {
+          "dominant": "Brésil prend l'avantage grâce à Vinicius Jr malgré les absences, défense marocaine fragilisée par les blessures récentes",
+          "alternatif": "Match nul logique entre deux équipes affaiblies avec de nouveaux systèmes tactiques, manque d'automatismes des deux côtés",
+          "pire": "Maroc surprend un Brésil trop confiant, génération espagnole/française du Maroc fait la différence en fin de match"
+        },
+        "marches": [
+          {
+            "marche": "Over 1.5 buts",
+            "verdict": "🟢",
+            "proba": 74,
+            "cote_min": 1.45,
+            "pour": "Deux attaques de qualité malgré blessures, défenses fragilisées, enjeu d'ouverture",
+            "contre": "Première journée souvent prudente, nouveaux systèmes tactiques"
+          },
+          {
+            "marche": "Victoire Brésil",
+            "verdict": "🟡",
+            "proba": 45,
+            "cote_min": 2.4,
+            "pour": "Vinicius Jr en forme, expérience, qualité individuelle supérieure",
+            "contre": "Nombreuses absences, instabilité récente, Maroc motivé"
+          },
+          {
+            "marche": "BTTS (les deux marquent)",
+            "verdict": "🟡",
+            "proba": 51,
+            "cote_min": 2.1,
+            "pour": "Deux attaques créatives, défenses affaiblies par blessures",
+            "contre": "Ancelotti prudent en début de tournoi, pression du match d'ouverture"
+          },
+          {
+            "marche": "Match nul",
+            "verdict": "🔴",
+            "proba": 26,
+            "cote_min": 4.2,
+            "pour": "Deux équipes en transition, manque d'automatismes, prudence",
+            "contre": "Enjeu trop important pour se contenter d'un point"
+          }
+        ],
+        "verdict": {
+          "reco": "Over 1.5 buts",
+          "alternative": "Victoire Brésil avec prudence",
+          "no_bet": false,
+          "risque": "Incertitudes tactiques et nombreuses blessures",
+          "confiance": "moyenne",
+          "mise": "modérée"
+        },
+        "synthese": "Match ouvert entre deux sélections affaiblies mais qualitatives, léger avantage Brésil malgré l'instabilité récente.",
+        "incertitude": "moyenne"
+      },
+      "devil": {
+        "data": {
+          "failles": [
+            "Non confirmé — à vérifier : changement de sélectionneur marocain (sources mentionnent Mohamed Ouahbi mais Wikipedia dit Regragui toujours en poste)",
+            "Statut Neymar flou : l'analyse dit forfait définitif mais sources récentes évoquent possibilité d'être apte pour le match",
+            "Cotes bookmakers différentes : Unibet donne Brésil 1,68 vs probas analyse 45%, incohérence majeure",
+            "Non confirmé — à vérifier : Maroc champion d'Afrique 'sur tapis vert' contre Sénégal selon une source"
+          ],
+          "trop_optimiste": true,
+          "verdict_tient": false,
+          "note": "L'analyse présente des incertitudes majeures sur des éléments-clés (sélectionneur, Neymar) et des incohérences avec les données de marché."
+        },
+        "ts": 1781220410559
+      },
+      "ts": 1781220410559,
+      "cotes": null,
+      "resultat": null,
+      "compos": null,
+      "postmatch": null
+    },
+    "GC-J1-23": {
+      "type": "match",
+      "auto": true,
+      "titre": "🇭🇹 Haïti vs Écosse 🏴󠁧󠁢󠁳󠁣󠁴󠁿 · Gr.C J1 · 11–17 juin",
+      "eqA": [
+        "Haïti",
+        "🇭🇹"
+      ],
+      "eqB": [
+        "Écosse",
+        "🏴󠁧󠁢󠁳󠁣󠁴󠁿"
+      ],
+      "terrain": {
+        "resume": {
+          "date": "Vendredi 14 juin 2026 à 03h00 (heure suisse)",
+          "stade": "Gillette Stadium, Boston/Foxborough",
+          "enjeu": "Premier match crucial dans un groupe relevé avec Brésil et Maroc",
+          "lecture": "Haïti de retour après 52 ans face à une Écosse qui veut bien débuter dans un groupe piégeux",
+          "interet": 4
+        },
+        "contexte": {
+          "classement": "<cite index=\"1-2,2-1,2-2\">Groupe C avec Brésil, Maroc, Écosse et Haïti</cite> - <cite index=\"7-9\">Haïti petit poucet du groupe</cite>",
+          "conditions": "Non confirmé — à vérifier",
+          "pression": "<cite index=\"7-11\">Haïti espère le soutien de la diaspora haïtienne aux États-Unis</cite> - <cite index=\"8-14,8-15,8-16\">Écosse sous pression pour bien débuter, Haïti joue libéré</cite>"
+        },
+        "forme": {
+          "A": "<cite index=\"16-1,15-16\">Défaite récente contre le Pérou 1-2, victoire 4-0 contre Nouvelle-Zélande, nul 1-1 contre l'Islande, défaite 0-1 contre la Tunisie</cite> - <cite index=\"8-21,8-22,8-23\">Alterné bon et moins bon en amical, irrégulier face à des adversaires organisés</cite>",
+          "B": "<cite index=\"8-18,8-19,8-20\">Victoires en préparation dont succès convaincant face à la Bolivie, équipe en confiance avec automatismes tactiques en place</cite> - <cite index=\"17-17,17-18\">Tartan Army confiante après deux victoires dont 4 buts contre Curaçao</cite>"
+        },
+        "absences": {
+          "A": "Aucune absence majeure trouvée",
+          "B": "Aucune absence majeure trouvée",
+          "fiable": false
+        },
+        "tactique": {
+          "styleA": "<cite index=\"19-17\">4-4-2 habituellement</cite> - <cite index=\"8-17,8-23\">Style basé sur l'état d'esprit et la fraîcheur pour compenser</cite>",
+          "styleB": "<cite index=\"8-28\">3-5-2</cite> - <cite index=\"9-1,9-2,9-3\">McGinn dicte le tempo, McTominay apporte puissance, Robertson vital pour la livraison</cite>",
+          "duel": "<cite index=\"8-25,8-26\">Bellegarde vs McGinn au milieu, Nazon-Isidor vs défense écossaise</cite>",
+          "zone": "Milieu de terrain où se jouera la possession et les transitions",
+          "risque": "<cite index=\"8-27\">Écart de qualité individuelle avec l'Écosse se ressent sur la durée</cite>"
+        },
+        "scores": {
+          "A": 35,
+          "B": 65,
+          "detA": {
+            "forme": 10,
+            "effectif": 8,
+            "tactique": 7,
+            "mental": 12,
+            "absences": 8,
+            "conditions": 5,
+            "momentum": 3
+          },
+          "detB": {
+            "forme": 15,
+            "effectif": 14,
+            "tactique": 13,
+            "mental": 10,
+            "absences": 8,
+            "conditions": 5,
+            "momentum": 4
+          },
+          "commentaire": "<cite index=\"8-51,8-52\">Écosse possède trop d'arguments individuels et collectifs</cite> - <cite index=\"3-2,3-3\">Ces deux équipes ne se sont jamais affrontées</cite> - Incertitude liée au premier match et manque de données récentes"
+        },
+        "sources": [
+          {
+            "nom": "La1ère Martinique",
+            "info": "Composition du groupe C",
+            "date": "5 décembre 2025"
+          },
+          {
+            "nom": "Cocathletisme.fr",
+            "info": "Forme récente et compositions",
+            "date": "2 jours"
+          },
+          {
+            "nom": "Footmercato",
+            "info": "Résultats récents Haïti",
+            "date": "1 semaine"
+          },
+          {
+            "nom": "Sportytrader",
+            "info": "Analyse tactique",
+            "date": "3 jours"
+          }
+        ]
+      },
+      "marche": {
+        "probas": {
+          "eqA": 16,
+          "nul": 22,
+          "eqB": 62,
+          "over25": 48,
+          "under25": 52,
+          "btts": 26,
+          "over15": 71,
+          "over35": 30
+        },
+        "score_probable": "0-2",
+        "scenarios": {
+          "dominant": "Écosse contrôle le match dès l'entame, presse haut et exploite l'inexpérience haïtienne. McTominay et McGinn dictent le tempo, Adams/Shankland trouvent la faille rapidement. Victoire nette 2-0 ou 3-0.",
+          "alternatif": "Match équilibré en première période, Haïti résiste bien grâce à Bellegarde et tient physiquement. Écosse fait la différence sur coup de pied arrêté ou transition en seconde période. Victoire courte 1-0.",
+          "pire": "Haïti libéré sans pression surprend une Écosse crispée par l'attente. Nazon-Isidor exploitent les espaces, l'Écosse panique et encaisse. Match nul 1-1 ou sensation haïtienne 2-1."
+        },
+        "marches": [
+          {
+            "marche": "Écosse victoire",
+            "verdict": "🟢",
+            "proba": 62,
+            "cote_min": 1.7,
+            "pour": "Qualité d'effectif supérieure, expérience récente des grands tournois, automatismes tactiques. McGinn-McTominay-Robertson apportent le leadership nécessaire.",
+            "contre": "Premier match de Coupe du Monde après 28 ans, pression énorme. Haïti libéré peut créer la surprise comme en 1974 contre l'Italie."
+          },
+          {
+            "marche": "Sous 2.5 buts",
+            "verdict": "🟡",
+            "proba": 52,
+            "cote_min": 2,
+            "pour": "Match d'ouverture souvent prudent, Écosse privilégie solidité défensive. Haïti manque d'efficacité face à des défenses organisées.",
+            "contre": "Écosse a marqué 2+ buts dans 7 de ses 9 derniers matchs. Haïti peut encaisser lourd si le verrou saute."
+          },
+          {
+            "marche": "Les deux équipes marquent - NON",
+            "verdict": "🟢",
+            "proba": 74,
+            "cote_min": 1.4,
+            "pour": "Haïti n'a jamais marqué en Coupe du Monde (0 but en 3 matchs en 1974). Défense écossaise solide avec Robertson-Hanley-McKenna.",
+            "contre": "Nazon-Isidor ont la qualité pour marquer sur transition rapide. Première pression peut déstabiliser la défense écossaise."
+          },
+          {
+            "marche": "McGinn buteur ou passeur",
+            "verdict": "🟡",
+            "proba": 45,
+            "cote_min": 2.3,
+            "pour": "Joueur clé d'Aston Villa (10 buts saison passée), arrivées tardives dans la surface. Position avancée prévue contre Haïti.",
+            "contre": "Rendement irrégulier en sélection, peut être bridé par instructions défensives de Clarke pour ce premier match."
+          }
+        ],
+        "verdict": {
+          "reco": "pari logique",
+          "alternative": "BTTS Non + Écosse victoire en combiné",
+          "no_bet": false,
+          "risque": "Premier match imprévisible, données limitées sur Haïti",
+          "confiance": "moyenne",
+          "mise": "modérée"
+        },
+        "synthese": "Écosse favorite logique avec qualité d'effectif supérieure, mais premier match de Coupe du Monde après 28 ans génère incertitudes.",
+        "incertitude": "moyenne"
+      },
+      "devil": {
+        "data": {
+          "failles": [
+            "<cite index=\"17-2,21-4,23-1\">L'écart de classement FIFA vérifié : Haïti 83e vs Écosse 42e soit 41 places d'écart</cite> - L'analyse dit \"40 places\" au lieu de 41",
+            "<cite index=\"1-2,1-20,10-3,11-1,12-1\">Billy Gilmour confirmé absent du Mondial pour blessure au genou</cite> - L'analyse ne mentionnait aucune absence majeure pour l'Écosse",
+            "<cite index=\"1-8,8-8,19-27\">Haïti fait son retour après 52 ans mais non \"première fois\" au Mondial</cite> - L'analyse dit \"première fois\" alors que c'est un retour",
+            "<cite index=\"7-23,9-5,9-6\">Les deux équipes ne se sont jamais affrontées</cite> - Confirmé mais données historiques limitées pour l'évaluation",
+            "Le contexte \"Premier match de Coupe du Monde après 28 ans\" pour l'Écosse est confirmé mais l'analyse ne précise pas assez l'impact psychologique potentiel"
+          ],
+          "trop_optimiste": true,
+          "verdict_tient": false,
+          "note": "L'analyse sous-estime les incertitudes liées aux données manquantes sur Haïti et l'absence de Billy Gilmour modifie l'équilibre tactique écossais."
+        },
+        "ts": 1781220498087
+      },
+      "ts": 1781220498087,
+      "cotes": null,
+      "resultat": null,
       "compos": null,
       "postmatch": null
     }
@@ -888,10 +1420,10 @@
           }
         ],
         "resultats": "Aucun match joué",
-        "scenarios": "Non confirmé — à vérifier. Les deux premiers du groupe se qualifient directement pour les huitièmes, les 8 meilleurs troisièmes peuvent aussi se qualifier selon les résultats croisés.",
+        "scenarios": "Les quatre équipes démarrent à égalité sans aucun point. Le premier match Canada-Bosnie-Herzégovine aura lieu demain au BMO Field de Toronto, suivi de Qatar-Suisse le 13 juin.",
         "fraicheur": "11 juin 2026"
       },
-      "ts": 1781209470604
+      "ts": 1781220553667
     },
     "D": {
       "data": {
@@ -934,6 +1466,34 @@
   },
   "value": [
     {
+      "id": "GC-J1-01",
+      "titre": "🇧🇷 Brésil vs Maroc 🇲🇦 · Gr.C J1 · 11–17 juin",
+      "marche": "Over 1.5 buts",
+      "proba": 74,
+      "cote_min": 1.45
+    },
+    {
+      "id": "GC-J1-23",
+      "titre": "🇭🇹 Haïti vs Écosse 🏴󠁧󠁢󠁳󠁣󠁴󠁿 · Gr.C J1 · 11–17 juin",
+      "marche": "Les deux équipes marquent - NON",
+      "proba": 74,
+      "cote_min": 1.4
+    },
+    {
+      "id": "GB-J1-23",
+      "titre": "🇶🇦 Qatar vs Suisse 🇨🇭 · Gr.B J1 · 11–17 juin",
+      "marche": "Victoire Suisse",
+      "proba": 70,
+      "cote_min": 1.58
+    },
+    {
+      "id": "GB-J1-23",
+      "titre": "🇶🇦 Qatar vs Suisse 🇨🇭 · Gr.B J1 · 11–17 juin",
+      "marche": "Les deux équipes ne marquent pas",
+      "proba": 65,
+      "cote_min": 1.69
+    },
+    {
       "id": "GA-J1-23",
       "titre": "🇰🇷 Corée du Sud vs Tchéquie 🇨🇿 · Gr.A J1 · 11–17 juin",
       "marche": "Match nul",
@@ -941,16 +1501,16 @@
       "cote_min": 1.7
     },
     {
-      "id": "GB-J1-01",
-      "titre": "🇨🇦 Canada vs Bosnie-Herzégovine 🇧🇦 · Gr.B J1 · 11–17 juin",
-      "marche": "Les deux équipes marquent - Non",
-      "proba": 55,
-      "cote_min": 1.9
+      "id": "GC-J1-23",
+      "titre": "🇭🇹 Haïti vs Écosse 🏴󠁧󠁢󠁳󠁣󠁴󠁿 · Gr.C J1 · 11–17 juin",
+      "marche": "Écosse victoire",
+      "proba": 62,
+      "cote_min": 1.7
     },
     {
       "id": "GD-J1-01",
       "titre": "🇺🇸 États-Unis vs Paraguay 🇵🇾 · Gr.D J1 · 11–17 juin",
-      "marche": "Les deux équipes ne marquent pas",
+      "marche": "Les deux équipes marquent",
       "proba": 52,
       "cote_min": 2.1
     },
@@ -960,6 +1520,13 @@
       "marche": "Victoire Mexique",
       "proba": 48,
       "cote_min": 2.3
+    },
+    {
+      "id": "GB-J1-01",
+      "titre": "🇨🇦 Canada vs Bosnie-Herzégovine 🇧🇦 · Gr.B J1 · 11–17 juin",
+      "marche": "Match nul",
+      "proba": 28,
+      "cote_min": 3.8
     }
   ]
 }

@@ -492,8 +492,9 @@ function majCompteur(){ const n=Object.keys(DB.analyses).length; document.getEle
 const ANTI_HALLU = `RÈGLES STRICTES : n'invente JAMAIS un résultat, une blessure, une compo, une cote, une météo ou un classement. Si une donnée n'est pas trouvée/vérifiée via la recherche web, écris exactement "Non confirmé — à vérifier". Sépare faits vérifiés et estimations. Sois neutre, prudent, factuel. Les probabilités sont tes estimations, pas des certitudes.`;
 let IA_OK = true;
 const CFGKEY='wc26-cfg';
-function getCfg(){ try{ return JSON.parse(localStorage.getItem(CFGKEY)||'{}'); }catch(e){ return {}; } }
-function setCfg(c){ try{ localStorage.setItem(CFGKEY, JSON.stringify(c)); }catch(e){} }
+let CFG_MEM=null; // secours en mémoire si le stockage du navigateur est bloqué (aperçu intégré, vie privée…)
+function getCfg(){ if(CFG_MEM) return CFG_MEM; try{ return JSON.parse(localStorage.getItem(CFGKEY)||'{}'); }catch(e){ return {}; } }
+function setCfg(c){ CFG_MEM=c; try{ localStorage.setItem(CFGKEY, JSON.stringify(c)); }catch(e){} }
 function modeIA(){ return getCfg().key ? 'direct' : 'artifact'; }
 
 async function appelIA(prompt, maxTokens){

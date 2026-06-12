@@ -341,8 +341,42 @@ footer{margin:30px 0 8px;font-family:var(--mono);font-size:9px;color:var(--txt2)
   <h2 class="sec">My Lab</h2>
   <div class="subtabs">
     <button class="subtab on" data-lt="ana">🧠 Mes analyses</button>
+    <button class="subtab" data-lt="reel">💰 Paris réels</button>
     <button class="subtab" data-lt="ghost">👻 Paris test</button>
     <button class="subtab" data-lt="calib">🎯 Fiabilité du modèle</button>
+  </div>
+  <div id="lab-reel" hidden>
+    <div class="card prem">
+      <div class="ktop"><span class="au">📜 CHARTE BANKROLL — LOIS DU TOURNOI (LECTURE SEULE)</span></div>
+      <table class="tt">
+        <tr><td>CORE (analyse sérieuse)</td><td class="sc">400 CHF</td><td>mises 1–2 %, quart de Kelly, NO BET par défaut</td></tr>
+        <tr><td>MOONSHOT (loterie assumée)</td><td class="sc">100 CHF</td><td>plafonné, <b>jamais rechargé depuis le CORE</b></td></tr>
+        <tr><td>Unité de mise</td><td class="sc">4 CHF</td><td>1 % du CORE</td></tr>
+        <tr><td>Mise maximum</td><td class="sc">8 CHF</td><td>2 % — aucune exception</td></tr>
+        <tr><td>Paris CORE / jour</td><td class="sc">3 max</td><td>les 3 meilleurs edges, le reste → NO BET</td></tr>
+        <tr><td>Stop-loss journalier</td><td class="sc">−5 %</td><td>−20 CHF → journée terminée</td></tr>
+        <tr><td>Stop-loss tournoi</td><td class="sc">−40 %</td><td>CORE ≤ 240 CHF → mode papier jusqu'à la fin</td></tr>
+      </table>
+      <p class="note" style="margin-top:8px">Aucun transfert MOONSHOT ← CORE, jamais, même « juste une fois ». Aucune mise pour « se refaire ». La réussite se mesure au CLV et à la discipline sur 50 paris — pas au solde.</p>
+    </div>
+    <div id="reel-alertes"></div>
+    <div class="card">
+      <div class="ktop"><span class="au">➕ NOUVEAU PARI RÉEL</span></div>
+      <select id="rb-match"><option value="">— Match analysé —</option></select>
+      <div class="ogrid" style="margin-top:8px;grid-template-columns:2fr 1fr 1fr 1fr">
+        <div><label class="lb">Marché</label><input type="text" id="rb-marche" placeholder="ex : Under 3.5"></div>
+        <div><label class="lb">Cote prise</label><input type="number" step="0.01" min="1.01" id="rb-cote" inputmode="decimal"></div>
+        <div><label class="lb">Proba %</label><input type="number" min="1" max="99" id="rb-proba" inputmode="numeric"></div>
+        <div><label class="lb">Poche</label><select id="rb-poche"><option value="CORE">CORE</option><option value="MOONSHOT">MOONSHOT</option></select></div>
+      </div>
+      <div class="ogrid" style="margin-top:8px;grid-template-columns:1fr 3fr">
+        <div><label class="lb">Mise CHF</label><input type="number" step="0.5" min="0.5" id="rb-mise" inputmode="decimal"></div>
+        <div><label class="lb">Note (pourquoi ce pari)</label><input type="text" id="rb-note" placeholder="raison courte"></div>
+      </div>
+      <div class="row" style="margin-top:10px"><button class="btn mini" id="rb-add">Enregistrer le pari</button><span class="statut" id="rb-st"></span></div>
+    </div>
+    <div id="rb-stats"></div>
+    <div id="rb-liste"></div>
   </div>
   <div id="lab-ana">
     <div class="row" style="margin-bottom:10px"><button class="btn mini sec" id="btn-checkall">🏁 Vérifier tous les résultats</button><button class="btn mini sec" onclick="showView('odds')">🧮 Calculateur avancé</button><button class="btn mini sec" onclick="document.getElementById('btn-gear').click()">⚙️ Réglages</button><button class="btn mini danger" id="btn-clear">🗑️ Tout effacer</button><span class="statut" id="lab-info"></span></div>
@@ -444,7 +478,9 @@ const EN={"Mexique":"Mexico","Afrique du Sud":"South Africa","Corée du Sud":"So
 /* ============================================================
    2 · ÉTAT & STOCKAGE (mêmes clés que l'ancienne version → rien n'est perdu)
    ============================================================ */
-let DB={analyses:{},briefing:null,standings:{},equipes:{},news:null,bracket:null,ghosts:[],calib:null,sync:{}};
+let DB={analyses:{},briefing:null,standings:{},equipes:{},news:null,bracket:null,ghosts:[],bets:[],calib:null,sync:{}};
+/* ---- CHARTE BANKROLL — lois du tournoi, jamais de dérogation ---- */
+const BANKROLL={core:400,moonshot:100,unite:4,miseMax:8,maxParisJour:3,slJourPct:0.05,slTournoiPct:0.40};
 const SKEY='wc26-hub-v3', CFGKEY='wc26-cfg';
 let CFG_MEM=null;
 const store={
@@ -512,6 +548,7 @@ Réponds UNIQUEMENT en JSON valide, français, dense :
 "absences":{"A":"absents de ${a} ou 'Aucune absence majeure trouvée'","B":"idem ${b}","fiable":true},
 "tactique":{"styleA":"système+style ${a}","styleB":"idem ${b}","duel":"duel clé","zone":"zone décisive","risque":"risque tactique"},
 "h2h":"confrontations directes récentes + performance contre des styles similaires (2 phrases factuelles ou 'Non confirmé — à vérifier')",
+"qualif":"scénarios de qualification des 2 équipes : qui a besoin de quoi, un nul arrange-t-il quelqu'un ? (crucial en J3 : 2 premiers + 8 meilleurs 3es qualifiés)",
 "scores":{"A":75,"B":60,"detA":{"forme":15,"effectif":16,"tactique":14,"mental":11,"absences":8,"conditions":8,"momentum":4},"detB":{"forme":12,"effectif":13,"tactique":12,"mental":9,"absences":7,"conditions":7,"momentum":3},"commentaire":"justification + incertitude"},
 "sources":[{"nom":"source","info":"donnée","date":"fraîcheur"}]}
 "interet"=1-5. scores /100, sous-scores forme/20 effectif/20 tactique/20 mental/15 absences/10 conditions/10 momentum/5.`;}
@@ -657,7 +694,11 @@ function quantTout(A){
  const sA=+(t.scores?.A)||60,sB=+(t.scores?.B)||60;
  const xg=quantXg(A),po=quantPoisson(xg.a,xg.b),mc=quantMC(xg.a,xg.b,10000),el=quantElo(sA,sB);
  const ia=m.probas?{p1:(+m.probas.eqA||33)/100,pn:(+m.probas.nul||33)/100,p2:(+m.probas.eqB||34)/100}:null;
- const W=ia?[[ia,.4],[po,.35],[el,.25]]:[[po,.6],[el,.4]];
+ /* baseline marché : cotes dé-vigées à 50 % de poids (le marché CDM est très efficient) */
+ const dv0=(A.cotes&&A.cotes.a&&A.cotes.n&&A.cotes.b)?devigProportionnel(A.cotes.a,A.cotes.n,A.cotes.b):null;
+ const mk=dv0?{p1:dv0.pa,pn:dv0.pn,p2:dv0.pb}:null;
+ const W=mk?(ia?[[mk,.5],[ia,.15],[po,.2],[el,.15]]:[[mk,.5],[po,.3],[el,.2]])
+         :(ia?[[ia,.4],[po,.35],[el,.25]]:[[po,.6],[el,.4]]);
  let e1=0,en=0,e2=0;for(const[x,w]of W){e1+=x.p1*w;en+=x.pn*w;e2+=x.p2*w;}
  const s=e1+en+e2;e1/=s;en/=s;e2/=s;
  let corr=0;
@@ -685,7 +726,7 @@ function quantTout(A){
  const entropy=Math.round(100*H/Math.log(3));
  // Model Agreement : accord entre IA, Poisson et Elo (100 = unanimes)
  const agree=Math.max(0,Math.min(100,100-div*2.5));
- return{xg,po,mc,el,ens:{p1:e1,pn:en,p2:e2},div,gap,chaos,fiab,conf,corr,entropy,agree};}
+ return{xg,po,mc,el,ens:{p1:e1,pn:en,p2:e2},div,gap,chaos,fiab,conf,corr,entropy,agree,marche50:!!mk};}
 function mendes(A,Q){
  const t=A.terrain||{},m=A.marche||{};
  const sA=+(t.scores?.A)||60,sB=+(t.scores?.B)||60;
@@ -722,8 +763,9 @@ function mendes(A,Q){
  const setPiece=Math.max(0,Math.min(100,Math.round(30+(+(m.probas?.btts)||45)*0.25+(100-pg)*0.15)));                            // danger CPA
  const favFrag=Math.max(0,Math.min(100,Math.round((GR.includes(fav)?28:10)+Math.max(0,(0.62-favP))*220+(trap-40)*0.4)));        // favori fragile
  const shock=Math.max(0,Math.min(100,Math.round(Q.entropy*0.5+(100-pg)*0.35+(Q.chaos-40)*0.2)));                                // surprise outsider
+ if(t.qualif&&/arrange|suffit|calcul/i.test(t.qualif))trap=Math.min(100,trap+8); // incitations ambiguës (nul qui arrange)
  /* ---- décision mathématique brute ---- */
- const edgeOk=bestEdge!==null&&bestEdge>=3;
+ const edgeOk=bestEdge!==null&&bestEdge>=3.5; // seuil de value : +3.5 pts minimum
  let mathDec;
  if(cbs<40)mathDec='NO BET';else if(cbs<55)mathDec='AVOID';
  else if(cbs>=70&&edgeOk)mathDec='BET';else mathDec='WATCH';
@@ -734,7 +776,7 @@ function mendes(A,Q){
  if(iqs<60)guards.push('Data Confidence < 60 → verdict rétrogradé');
  if(trap>70)guards.push('Trap Risk > 70 → AVOID/NO BET sauf edge énorme confirmé');
  if(Q.agree<60)guards.push('Model Agreement < 60 (modèles contradictoires) → NO BET');
- if(bestEdge!==null&&bestEdge<3)guards.push('Edge < 3 pts → value insuffisante');
+ if(bestEdge!==null&&bestEdge<3.5)guards.push('Avantage estimé < 3.5 pts → value insuffisante (le marché a probablement raison)');
  if(bestEdge===null)guards.push('Aucune cote saisie → BET impossible');
  if(Q.entropy>75)guards.push('Entropy > 75 → no bet ou exposition minimale');
  if(favFrag>70&&mathDec==='BET'&&fav===((m.verdict?.reco||'').includes(fav)?fav:fav))guards.push('Favorite Fragility > 70 → éviter la victoire sèche du favori');
@@ -1065,6 +1107,7 @@ function renderSimplePage(info,A,t,m,Q,M){
   ${mini(nA.slice(0,9).toUpperCase()+' À 0 ENCAISSÉ',Math.round(Q.po.csA*100))}
   ${mini(nB.slice(0,9).toUpperCase()+' À 0 ENCAISSÉ',Math.round(Q.po.csB*100))}
   <p class="note" style="margin-top:7px">Scores les plus crédibles : ${Q.po.tops.map(x=>`<b>${x.s}</b> (${Math.round(x.p*100)} %)`).join(' · ')}</p>
+  ${Q.marche50?`<p class="note">⚖️ Probabilités calées sur le marché (cotes dé-vigées à 50 % du calcul) — la base la plus fiable qui existe.</p>`:`<p class="note">💡 Entre les cotes (bloc « Tes cotes » ci-dessous) : le calcul se recalera sur le marché, la base la plus fiable.</p>`}
  </div></details>`;
  /* --- 5b · Mi-temps --- */
  h+=`<details class="tech"><summary>⏱️ Mi-temps — quand est-ce que ça peut marquer ?</summary><div class="blk" style="border:0">
@@ -1094,6 +1137,7 @@ function renderSimplePage(info,A,t,m,Q,M){
  if(t.tactique?.risque)risks.push(t.tactique.risque);
  (A.devil?.data?.failles||[]).forEach(f=>risks.push('🔍 Contre-analyse : '+f));
  h+=`<details class="tech"><summary>⚠️ Pourquoi ce pari peut mal tourner</summary><div class="blk" style="border:0">
+  ${t.qualif?ligne('Qualification',esc(t.qualif)):''}
   <ul>${risks.map(r=>`<li>${esc(r)}</li>`).join('')||'<li>Pas de risque majeur identifié — méfiance quand même.</li>'}</ul>
   ${ligne('Risque global',risque)}
   ${ligne('Conseil',`<b>${action}</b>`)}
@@ -1469,8 +1513,8 @@ async function ficheTeam(nom){
    ============================================================ */
 function switchLab(t){
  document.querySelectorAll('.subtab').forEach(x=>x.classList.toggle('on',x.dataset.lt===t));
- ['ana','ghost','calib'].forEach(x=>document.getElementById('lab-'+x).hidden=(x!==t));
- if(t==='ghost')rendreGhost();if(t==='calib')rendreCalib();if(t==='ana')rendreAnalyses();}
+ ['ana','reel','ghost','calib'].forEach(x=>document.getElementById('lab-'+x).hidden=(x!==t));
+ if(t==='ghost')rendreGhost();if(t==='calib')rendreCalib();if(t==='ana')rendreAnalyses();if(t==='reel')rendreReel();}
 document.querySelectorAll('.subtab').forEach(b=>b.onclick=()=>switchLab(b.dataset.lt));
 function rendreLab(){rendreAnalyses();rendreGhostSel();}
 function rendreAnalyses(){
@@ -1508,6 +1552,124 @@ async function verifierTous(){
   try{const r=await appelIA(pResultat(A.eqA[0],A.eqB[0],A.titre),500);A.resultat=r;if(r.joue)joues++;await sauver();}catch(e){}}
  btn.disabled=false;btn.textContent='🏁 Vérifier tous les résultats';
  info.textContent=`${joues} joué(s) / ${cibles.length} vérifiés.`;rendreAnalyses();rendreMatches();}
+/* --- Module maths : dé-vig proportionnel + quart de Kelly plafonné --- */
+function devigProportionnel(a,n,b){
+ if(!(a>=1.01&&b>=1.01))return null;
+ const ra=1/a, rn=n>=1.01?1/n:0, rb=1/b, s=ra+rn+rb;
+ return {pa:ra/s, pn:rn/s, pb:rb/s, marge:(s-1)*100};}
+function kellyMiseCHF(probaPct,cote){
+ if(!(probaPct>0&&cote>=1.01))return 0;
+ const p=probaPct/100, q=1-p, bgain=cote-1;
+ const k=Math.max(0,(bgain*p-q)/bgain)*0.25;            // quart de Kelly
+ return Math.min(BANKROLL.miseMax, Math.round(k*BANKROLL.core*2)/2);} // plafonné 2 %
+/* --- Journal de paris RÉELS (CORE / MOONSHOT) --- */
+function bankrollEtat(){
+ const bets=DB.bets||[];
+ const pnl=g=>g.statut==='réglé'?(g.gagne===null?0:(g.gagne?g.mise*(g.cote-1):-g.mise)):0;
+ const enCours=g=>g.statut==='en cours'?g.mise:0;
+ const core=bets.filter(g=>g.poche==='CORE'), moon=bets.filter(g=>g.poche==='MOONSHOT');
+ const coreDispo=BANKROLL.core+core.reduce((s,g)=>s+pnl(g),0)-core.reduce((s,g)=>s+enCours(g),0);
+ const moonDispo=BANKROLL.moonshot+moon.reduce((s,g)=>s+pnl(g),0)-moon.reduce((s,g)=>s+enCours(g),0);
+ const auj=new Date().toDateString();
+ const coreAuj=core.filter(g=>new Date(g.ts).toDateString()===auj);
+ const pnlJour=coreAuj.reduce((s,g)=>s+pnl(g),0);
+ return {coreDispo,moonDispo,pnlJour,nbCoreAuj:coreAuj.length,
+  jourFini:pnlJour<=-BANKROLL.core*BANKROLL.slJourPct,
+  papier:coreDispo<=BANKROLL.core*(1-BANKROLL.slTournoiPct)};}
+function rendreReelSel(){
+ const sel=document.getElementById('rb-match');if(!sel)return;
+ const arr=Object.entries(DB.analyses).filter(([,A])=>A.marche).sort((a,b)=>(b[1].ts||0)-(a[1].ts||0));
+ const cur=sel.value;
+ sel.innerHTML='<option value="">— Match analysé —</option>'+arr.map(([id,A])=>`<option value="${id}">${esc(A.titre)}</option>`).join('');
+ if([...sel.options].some(o=>o.value===cur))sel.value=cur;
+ sel.onchange=()=>{const A=DB.analyses[sel.value];if(!A?.marche)return;
+  document.getElementById('rb-marche').value=(A.marche.verdict?.reco||'').slice(0,50);
+  const p=A.marche.probas||{};const proba=Math.max(+p.eqA||0,+p.nul||0,+p.eqB||0)||'';
+  document.getElementById('rb-proba').value=proba;
+  const c=parseFloat(document.getElementById('rb-cote').value);
+  if(proba&&c)document.getElementById('rb-mise').value=kellyMiseCHF(proba,c)||'';};
+ const co=document.getElementById('rb-cote');
+ co.oninput=()=>{const proba=parseFloat(document.getElementById('rb-proba').value),c=parseFloat(co.value);
+  if(proba&&c)document.getElementById('rb-mise').value=kellyMiseCHF(proba,c)||'';};}
+async function ajouterPari(){
+ const st=document.getElementById('rb-st');
+ const mid=document.getElementById('rb-match').value, marche=document.getElementById('rb-marche').value.trim();
+ const cote=parseFloat(document.getElementById('rb-cote').value), proba=parseFloat(document.getElementById('rb-proba').value);
+ const poche=document.getElementById('rb-poche').value, mise=parseFloat(document.getElementById('rb-mise').value);
+ const note=document.getElementById('rb-note').value.trim();
+ if(!marche||!(cote>=1.01)||!(mise>0)){st.innerHTML='<span class="err">Marché + cote + mise requis.</span>';return;}
+ const E=bankrollEtat();
+ /* lois de la charte — bloquantes, pas des suggestions */
+ if(poche==='CORE'){
+  if(E.papier){st.innerHTML='<span class="err">🛑 MODE PAPIER : stop-loss tournoi atteint (−40 %). Plus de paris CORE réels — utilise les Paris test.</span>';return;}
+  if(E.jourFini){st.innerHTML='<span class="err">🛑 Stop-loss journalier atteint (−5 %). Journée terminée — on ne se refait pas.</span>';return;}
+  if(mise>BANKROLL.miseMax){st.innerHTML=`<span class="err">🛑 Mise max CORE : ${BANKROLL.miseMax} CHF (2 %). Jamais d'exception.</span>`;return;}
+  if(E.nbCoreAuj>=BANKROLL.maxParisJour){st.innerHTML='<span class="err">🛑 Déjà 3 paris CORE aujourd\'hui. Le 4e meilleur edge est un NO BET.</span>';return;}
+  if(mise>E.coreDispo){st.innerHTML='<span class="err">🛑 Mise supérieure au CORE disponible.</span>';return;}
+ } else {
+  if(mise>E.moonDispo){st.innerHTML='<span class="err">🛑 MOONSHOT épuisé. Il n\'est JAMAIS rechargé — c\'était le prix du billet.</span>';return;}
+ }
+ DB.bets=DB.bets||[];
+ DB.bets.push({id:'rb'+Date.now(),ts:Date.now(),matchId:mid||null,titre:mid?(DB.analyses[mid]||{}).titre:marche,
+  marche,cote,proba:proba||null,poche,mise,note,coteCloture:null,statut:'en cours',gagne:null});
+ await sauver();st.textContent='✅ Pari enregistré.';setTimeout(()=>st.textContent='',2000);
+ ['rb-marche','rb-cote','rb-proba','rb-mise','rb-note'].forEach(i=>document.getElementById(i).value='');
+ rendreReel();}
+async function reglerPari(id,gagne){
+ const g=(DB.bets||[]).find(x=>x.id===id);if(!g)return;
+ const cc=parseFloat(document.getElementById('cc-'+id)?.value);
+ if(cc>=1.01)g.coteCloture=cc;
+ g.statut='réglé';g.gagne=gagne;await sauver();rendreReel();rendreCalib();}
+function sparkline(vals){
+ if(vals.length<2)return '';
+ const w=260,hh=46,min=Math.min(0,...vals),max=Math.max(0,...vals),rg=(max-min)||1;
+ const pts=vals.map((v,i)=>`${(i/(vals.length-1)*w).toFixed(1)},${(hh-((v-min)/rg)*hh).toFixed(1)}`).join(' ');
+ const zero=hh-((0-min)/rg)*hh;
+ return `<svg viewBox="0 0 ${w} ${hh}" width="100%" style="max-width:300px;display:block;margin-top:6px">
+  <line x1="0" y1="${zero}" x2="${w}" y2="${zero}" stroke="#24324A" stroke-width="1"/>
+  <polyline points="${pts}" fill="none" stroke="${vals[vals.length-1]>=0?'#22C55E':'#EF4444'}" stroke-width="2"/></svg>`;}
+function rendreReel(){
+ rendreReelSel();
+ const za=document.getElementById('reel-alertes'),zs=document.getElementById('rb-stats'),zl=document.getElementById('rb-liste');
+ if(!za)return;
+ const E=bankrollEtat();
+ za.innerHTML=(E.papier?`<div class="cold AVOID" style="margin-bottom:10px"><span class="vd" style="font-size:16px">🛑 MODE PAPIER</span><p class="note">Stop-loss tournoi atteint (CORE ≤ 240 CHF). Plus aucun pari réel CORE jusqu'à la fin — pronos trackés en Paris test uniquement. C'est la règle, elle te protège.</p></div>`
+  :E.jourFini?`<div class="cold WATCH" style="margin-bottom:10px"><span class="vd" style="font-size:16px">⏸️ JOURNÉE TERMINÉE</span><p class="note">Stop-loss journalier −5 % atteint. On ne se refait pas. Retour demain.</p></div>`:'');
+ const bets=(DB.bets||[]).slice().sort((a,b)=>b.ts-a.ts);
+ const reg=bets.filter(g=>g.statut==='réglé'&&g.gagne!==null);
+ const pnl=g=>g.gagne?g.mise*(g.cote-1):-g.mise;
+ const tot=reg.reduce((s,g)=>s+pnl(g),0);
+ const misesTot=reg.reduce((s,g)=>s+g.mise,0);
+ const roi=misesTot?Math.round(100*tot/misesTot):null;
+ const clvArr=reg.filter(g=>g.coteCloture>=1.01).map(g=>(g.cote/g.coteCloture-1)*100);
+ const clv=clvArr.length?+(clvArr.reduce((s,x)=>s+x,0)/clvArr.length).toFixed(1):null;
+ const brArr=reg.filter(g=>g.proba);
+ const brier=brArr.length?+(brArr.reduce((s,g)=>s+Math.pow(g.proba/100-(g.gagne?1:0),2),0)/brArr.length).toFixed(3):null;
+ const courbe=[];let cum=0;
+ reg.slice().sort((a,b)=>a.ts-b.ts).forEach(g=>{cum+=pnl(g);courbe.push(+cum.toFixed(2));});
+ zs.innerHTML=`<div class="stgrid">
+  <div class="st"><div class="n" style="color:${E.coreDispo>=BANKROLL.core?'var(--green)':'var(--txt)'}">${E.coreDispo.toFixed(0)}</div><div class="l">CORE dispo / 400 CHF</div></div>
+  <div class="st"><div class="n">${E.moonDispo.toFixed(0)}</div><div class="l">MOONSHOT / 100 CHF</div></div>
+  <div class="st"><div class="n" style="color:${roi===null?'var(--txt)':roi>=0?'var(--green)':'var(--red)'}">${roi===null?'–':(roi>0?'+':'')+roi+'%'}</div><div class="l">ROI réel (${reg.length} réglés)</div></div>
+  <div class="st"><div class="n" style="color:${clv===null?'var(--txt)':clv>=0?'var(--green)':'var(--red)'}">${clv===null?'–':(clv>0?'+':'')+clv+'%'}</div><div class="l">CLV moyen (${clvArr.length})</div></div>
+  <div class="st"><div class="n">${brier===null?'–':brier}</div><div class="l">Brier (≤0.25 = bon)</div></div>
+  <div class="st"><div class="n">${E.nbCoreAuj}/3</div><div class="l">Paris CORE aujourd'hui</div></div></div>
+ ${courbe.length?`<div class="card" style="padding:10px 14px"><div class="ktop"><span class="au">COURBE P&L (CHF)</span><span style="margin-left:auto" class="em">${(cum>=0?'+':'')+cum.toFixed(2)} CHF</span></div>${sparkline(courbe)}</div>`:''}
+ ${clv!==null&&reg.length>=20?`<p class="note">${clv>=0?'✅ CLV positif sur '+clvArr.length+' paris : tu bats le marché à la fermeture — continue à l\'identique, même si le ROI court terme est rouge.':'⚠️ CLV négatif après 20+ paris : le modèle a tort quelque part. Réduis les mises de moitié et cherche la fuite.'}</p>`:''}`;
+ zl.innerHTML=bets.length?bets.map(g=>`<div class="card">
+  <div class="ktop"><span class="au">${esc(g.titre||g.marche)}</span><span class="pill ${g.poche==='CORE'?'b':'vi'}">${g.poche}</span><span style="margin-left:auto">${dateFR(g.ts)}</span></div>
+  <div style="font-size:13px"><b>${esc(g.marche)}</b> · cote ${g.cote.toFixed(2)} · mise ${g.mise} CHF${g.proba?' · proba '+g.proba+'%':''}${g.coteCloture?' · clôture '+g.coteCloture.toFixed(2):''}</div>
+  ${g.note?`<div class="note" style="margin-top:3px">📝 ${esc(g.note)}</div>`:''}
+  <div class="row" style="margin-top:8px">
+   ${g.statut==='réglé'?`<span class="pill ${g.gagne?'g':'r'}">${g.gagne?'✅ GAGNÉ +'+(g.mise*(g.cote-1)).toFixed(2)+' CHF':'❌ PERDU −'+g.mise.toFixed(2)+' CHF'}</span>`
+   :`<span class="pill y">⏳ EN COURS</span>
+     <span style="display:inline-flex;align-items:center;gap:4px"><label class="lb" style="margin:0">clôture</label><input type="number" step="0.01" min="1.01" id="cc-${g.id}" style="width:74px;padding:6px" inputmode="decimal"></span>
+     <button class="btn mini sec" data-rw="${g.id}">✅ Gagné</button><button class="btn mini danger" data-rl="${g.id}">❌ Perdu</button>`}
+   <button class="btn mini danger" data-rd="${g.id}" style="margin-left:auto">🗑️</button></div></div>`).join('')
+  :`<div class="empty">AUCUN PARI RÉEL.<br>RAPPEL : 20–30 PARIS TEST GAGNANTS D'ABORD.</div>`;
+ zl.querySelectorAll('[data-rw]').forEach(b=>b.onclick=()=>reglerPari(b.dataset.rw,true));
+ zl.querySelectorAll('[data-rl]').forEach(b=>b.onclick=()=>reglerPari(b.dataset.rl,false));
+ zl.querySelectorAll('[data-rd]').forEach(b=>b.onclick=async()=>{DB.bets=DB.bets.filter(x=>x.id!==b.dataset.rd);await sauver();rendreReel();});}
 /* --- Ghost --- */
 function rendreGhostSel(){
  const sel=document.getElementById('gb-match');
@@ -1735,6 +1897,7 @@ function initSettings(){
    DB.equipes=Object.assign({},inc.equipes||{},DB.equipes);
    DB.standings=Object.assign({},inc.standings||{},DB.standings);
    DB.ghosts=[...(inc.ghosts||[]),...(DB.ghosts||[])].filter((g,i,arr)=>arr.findIndex(x=>x.id===g.id)===i);
+   DB.bets=[...(inc.bets||[]),...(DB.bets||[])].filter((g,i,arr)=>arr.findIndex(x=>x.id===g.id)===i);
    if(inc.briefing&&!DB.briefing)DB.briefing=inc.briefing;
    await sauver();rendreMatches();rendreToday();rendreLab();
    document.getElementById('io-st').textContent='✅ Importé (fusionné).';}
@@ -1772,6 +1935,7 @@ async function testerConnexions(){
  if('serviceWorker' in navigator){try{navigator.serviceWorker.register('sw.js');}catch(e){}}
  document.getElementById('btn-brief').onclick=actualiserJour;
  document.getElementById('gb-add').onclick=ajouterGhost;
+ document.getElementById('rb-add').onclick=ajouterPari;
  document.getElementById('btn-checkall').onclick=verifierTous;
  document.getElementById('btn-clear').onclick=async()=>{if(confirm('Effacer TOUTES les analyses ?')){DB.analyses={};await sauver();rendreAnalyses();rendreMatches();rendreToday();}};
  await rendreCalib();

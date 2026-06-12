@@ -197,6 +197,18 @@ async function main(){
   console.log(`   ${demain.length} match(s) de demain à préparer.`);
   for (const m of demain) await analyserMatch(m);
 
+  // 2bis) Mode étendu (lancement manuel) : analyser toute une journée d'un coup
+  const SCOPE = process.env.WC26_SCOPE || '';
+  if (SCOPE){
+    const js = SCOPE==='ALL' ? [1,2,3] : SCOPE==='WEEK' ? [1,2] : [parseInt(SCOPE.replace(/\D/g,''),10)||1];
+    const lot = MATCHS.filter(m=>js.includes(m.journee)).filter(m=>{
+      const ex = base.analyses[m.id];
+      return !ex || !ex.terrain || (now()-(ex.ts||0)) > 5*86400e3; // pas de re-analyse si fraîche (<5 j)
+    });
+    console.log(`📦 Mode étendu ${SCOPE} : ${lot.length} match(s) à analyser.`);
+    for (const m of lot) await analyserMatch(m);
+  }
+
   // 2c) Surveillance des compos pour les matchs du jour
   console.log('⏱️ Compos officielles des matchs du jour…');
   for (const m of dujour){

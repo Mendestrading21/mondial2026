@@ -29,8 +29,9 @@ const GROUPES = {
 };
 const JOURNEES = {1:"J1 · 11–17 juin",2:"J2 · 18–23 juin",3:"J3 · 24–27 juin"};
 const SCHEMA = {1:[[0,1],[2,3]],2:[[0,2],[3,1]],3:[[3,0],[1,2]]};
+const SCHEMA_OVR = {K:{1:[[0,3],[2,1]]}}; // calendrier FIFA réel : Portugal–RD Congo & Ouzbékistan–Colombie
 const MATCHS = [];
-for (const g of Object.keys(GROUPES)) for (const j of [1,2,3]) for (const [a,b] of SCHEMA[j])
+for (const g of Object.keys(GROUPES)) for (const j of [1,2,3]) for (const [a,b] of ((SCHEMA_OVR[g]||{})[j]||SCHEMA[j]))
   MATCHS.push({ id:`G${g}-J${j}-${a}${b}`, groupe:g, journee:j, eqA:GROUPES[g][a], eqB:GROUPES[g][b] });
 
 /* ---------- Appel IA avec recherche web ---------- */
